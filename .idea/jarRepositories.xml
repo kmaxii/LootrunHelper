@@ -51,5 +51,10 @@
       <option name="name" value="maven" />
       <option name="url" value="https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1.1.2" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="BintrayJCenter" />
+      <option name="name" value="BintrayJCenter" />
+      <option name="url" value="https://jcenter.bintray.com/" />
+    </remote-repository>
   </component>
 </project>

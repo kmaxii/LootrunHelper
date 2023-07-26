@@ -13,6 +13,8 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Box;
 
+
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -54,9 +56,6 @@ public class BeaconHandler {
                 foundBeacons.add(beacon);
 
             }
-
-            MinecraftClient.getInstance().player.sendMessage(Text.of("Found " + foundBeacons.size() + " beacons!"), false);
-
 
             return foundBeacons;
         }

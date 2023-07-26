@@ -24,5 +24,10 @@ public class LootrunHelper  implements ModInitializer {
                 BeaconHandler.getBeacons();
             }
         });
+
+        BeaconChecker beaconChecker = new BeaconChecker();
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+           beaconChecker.onTick();
+        });
     }
 }
