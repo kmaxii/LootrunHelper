@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "lootrunhelper",
+  "version": "${version}",
+  "name": "LootrunHelper",
+  "description": "",
+  "authors": [
+    "kmaxi"
+  ],
+  "contact": {
+    "repo": "https://github.com/1/LootrunHelper"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/LootrunHelper/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "me.kmaxi.lootrunhelper.LootrunHelper"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
