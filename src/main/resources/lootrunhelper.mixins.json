@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.kmaxi.lootrunhelper.events.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [],
+  "client": [
+    "MixinChatListener"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

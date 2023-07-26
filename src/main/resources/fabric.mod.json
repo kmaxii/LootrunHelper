@@ -22,5 +22,8 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
-  }
+  },
+  "mixins": [
+    "lootrunhelper.mixins.json"
+  ]
 }

@@ -21,7 +21,6 @@ public class LootrunHelper  implements ModInitializer {
         ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (keyBinding.wasPressed()) {
-                System.out.println("Pressed keybind");
                 BeaconHandler.getBeacons();
             }
         });
