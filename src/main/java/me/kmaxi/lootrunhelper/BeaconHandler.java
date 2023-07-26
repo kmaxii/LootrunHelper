@@ -22,10 +22,8 @@ public class BeaconHandler {
 
     public static final HashSet<Item> beaconItems = new HashSet<>(Arrays.asList(Items.GOLDEN_PICKAXE, Items.GOLDEN_SHOVEL));
 
-    public static void checkArmorStandHelmets() {
+    public static HashSet<Beacon> getBeacons() {
         ClientWorld world = MinecraftClient.getInstance().world;
-
-
 
 
         if (world != null) {
@@ -40,7 +38,6 @@ public class BeaconHandler {
 
             MinecraftClient.getInstance().player.sendMessage(Text.of("Armor stand amount:" + armorStands.size()), false);
 
-            System.out.println("Armor stand amount:" + armorStands.size());
             for (ArmorStandEntity armorStand : armorStands) {
                 ItemStack helmet = armorStand.getEquippedStack(EquipmentSlot.HEAD);
 
@@ -52,20 +49,20 @@ public class BeaconHandler {
                 if (!beaconItems.contains(item))
                     continue;
 
-                System.out.println("Armor stand at " + armorStand.getBlockPos() + " is wearing a " + item.getName().getString() + " Durability: " + helmet.getDamage());
                 Beacon beacon = new Beacon(armorStand.getPos(), helmet);
 
                 foundBeacons.add(beacon);
 
             }
 
-            MinecraftClient.getInstance().player.sendMessage(Text.of("Finished running"), false);
             MinecraftClient.getInstance().player.sendMessage(Text.of("Found " + foundBeacons.size() + " beacons!"), false);
-            System.out.println("Beacon amount: " + foundBeacons.size());
-            System.out.println(foundBeacons);
+
+
+            return foundBeacons;
         }
 
 
+        return null;
     }
 
 

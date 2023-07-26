@@ -30,6 +30,17 @@ public class Beacon {
         if (position != null ? !sameCords(position, beacon.position) : beacon.position != null) return false;
         return beaconType == beacon.beaconType;
     }
+
+
+    @Override
+    public int hashCode() {
+        int result = (beaconType != null ? beaconType.hashCode() : 0);
+        //add x and z cords to the hashcode
+        result = 31 * result + (int) position.x;
+        result = 31 * result + (int) position.z;
+        return result;
+    }
+
     public BeaconType getBeaconType(Item item, int damage) {
 
         if (!beaconItems.contains(item))
@@ -78,6 +89,6 @@ public class Beacon {
 
     @Override
     public String toString() {
-        return "Position: " + position + " Type: " + beaconType;
+        return "Position: " + position + " Type: " + beaconType + " Hashcode: " + hashCode() + "\n";
     }
 }
