@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,6 +24,8 @@ public class BeaconHandler {
     public static void checkArmorStandHelmets() {
         ClientWorld world = MinecraftClient.getInstance().world;
 
+
+        HashSet<Beacon> beacons = new HashSet<>();
 
 
         if (world != null) {
@@ -48,17 +49,13 @@ public class BeaconHandler {
                     return;
 
                 System.out.println("Armor stand at " + armorStand.getBlockPos() + " is wearing a " + item.getName().getString() + " Durability: " + helmet.getDamage());
-                Vec3d
+                beacons.add(new Beacon(armorStand.getPos(), helmet));
             }
-
         }
+
+        System.out.println("Beacon amount: " + beacons.size());
+        System.out.println(beacons);
     }
 
-    public BeaconType getBeaconType(Item item, int damage) {
-        if (beaconItems.contains(stack.getItem())) {
-            return BeaconType.BEACON;
-        } else {
-            return BeaconType.NONE;
-        }
-    }
+
 }
