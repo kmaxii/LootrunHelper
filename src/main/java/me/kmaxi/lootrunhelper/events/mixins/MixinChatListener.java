@@ -13,6 +13,6 @@ public class MixinChatListener {
     @Inject(method = "onGameMessage", at = @At("HEAD"))
     private void onGameMessage(GameMessageS2CPacket packet, CallbackInfo ci) {
         // Your code here
-        ReceiveChatEvent.receivedChat(packet.content().getContent().toString());
+        ReceiveChatEvent.receivedChat(packet.content().getString());
     }
 }
