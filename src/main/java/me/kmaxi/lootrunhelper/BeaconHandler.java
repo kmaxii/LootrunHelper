@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Box;
 
 import java.util.Arrays;
@@ -25,16 +26,19 @@ public class BeaconHandler {
         ClientWorld world = MinecraftClient.getInstance().world;
 
 
-        HashSet<Beacon> beacons = new HashSet<>();
 
 
         if (world != null) {
+            HashSet<Beacon> foundBeacons = new HashSet<>();
+
 
             ClientPlayerEntity user = MinecraftClient.getInstance().player;
             float boxSize = 10000;
 
             //  = world.getEntitiesByType(EntityType.ARMOR_STAND, new Box(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY), (entity) -> true);
             List<ArmorStandEntity> armorStands = world.getEntitiesByType(EntityType.ARMOR_STAND, new Box(user.getX() - boxSize, user.getY() - boxSize, user.getZ() - boxSize, user.getX() + boxSize, user.getY() + boxSize, user.getZ() + boxSize), EntityPredicates.VALID_ENTITY);
+
+            MinecraftClient.getInstance().player.sendMessage(Text.of("Armor stand amount:" + armorStands.size()), false);
 
             System.out.println("Armor stand amount:" + armorStands.size());
             for (ArmorStandEntity armorStand : armorStands) {
@@ -46,15 +50,22 @@ public class BeaconHandler {
                 Item item = helmet.getItem();
 
                 if (!beaconItems.contains(item))
-                    return;
+                    continue;
 
                 System.out.println("Armor stand at " + armorStand.getBlockPos() + " is wearing a " + item.getName().getString() + " Durability: " + helmet.getDamage());
-                beacons.add(new Beacon(armorStand.getPos(), helmet));
+                Beacon beacon = new Beacon(armorStand.getPos(), helmet);
+
+                foundBeacons.add(beacon);
+
             }
+
+            MinecraftClient.getInstance().player.sendMessage(Text.of("Finished running"), false);
+            MinecraftClient.getInstance().player.sendMessage(Text.of("Found " + foundBeacons.size() + " beacons!"), false);
+            System.out.println("Beacon amount: " + foundBeacons.size());
+            System.out.println(foundBeacons);
         }
 
-        System.out.println("Beacon amount: " + beacons.size());
-        System.out.println(beacons);
+
     }
 
 
