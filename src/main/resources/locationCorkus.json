@@ -1,0 +1,121 @@
+{
+  "Spawn": {
+    "x": -1556,
+    "y": 96,
+    "z": -2674
+  },
+  "Aquaculture Aquifer": {
+    "x": -1929.5,
+    "y": 79,
+    "z": -3324.5,
+    "type": "spelunk"
+  },
+  "Arch south": {
+    "x": -1439,
+    "y": 70,
+    "z": -2437,
+    "type": "slay"
+  },
+  "steamworks": {
+    "x": -1470.5,
+    "y": 61,
+    "z": -2375.5,
+    "type": "spelunk"
+  },
+  "Pirate Lattice": {
+    "x": -1393.5,
+    "y": 66,
+    "z": -2392.5,
+    "type": "spelunk"
+  },
+  "Fallen factory slay": {
+    "x": -1756.5,
+    "y": 73,
+    "z": -2607.5,
+    "type": "defend"
+  },
+  "Forest defend": {
+    "x": -1758.5,
+    "y": 73,
+    "z": -2768.5,
+    "type": "protect"
+  },
+  "Avos Animated Totem": {
+    "x": -1758,
+    "y": 35,
+    "z": -2499.5,
+    "type": "spelunk"
+  },
+  "The Warehouse": {
+    "x": -1846.5,
+    "y": 41,
+    "z": -2460.5,
+    "type": "spelunk"
+  },
+  "Underpass slay": {
+    "x": -1739.5,
+    "y": 63,
+    "z": -2451.5,
+    "type": "slay"
+  },
+  "Corkus Quarry": {
+    "x": -1364,
+    "y": 93,
+    "z": -2735,
+    "type": "spelunk"
+  },
+  "Junk Pit": {
+    "x": -1781.5,
+    "y": 64,
+    "z": -2568.5,
+    "type": "spelunk"
+  },
+  "Bandit slay": {
+    "x": -1774.5,
+    "y": 60,
+    "z": -2703.5,
+    "type": "slay"
+  },
+  "Avos destroy": {
+    "x": -1685.5,
+    "y": 60,
+    "z": -3290.5,
+    "type": "destroy"
+  },
+  "Arch north": {
+    "x": -1446.5,
+    "y": 47,
+    "z": -3160.5,
+    "type": "slay"
+  },
+  "Avos slay": {
+    "x": -1865.5,
+    "y": 77,
+    "z": -3171.5,
+    "type": "slay"
+  },
+  "Geyser pit": {
+    "x": -1568.5,
+    "y": 28,
+    "z": -3142.5,
+    "type": "destroy"
+  },
+  "Beach defend": {
+    "x": -1602.5,
+    "y": 36,
+    "z": -3437.5,
+    "type": "defend"
+  },
+  "Corkus army slay": {
+    "x": -1309.5,
+    "y": 104,
+    "z": -2258.5,
+    "type": "slay"
+  },
+  "Builder-Bot Central": {
+    "x": -1673.5,
+    "y": 51,
+    "z": -3059.5,
+    "type": "spelunk"
+  }
+}
