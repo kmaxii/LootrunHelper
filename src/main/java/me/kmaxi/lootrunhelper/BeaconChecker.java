@@ -17,12 +17,31 @@ public class BeaconChecker {
 
     private static HashSet<Beacon> lastBeacons;
 
-    public static BeaconDataSaver activeDataSaver;
+    private static BeaconDataSaver getDataSaver;
+
+
+    public static BeaconDataSaver activeDataSaver() {
+        if (getDataSaver == null)
+            getDataSaver = loadFromFile("beacon_data.json");
+        return getDataSaver;
+    }
 
     public static void onTick() {
         if (enabled && tickCounter % checkDelay == 0) {
             tickCounter = 0;
             checkBeacons();
+
+            if (MinecraftClient.getInstance() == null){
+                System.out.println("MINECRAFT CLIENT IS NULL");
+                return;
+            }
+
+
+            if (MinecraftClient.getInstance().player == null){
+                System.out.println("PLAYER IS NULL");
+                return;
+            }
+
             if (MinecraftClient.getInstance() != null && MinecraftClient.getInstance().player != null){
                 saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
                 printClosestBeacon();
@@ -34,17 +53,19 @@ public class BeaconChecker {
     }
 
     public static void PickClosestBeacon() {
-        if (activeDataSaver == null){
-            activeDataSaver = loadFromFile("beacon_data.json");
+        if (getDataSaver == null){
+            getDataSaver = loadFromFile("beacon_data.json");
         }
-        activeDataSaver.pickBeacon(String.valueOf(closestBeacon.beaconType));
+        getDataSaver.pickBeacon(String.valueOf(closestBeacon.beaconType));
     }
 
     private static void saveClosestBeacon(Vec3d pos) {
         double closestDistance = Double.MAX_VALUE;
 
-        if (lastBeacons == null)
+        if (lastBeacons == null){
+            System.out.println("LAST BEACONS IS NULL");
             return;
+        }
 
         for (Beacon beacon : lastBeacons) {
             double distance = beacon.position.distanceTo(pos);

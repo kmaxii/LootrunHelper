@@ -42,13 +42,12 @@ public class ReceiveTitleEvent {
     }
 
     private static void lootrunStarted(){
-        if (BeaconChecker.activeDataSaver != null)
-            BeaconChecker.activeDataSaver.clearData();
+        BeaconChecker.activeDataSaver().clearData();
     }
 
     private static void lootrunCompleted(){
         BeaconChecker.enabled = false;
-        BeaconChecker.activeDataSaver.sendDataToChat();
+        BeaconChecker.activeDataSaver().sendDataToChat();
     }
 
     private static void beaconOptionShowed(){
