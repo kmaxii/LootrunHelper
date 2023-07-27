@@ -16,6 +16,7 @@ public class BeaconChecker {
         isEnabled = true;
         nextPrintChallengeInfo = true;
     }
+
     public static void disable() {
         isEnabled = false;
     }
@@ -46,13 +47,13 @@ public class BeaconChecker {
             tickCounter = 0;
             checkBeacons();
 
-            if (MinecraftClient.getInstance() == null){
+            if (MinecraftClient.getInstance() == null) {
                 System.out.println("MINECRAFT CLIENT IS NULL");
                 return;
             }
 
 
-            if (MinecraftClient.getInstance().player == null){
+            if (MinecraftClient.getInstance().player == null) {
                 System.out.println("PLAYER IS NULL");
                 return;
             }
@@ -69,7 +70,7 @@ public class BeaconChecker {
     }
 
     public static void PickClosestBeacon() {
-        if (getDataSaver == null){
+        if (getDataSaver == null) {
             getDataSaver = loadFromFile("beacon_data.json");
         }
         getDataSaver.pickBeacon(String.valueOf(closestBeacon.beaconType));
@@ -78,11 +79,12 @@ public class BeaconChecker {
     private static void saveClosestBeacon(Vec3d pos) {
         double closestDistance = Double.MAX_VALUE;
 
-        if (lastBeacons == null){
+        if (lastBeacons == null) {
             System.out.println("LAST BEACONS IS NULL");
             return;
         }
 
+        System.out.println("Saving closest beacon. There are: " + lastBeacons.size() + " beacons");
         for (Beacon beacon : lastBeacons) {
             double distance = beacon.position.distanceTo(pos);
             if (distance < closestDistance) {
@@ -101,14 +103,16 @@ public class BeaconChecker {
     }
 
 
-
-
     private static void checkBeacons() {
         HashSet<Beacon> beacons = BeaconHandler.getBeacons();
 
 
-        if (beacons == null)
+        if (beacons == null)     {
+            System.out.println("Beacons is null");
             return;
+        }
+
+        System.out.println("Beacons found: " + beacons.size());
 
         //Must have entered a challenge or classed
         if (beacons.size() == 0) {
