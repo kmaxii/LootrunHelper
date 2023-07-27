@@ -23,7 +23,9 @@ public abstract class ShowTextMixin {
     public void render(CallbackInfo ci) {
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         MatrixStack matrixStack = new MatrixStack();
-        textRenderer.draw(matrixStack, Text.of("Closest beacon: " + BeaconChecker.closestBeacon2 + " At: " + BeaconChecker.closestBeaconPos), 250, 250, 0xFFFFFF);
+        textRenderer.draw(matrixStack, Text.of(
+                "Closest beacon: " + BeaconChecker.closestBeacon.beaconType +
+                        " At: " + BeaconChecker.closestBeacon.position), 250, 250, 0xFFFFFF);
     }
 }
 

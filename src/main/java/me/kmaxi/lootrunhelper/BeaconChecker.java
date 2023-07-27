@@ -1,7 +1,6 @@
 package me.kmaxi.lootrunhelper;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.HashSet;
@@ -9,50 +8,57 @@ import java.util.HashSet;
 public class BeaconChecker {
 
     public static boolean enabled = false;
-    private int tickCounter = 0;
+    private static int tickCounter = 0;
 
-    private int checkDelay = 20;
-    public static String closestBeacon2;
-    public static String closestBeaconPos;
+    private static int checkDelay = 20;
+    public static Beacon closestBeacon;
 
-    private HashSet<Beacon> lastBeacons;
+    private static HashSet<Beacon> lastBeacons;
 
-    public void onTick(){
-        if (enabled && tickCounter % checkDelay == 0){
+    public static void onTick() {
+        if (enabled && tickCounter % checkDelay == 0) {
             tickCounter = 0;
             checkBeacons();
-            if (MinecraftClient.getInstance() != null && MinecraftClient.getInstance().player != null)
-                printClosestBeacon(MinecraftClient.getInstance().player.getPos());
+            if (MinecraftClient.getInstance() != null && MinecraftClient.getInstance().player != null){
+                saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
+                printClosestBeacon();
+
+            }
 
         }
         tickCounter++;
     }
 
 
-    private void printClosestBeacon(Vec3d pos){
+    private static void saveClosestBeacon(Vec3d pos) {
         double closestDistance = Double.MAX_VALUE;
-        Beacon closestBeacon = null;
 
         if (lastBeacons == null)
             return;
 
-        for (Beacon beacon : lastBeacons){
+        for (Beacon beacon : lastBeacons) {
             double distance = beacon.position.distanceTo(pos);
-            if (distance < closestDistance){
+            if (distance < closestDistance) {
                 closestDistance = distance;
                 closestBeacon = beacon;
             }
         }
-        if (closestBeacon != null){
-            closestBeacon2 = closestBeacon.beaconType.toString();
-            closestBeaconPos = closestBeacon.position.toString();
+
+    }
+
+    private static void printClosestBeacon() {
+
+        if (closestBeacon != null) {
             System.out.println("Closest beacon: " + closestBeacon.beaconType + " at " + closestBeacon.position);
         }
+    }
+
+    public static void PickClosestBeacon() {
 
     }
 
 
-    private void checkBeacons(){
+    private static void checkBeacons() {
         HashSet<Beacon> beacons = BeaconHandler.getBeacons();
 
 
@@ -60,28 +66,28 @@ public class BeaconChecker {
             return;
 
         //Must have entered a challenge or classed
-        if (beacons.size() == 0){
-            lastBeacons  = null;
+        if (beacons.size() == 0) {
+            lastBeacons = null;
             return;
         }
 
-        if (lastBeacons == null){
+        if (lastBeacons == null) {
             lastBeacons = beacons;
             return;
         }
 
         //Our current beacons are bigger than what we had before, must be close to a challenge
         //So find what beacons are not in the new list and add their latest location
-        if (beacons.size() < lastBeacons.size()){
-            for(Beacon beacon : lastBeacons){
+        if (beacons.size() < lastBeacons.size()) {
+            for (Beacon beacon : lastBeacons) {
                 boolean foundSameType = false;
-                for (Beacon newBeacon : beacons){
-                    if (beacon.beaconType == newBeacon.beaconType){
+                for (Beacon newBeacon : beacons) {
+                    if (beacon.beaconType == newBeacon.beaconType) {
                         foundSameType = true;
                         break;
                     }
                 }
-                if (!foundSameType){
+                if (!foundSameType) {
                     beacons.add(beacon);
                 }
             }
@@ -89,6 +95,5 @@ public class BeaconChecker {
         }
 
         lastBeacons = beacons;
-
     }
 }

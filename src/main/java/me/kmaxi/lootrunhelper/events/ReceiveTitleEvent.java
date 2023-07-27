@@ -10,16 +10,23 @@ public class ReceiveTitleEvent {
 
         System.out.println("Title: " + title);
 
-        if (!title.equalsIgnoreCase("spelunk!")
-                && !title.equalsIgnoreCase("defend!")
-                && !title.equalsIgnoreCase("slay target!")
-                && !title.equalsIgnoreCase("destroy")
-                && !title.equalsIgnoreCase("Lootrun Completed!")) {
+        if (title.equalsIgnoreCase("Lootrun Completed!")){
+            BeaconChecker.enabled = false;
             return;
         }
 
+        if (!isChallengeTitle(title)) {
+            return;
+        }
 
         MinecraftClient.getInstance().player.sendMessage(Text.of("Started Challange"));
         BeaconChecker.enabled = false;
+    }
+
+    private static boolean isChallengeTitle(String title){
+        return title.equalsIgnoreCase("spelunk!")
+                || title.equalsIgnoreCase("defend!")
+                || title.equalsIgnoreCase("slay target!")
+                || title.equalsIgnoreCase("destroy");
     }
 }
