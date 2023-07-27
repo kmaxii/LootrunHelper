@@ -2,18 +2,22 @@ package me.kmaxi.lootrunhelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.Text;
+
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
+
 public class BeaconDataSaver {
 
-    private Dictionary<String, Integer> beaconData;
+    private HashMap<String, Integer> beaconData;
 
     private String fileName;
 
     public BeaconDataSaver(String fileName) {
-        beaconData = new Hashtable<>();
+        beaconData = new HashMap<>();
         initializeBeaconData();
         this.fileName = fileName;
     }
@@ -32,15 +36,22 @@ public class BeaconDataSaver {
         beaconData.put("RAINBOW", 0);
     }
 
+    public void clearData(){
+    	beaconData.clear();
+        initializeBeaconData();
+        saveToFile();
+    }
+
     public void pickBeacon(String beacon) {
         Integer currentCount = (Integer) beaconData.get(beacon);
         if (currentCount == null) {
             currentCount = 0;
         }
         beaconData.put(beacon, currentCount + 1);
+        saveToFile();
     }
 
-    public void saveToFile(String fileName) {
+    public void saveToFile() {
         try (Writer writer = new FileWriter(fileName)) {
             Gson gson = new GsonBuilder().create();
             gson.toJson(beaconData, writer);
@@ -57,12 +68,25 @@ public class BeaconDataSaver {
             BeaconDataSaver dataSaver = new BeaconDataSaver(fileName);
             dataSaver.beaconData = gson.fromJson(reader, type);
             if (dataSaver.beaconData == null) {
-                dataSaver.beaconData = new Hashtable<>();
+                dataSaver.beaconData = new HashMap<>();
             }
             return dataSaver;
         } catch (IOException e) {
             return new BeaconDataSaver(fileName);
         }
+    }
+
+    public void sendDataToChat(){
+        if (beaconData == null) {
+            System.out.println("ERROR! BEACON DATA WAS NULL!!");
+        }
+
+        StringBuilder stringBuilder  = new StringBuilder();
+        for (String key : beaconData.keySet()) {
+            stringBuilder.append(key).append(": ").append(beaconData.get(key)).append("\n");
+        }
+        assert MinecraftClient.getInstance().player != null;
+        MinecraftClient.getInstance().player.sendMessage(Text.of(stringBuilder.toString()));
     }
 
     public static void main(String[] args) {
@@ -77,14 +101,12 @@ public class BeaconDataSaver {
         dataSaver.pickBeacon("YELLOW");
         dataSaver.pickBeacon("YELLOW");
 
-        // Save data to a JSON file
-        dataSaver.saveToFile("beacon_data.json");
-
+/*
         // Load data from the JSON file
         BeaconDataSaver loadedData = BeaconDataSaver.loadFromFile("beacon_data.json");
         if (loadedData != null) {
             System.out.println("Loaded data:");
             System.out.println(loadedData.beaconData);
-        }
+        }*/
     }
 }

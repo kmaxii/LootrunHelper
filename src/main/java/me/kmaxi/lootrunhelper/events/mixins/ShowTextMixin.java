@@ -21,6 +21,10 @@ public abstract class ShowTextMixin {
 
     @Inject(method = "render", at = @At("TAIL"))
     public void render(CallbackInfo ci) {
+
+        if (BeaconChecker.closestBeacon == null)
+            return;
+
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         MatrixStack matrixStack = new MatrixStack();
         textRenderer.draw(matrixStack, Text.of(

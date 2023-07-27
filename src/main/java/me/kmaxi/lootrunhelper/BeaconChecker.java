@@ -5,6 +5,8 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.HashSet;
 
+import static me.kmaxi.lootrunhelper.BeaconDataSaver.loadFromFile;
+
 public class BeaconChecker {
 
     public static boolean enabled = false;
@@ -14,6 +16,8 @@ public class BeaconChecker {
     public static Beacon closestBeacon;
 
     private static HashSet<Beacon> lastBeacons;
+
+    public static BeaconDataSaver activeDataSaver;
 
     public static void onTick() {
         if (enabled && tickCounter % checkDelay == 0) {
@@ -29,6 +33,12 @@ public class BeaconChecker {
         tickCounter++;
     }
 
+    public static void PickClosestBeacon() {
+        if (activeDataSaver == null){
+            activeDataSaver = loadFromFile("beacon_data.json");
+        }
+        activeDataSaver.pickBeacon(String.valueOf(closestBeacon.beaconType));
+    }
 
     private static void saveClosestBeacon(Vec3d pos) {
         double closestDistance = Double.MAX_VALUE;
@@ -53,9 +63,7 @@ public class BeaconChecker {
         }
     }
 
-    public static void PickClosestBeacon() {
 
-    }
 
 
     private static void checkBeacons() {

@@ -5,19 +5,54 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
 public class ReceiveTitleEvent {
+
+    /**
+     * If the next received title should be ignored. Useful because this method is called twice for each title
+     */
+    private static boolean ignoreNext;
     public static void receivedTitle(String title){
         title = title.toLowerCase().replaceAll("[^abcdefghijklmnopqrstuvwxyz?.! /]", "");
 
         System.out.println("Title: " + title);
 
-        if (title.equalsIgnoreCase("Lootrun Completed!")){
-            BeaconChecker.enabled = false;
+        if (title.contains("prepare to lootrun")){
+            lootrunStarted();
             return;
         }
 
-        if (!isChallengeTitle(title)) {
+        if (title.contains("lootrun completed")){
+            lootrunCompleted();
             return;
         }
+
+        if (title.contains("lootrun failed")){
+            lootrunCompleted();
+            return;
+        }
+
+
+        if (!isChallengeTitle(title) || ignoreNext) {
+            ignoreNext = false;
+            return;
+        }
+        ignoreNext = true;
+
+        beaconOptionShowed();
+
+    }
+
+    private static void lootrunStarted(){
+        if (BeaconChecker.activeDataSaver != null)
+            BeaconChecker.activeDataSaver.clearData();
+    }
+
+    private static void lootrunCompleted(){
+        BeaconChecker.enabled = false;
+        BeaconChecker.activeDataSaver.sendDataToChat();
+    }
+
+    private static void beaconOptionShowed(){
+        BeaconChecker.PickClosestBeacon();
 
         MinecraftClient.getInstance().player.sendMessage(Text.of("Started Challange"));
         BeaconChecker.enabled = false;
