@@ -109,5 +109,15 @@
     "x": 854.5,
     "z": -667.5,
     "type": "spelunk"
+  },
+  "Bone dragon": {
+    "x": 1117.5,
+    "z": -991.5,
+    "type": "slay"
+  },
+  "Olmic defend": {
+    "x": 691.5,
+    "z": -374.5,
+    "type": "defend"
   }
 }
