@@ -1,8 +1,6 @@
 package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
 
 public class ReceiveChatEvent {
 
@@ -10,7 +8,7 @@ public class ReceiveChatEvent {
         System.out.println("got message: " + message);
 
         if (message.startsWith("Select a character!")) {
-            BeaconChecker.enabled = false;
+            BeaconChecker.disable();
             return;
         }
 
@@ -19,8 +17,7 @@ public class ReceiveChatEvent {
             return;
         }
 
-        MinecraftClient.getInstance().player.sendMessage(Text.of("Found start"));
-        BeaconChecker.enabled = true;
+        BeaconChecker.enable();
     }
 
 }

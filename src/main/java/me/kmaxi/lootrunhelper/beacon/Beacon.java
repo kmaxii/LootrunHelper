@@ -1,8 +1,14 @@
 package me.kmaxi.lootrunhelper.beacon;
 
+import me.kmaxi.lootrunhelper.ColorUtils;
+import me.kmaxi.lootrunhelper.challenges.Challenge;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
+import org.joml.Vector2d;
+
+import java.util.List;
 
 import static me.kmaxi.lootrunhelper.beacon.BeaconHandler.beaconItems;
 
@@ -18,6 +24,9 @@ public class Beacon {
         this.beaconType = getBeaconType(itemStack.getItem(), itemStack.getDamage());
     }
 
+    public String getBeaconName() {
+        return ColorUtils.getCorrectColor(beaconType.toString());
+    }
 
 
     @Override
@@ -90,5 +99,34 @@ public class Beacon {
     @Override
     public String toString() {
         return "Position: " + position + " Type: " + beaconType + " Hashcode: " + hashCode() + "\n";
+    }
+
+    public Challenge findChallengeItLeadsTo(List<Challenge> waypoints) {
+
+        Challenge closestWaypoint = null;
+
+        Vec3d playerPos = MinecraftClient.getInstance().player.getPos();
+        Vector2d directionVector = new Vector2d(position.x - playerPos.x, position.z - playerPos.z).normalize();
+
+
+        double maxDotProduct = Double.NEGATIVE_INFINITY;
+
+        for (Challenge waypoint : waypoints) {
+
+            Vector2d wayPointVector = new Vector2d(waypoint.getX() - playerPos.x, waypoint.getZ() - playerPos.z);
+            wayPointVector = wayPointVector.normalize();
+
+            // Calculate the dot product between the normalized vector and the current direction vector
+            double dotProduct = directionVector.x * wayPointVector.x + directionVector.y * wayPointVector.y;
+
+            // Check if the dot product is greater than the previous maxDotProduct
+            if (dotProduct > maxDotProduct) {
+                maxDotProduct = dotProduct;
+                closestWaypoint = waypoint;
+            }
+        }
+
+
+        return closestWaypoint;
     }
 }

@@ -39,7 +39,6 @@ public class BeaconHandler {
             //  = world.getEntitiesByType(EntityType.ARMOR_STAND, new Box(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY), (entity) -> true);
             List<ArmorStandEntity> armorStands = world.getEntitiesByType(EntityType.ARMOR_STAND, new Box(user.getX() - boxSize, user.getY() - boxSize, user.getZ() - boxSize, user.getX() + boxSize, user.getY() + boxSize, user.getZ() + boxSize), EntityPredicates.VALID_ENTITY);
 
-            MinecraftClient.getInstance().player.sendMessage(Text.of("Armor stand amount:" + armorStands.size()), false);
 
             for (ArmorStandEntity armorStand : armorStands) {
                 ItemStack helmet = armorStand.getEquippedStack(EquipmentSlot.HEAD);

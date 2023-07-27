@@ -46,7 +46,7 @@ public class ReceiveTitleEvent {
     }
 
     private static void lootrunCompleted(){
-        BeaconChecker.enabled = false;
+        BeaconChecker.disable();
         BeaconChecker.activeDataSaver().sendDataToChat();
     }
 
@@ -54,7 +54,7 @@ public class ReceiveTitleEvent {
         BeaconChecker.PickClosestBeacon();
 
         MinecraftClient.getInstance().player.sendMessage(Text.of("Started Challange"));
-        BeaconChecker.enabled = false;
+        BeaconChecker.disable();
     }
 
     private static boolean isChallengeTitle(String title){

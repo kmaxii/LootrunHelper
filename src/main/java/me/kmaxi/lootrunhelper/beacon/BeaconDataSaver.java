@@ -3,6 +3,7 @@ package me.kmaxi.lootrunhelper.beacon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import me.kmaxi.lootrunhelper.ColorUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
@@ -85,42 +86,7 @@ public class BeaconDataSaver {
         StringBuilder stringBuilder = new StringBuilder();
         for (String key : beaconData.keySet()) {
 
-            String colorText = "";
-            switch (key) {
-                case "RED":
-                    colorText = "§cRED: ";
-                    break;
-                case "GREEN":
-                    colorText = "§aGREEN: ";
-                    break;
-                case "BLUE":
-                    colorText = "§9BLUE: ";
-                    break;
-                case "PURPLE":
-                    colorText = "§dPURPLE: ";
-                    break;
-                case "YELLOW":
-                    colorText = "§eYELLOW: ";
-                    break;
-                case "GRAY":
-                    colorText = "§7GRAY: ";
-                    break;
-                case "WHITE":
-                    colorText = "§fWHITE: ";
-                    break;
-                case "ORANGE":
-                    colorText = "§6ORANGE: ";
-                    break;
-                case "DARK_GRAY":
-                    colorText = "§8DARK_GRAY: ";
-                    break;
-                case "AQUA":
-                    colorText = "§bAQUA: ";
-                    break;
-                case "RAINBOW":
-                    colorText = "§cR§6A§eI§aN§9B§5O§dW: ";
-            }
-
+            String colorText = ColorUtils.getCorrectColor(key);
 
             stringBuilder.append(colorText).append("§f").append(beaconData.get(key)).append("\n");
         }

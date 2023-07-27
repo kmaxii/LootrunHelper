@@ -1,5 +1,6 @@
 package me.kmaxi.lootrunhelper.beacon;
 
+import me.kmaxi.lootrunhelper.commands.ListBeaconDestinations;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
@@ -9,13 +10,27 @@ import static me.kmaxi.lootrunhelper.beacon.BeaconDataSaver.loadFromFile;
 
 public class BeaconChecker {
 
-    public static boolean enabled = false;
+    private static boolean nextPrintChallengeInfo = false;
+
+    public static void enable() {
+        isEnabled = true;
+        nextPrintChallengeInfo = true;
+    }
+    public static void disable() {
+        isEnabled = false;
+    }
+
+    private static boolean isEnabled = false;
     private static int tickCounter = 0;
 
     private static int checkDelay = 20;
     public static Beacon closestBeacon;
 
     private static HashSet<Beacon> lastBeacons;
+
+    public static HashSet<Beacon> getLastBeacons() {
+        return lastBeacons;
+    }
 
     private static BeaconDataSaver getDataSaver;
 
@@ -27,7 +42,7 @@ public class BeaconChecker {
     }
 
     public static void onTick() {
-        if (enabled && tickCounter % checkDelay == 0) {
+        if (isEnabled && tickCounter % checkDelay == 0) {
             tickCounter = 0;
             checkBeacons();
 
@@ -42,10 +57,11 @@ public class BeaconChecker {
                 return;
             }
 
-            if (MinecraftClient.getInstance() != null && MinecraftClient.getInstance().player != null){
-                saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
-                printClosestBeacon();
-
+            saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
+            printClosestBeacon();
+            if (nextPrintChallengeInfo) {
+                ListBeaconDestinations.run(null);
+                nextPrintChallengeInfo = false;
             }
 
         }
