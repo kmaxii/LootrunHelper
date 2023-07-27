@@ -1,4 +1,4 @@
-package me.kmaxi.lootrunhelper;
+package me.kmaxi.lootrunhelper.beacon;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

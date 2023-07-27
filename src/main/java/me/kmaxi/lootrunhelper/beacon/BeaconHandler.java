@@ -1,5 +1,6 @@
-package me.kmaxi.lootrunhelper;
+package me.kmaxi.lootrunhelper.beacon;
 
+import me.kmaxi.lootrunhelper.beacon.Beacon;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -63,6 +64,7 @@ public class BeaconHandler {
 
         return null;
     }
+
 
 
 }

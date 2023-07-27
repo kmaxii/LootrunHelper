@@ -1,6 +1,6 @@
 package me.kmaxi.lootrunhelper.events;
 
-import me.kmaxi.lootrunhelper.BeaconChecker;
+import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 

@@ -1,10 +1,10 @@
-package me.kmaxi.lootrunhelper;
+package me.kmaxi.lootrunhelper.beacon;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 
-import static me.kmaxi.lootrunhelper.BeaconHandler.beaconItems;
+import static me.kmaxi.lootrunhelper.beacon.BeaconHandler.beaconItems;
 
 public class Beacon {
 

@@ -1,4 +1,4 @@
-package me.kmaxi.lootrunhelper;
+package me.kmaxi.lootrunhelper.beacon;
 
 public enum BeaconType {
     RED,

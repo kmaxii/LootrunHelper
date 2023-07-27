@@ -1,11 +1,11 @@
-package me.kmaxi.lootrunhelper;
+package me.kmaxi.lootrunhelper.beacon;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.HashSet;
 
-import static me.kmaxi.lootrunhelper.BeaconDataSaver.loadFromFile;
+import static me.kmaxi.lootrunhelper.beacon.BeaconDataSaver.loadFromFile;
 
 public class BeaconChecker {
 
