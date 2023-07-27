@@ -1,4 +1,5 @@
 package me.kmaxi.lootrunhelper;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -8,7 +9,6 @@ import net.minecraft.text.Text;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 public class BeaconDataSaver {
 
@@ -36,8 +36,8 @@ public class BeaconDataSaver {
         beaconData.put("RAINBOW", 0);
     }
 
-    public void clearData(){
-    	beaconData.clear();
+    public void clearData() {
+        beaconData.clear();
         initializeBeaconData();
         saveToFile();
     }
@@ -64,7 +64,8 @@ public class BeaconDataSaver {
     public static BeaconDataSaver loadFromFile(String fileName) {
         try (Reader reader = new FileReader(fileName)) {
             Gson gson = new Gson();
-            Type type = new TypeToken<Hashtable<String, Integer>>() {}.getType();
+            Type type = new TypeToken<HashMap<String, Integer>>() {
+            }.getType();
             BeaconDataSaver dataSaver = new BeaconDataSaver(fileName);
             dataSaver.beaconData = gson.fromJson(reader, type);
             if (dataSaver.beaconData == null) {
@@ -76,14 +77,52 @@ public class BeaconDataSaver {
         }
     }
 
-    public void sendDataToChat(){
+    public void sendDataToChat() {
         if (beaconData == null) {
             System.out.println("ERROR! BEACON DATA WAS NULL!!");
         }
 
-        StringBuilder stringBuilder  = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (String key : beaconData.keySet()) {
-            stringBuilder.append(key).append(": ").append(beaconData.get(key)).append("\n");
+
+            String colorText = "";
+            switch (key) {
+                case "RED":
+                    colorText = "§cRED: ";
+                    break;
+                case "GREEN":
+                    colorText = "§aGREEN: ";
+                    break;
+                case "BLUE":
+                    colorText = "§9BLUE: ";
+                    break;
+                case "PURPLE":
+                    colorText = "§dPURPLE: ";
+                    break;
+                case "YELLOW":
+                    colorText = "§eYELLOW: ";
+                    break;
+                case "GRAY":
+                    colorText = "§7GRAY: ";
+                    break;
+                case "WHITE":
+                    colorText = "§fWHITE: ";
+                    break;
+                case "ORANGE":
+                    colorText = "§6ORANGE: ";
+                    break;
+                case "DARK_GRAY":
+                    colorText = "§8DARK_GRAY: ";
+                    break;
+                case "AQUA":
+                    colorText = "§bAQUA: ";
+                    break;
+                case "RAINBOW":
+                    colorText = "§cR§6A§eI§aN§9B§5O§dW: ";
+            }
+
+
+            stringBuilder.append(colorText).append("§f").append(beaconData.get(key)).append("\n");
         }
         assert MinecraftClient.getInstance().player != null;
         MinecraftClient.getInstance().player.sendMessage(Text.of(stringBuilder.toString()));
