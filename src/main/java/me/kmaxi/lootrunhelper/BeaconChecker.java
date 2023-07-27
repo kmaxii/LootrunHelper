@@ -12,6 +12,8 @@ public class BeaconChecker {
     private int tickCounter = 0;
 
     private int checkDelay = 20;
+    public static String closestBeacon2;
+    public static String closestBeaconPos;
 
     private HashSet<Beacon> lastBeacons;
 
@@ -42,9 +44,11 @@ public class BeaconChecker {
             }
         }
         if (closestBeacon != null){
-            MinecraftClient.getInstance().player.sendMessage(Text.of("Closest beacon: " + closestBeacon.beaconType + " at " + closestBeacon.position), false);
+            closestBeacon2 = closestBeacon.beaconType.toString();
+            closestBeaconPos = closestBeacon.position.toString();
             System.out.println("Closest beacon: " + closestBeacon.beaconType + " at " + closestBeacon.position);
         }
+
     }
 
 

@@ -1,6 +1,5 @@
 package me.kmaxi.lootrunhelper.events.mixins;
 
-
 import me.kmaxi.lootrunhelper.events.ReceiveTitleEvent;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.TitleS2CPacket;

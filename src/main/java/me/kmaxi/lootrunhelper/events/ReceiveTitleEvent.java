@@ -5,7 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
 public class ReceiveTitleEvent {
-    public static void receivedTitle(String title) {
+    public static void receivedTitle(String title){
         title = title.toLowerCase().replaceAll("[^abcdefghijklmnopqrstuvwxyz?.! /]", "");
 
         System.out.println("Title: " + title);

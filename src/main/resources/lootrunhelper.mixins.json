@@ -6,7 +6,8 @@
   "mixins": [],
   "client": [
     "MixinChatListener",
-    "MixinTitleListener"
+    "MixinTitleListener",
+    "ShowTextMixin"
   ],
   "injectors": {
     "defaultRequire": 1
