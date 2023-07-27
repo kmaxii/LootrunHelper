@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public class BeaconChecker {
 
-    public boolean enabled = true;
+    public static boolean enabled = false;
     private int tickCounter = 0;
 
     private int checkDelay = 20;
