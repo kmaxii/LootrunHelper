@@ -24,18 +24,6 @@ public class LootrunHelper implements ModInitializer {
     @Override
     public void onInitialize() {
 
-        keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.LootrunHelper.test", // The translation key of the keybinding's name
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_K, // Default key to trigger event (K here)
-                "category.my_mod.my_key_category" // The translation key of the keybinding's category.
-        ));
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (keyBinding.wasPressed()) {
-                BeaconHandler.getBeacons();
-            }
-        });
-
         BeaconChecker beaconChecker = new BeaconChecker();
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             beaconChecker.onTick();
