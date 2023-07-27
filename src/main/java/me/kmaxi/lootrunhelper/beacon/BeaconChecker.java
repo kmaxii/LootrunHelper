@@ -125,10 +125,10 @@ public class BeaconChecker {
             return;
         }
 
-        //Our current beacons are bigger than what we had before, must be close to a challenge
+        //Our current beacons are smaller than what we had before, must be close to a challenge
         //So find what beacons are not in the new list and add their latest location
         if (beacons.size() < lastBeacons.size()) {
-            for (Beacon beacon : lastBeacons) {
+           for (Beacon beacon : lastBeacons) {
                 boolean foundSameType = false;
                 for (Beacon newBeacon : beacons) {
                     if (beacon.beaconType == newBeacon.beaconType) {
@@ -140,7 +140,6 @@ public class BeaconChecker {
                     beacons.add(beacon);
                 }
             }
-            return;
         }
 
         lastBeacons = beacons;
