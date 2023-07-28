@@ -5,7 +5,7 @@ import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 public class ReceiveChatEvent {
 
     public static void receivedChat(String message) {
-        System.out.println("got message: " + message);
+
 
         if (message.startsWith("Select a character!")) {
             BeaconChecker.disable();
