@@ -27,13 +27,20 @@ public class LootrunHelper implements ModInitializer {
             beaconChecker.onTick();
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+
             if (client.player != null) {
+                if (player.getInventory().getDisplayName() != null){
+                    System.out.println(player.getInventory().getDisplayName());
+                    msg("Logged");
+                }else {
+                    System.out.println("Custom name is null");
+                }
                 if (client.player.currentScreenHandler != null) {
-                    if (player.getInventory().size() ==24){}
-                    if (!player.currentScreenHandler.getCursorStack().getItem().equals(Items.AIR)) {
-                        msg("§cLogged");
-                        System.out.println(player.currentScreenHandler.getCursorStack().getNbt().toString());
-                        //msg(p);
+                    /*if (!player.currentScreenHandler.getCursorStack().getItem().equals(Items.AIR) && !player.getInventory().equals(null)&&player.getInventory().getName().toString().equalsIgnoreCase("")) {
+                    }*/
+                    if (!player.currentScreenHandler.getCursorStack().getItem().equals(Items.AIR)){
+                        System.out.println(player.getInventory().getCustomName().toString());
+                        msg("Logged");
                     }
                 }
             }
