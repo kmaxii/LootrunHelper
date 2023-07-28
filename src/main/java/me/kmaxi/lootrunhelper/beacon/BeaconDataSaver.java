@@ -3,7 +3,7 @@ package me.kmaxi.lootrunhelper.beacon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import me.kmaxi.lootrunhelper.utils.ColorUtils;
+import me.kmaxi.lootrunhelper.utils.ChosenCharacter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
@@ -62,7 +62,8 @@ public class BeaconDataSaver {
         }
     }
 
-    public static BeaconDataSaver loadFromFile(String fileName) {
+    public static BeaconDataSaver loadFromFile() {
+        String fileName = "beacon_data_" + ChosenCharacter.getChosenCharacter() +  ".json";
         try (Reader reader = new FileReader(fileName)) {
             Gson gson = new Gson();
             Type type = new TypeToken<HashMap<String, Integer>>() {
@@ -84,9 +85,9 @@ public class BeaconDataSaver {
         MinecraftClient.getInstance().player.sendMessage(Text.of(getData()));
     }
 
-    public String getData(){
+    public String getData() {
         if (beaconData == null) {
-           return "ERROR! BEACON DATA WAS NULL!!";
+            return "ERROR! BEACON DATA WAS NULL!!";
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -97,7 +98,7 @@ public class BeaconDataSaver {
         return stringBuilder.toString();
     }
 
-    private String getFormattedData(String key){
+    private String getFormattedData(String key) {
         String finalText = "ERROR! WRONG KEY: §c" + key;
         switch (key) {
             case "RED":
@@ -138,24 +139,4 @@ public class BeaconDataSaver {
         return finalText;
     }
 
-    public static void main(String[] args) {
-        BeaconDataSaver dataSaver = loadFromFile("beacon_data.json");
-
-        // Simulating Beacon picks
-        dataSaver.pickBeacon("RED");
-        dataSaver.pickBeacon("BLUE");
-        dataSaver.pickBeacon("RED");
-        dataSaver.pickBeacon("GREEN");
-        dataSaver.pickBeacon("YELLOW");
-        dataSaver.pickBeacon("YELLOW");
-        dataSaver.pickBeacon("YELLOW");
-
-/*
-        // Load data from the JSON file
-        BeaconDataSaver loadedData = BeaconDataSaver.loadFromFile("beacon_data.json");
-        if (loadedData != null) {
-            System.out.println("Loaded data:");
-            System.out.println(loadedData.beaconData);
-        }*/
-    }
 }

@@ -43,14 +43,14 @@ public class BeaconChecker {
         return lastBeacons;
     }
 
-    private static BeaconDataSaver getDataSaver;
+    private static BeaconDataSaver dataSaver;
 
 
 
     public static BeaconDataSaver activeDataSaver() {
-        if (getDataSaver == null)
-            getDataSaver = loadFromFile("beacon_data.json");
-        return getDataSaver;
+        if (dataSaver == null)
+            dataSaver = loadFromFile();
+        return dataSaver;
     }
 
     public static void onTick() {
@@ -84,10 +84,10 @@ public class BeaconChecker {
         if (closestBeacon == null)
             return;
 
-        if (getDataSaver == null) {
-            getDataSaver = loadFromFile("beacon_data.json");
+        if (dataSaver == null) {
+            dataSaver = loadFromFile();
         }
-        getDataSaver.pickBeacon(String.valueOf(closestBeacon.beaconType));
+        dataSaver.pickBeacon(String.valueOf(closestBeacon.beaconType));
     }
 
     private static void saveClosestBeacon(Vec3d pos) {
