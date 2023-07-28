@@ -12,12 +12,10 @@ public class LootrunHelper implements ModInitializer {
     public void onInitialize() {
         FileUtils.copyLootrunFiles();
         register();
-
     }
 
     private static void register() {
         CommandsRegister.registerCommands();
-
 
         BeaconChecker beaconChecker = new BeaconChecker();
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
