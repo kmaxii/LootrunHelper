@@ -1,6 +1,6 @@
 package me.kmaxi.lootrunhelper.beacon;
 
-import me.kmaxi.lootrunhelper.ColorUtils;
+import me.kmaxi.lootrunhelper.utils.ColorUtils;
 import me.kmaxi.lootrunhelper.challenges.Challenge;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
@@ -52,8 +52,11 @@ public class Beacon {
 
     public BeaconType getBeaconType(Item item, int damage) {
 
-        if (!beaconItems.contains(item))
+        if (!beaconItems.contains(item)){
+            System.out.println("Beacon type not found for " + item.toString() + " with durra: " + damage);
             return null;
+
+        }
 
         switch(damage){
             case 25:
@@ -89,6 +92,8 @@ public class Beacon {
             case 12:
                 return BeaconType.RAINBOW;
         }
+
+        System.out.println("Beacon type not found for " + item.toString() + " with durra: " + damage);
         return null;
     }
     private static boolean sameCords(Vec3d v1, Vec3d v2) {

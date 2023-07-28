@@ -3,7 +3,7 @@ package me.kmaxi.lootrunhelper.beacon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import me.kmaxi.lootrunhelper.ColorUtils;
+import me.kmaxi.lootrunhelper.utils.ColorUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 

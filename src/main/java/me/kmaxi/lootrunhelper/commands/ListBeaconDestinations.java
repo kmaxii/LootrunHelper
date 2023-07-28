@@ -17,7 +17,7 @@ public class ListBeaconDestinations {
     public static int run(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
         System.out.println("Executing list command");
 
-        List<Challenge> challenges = ChallengeList.getChallenges("locations.json");
+        List<Challenge> challenges = ChallengeList.getChallenges("locations/locations.json");
 
 
         for (Beacon beacon : BeaconChecker.getLastBeacons()) {

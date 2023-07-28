@@ -1,4 +1,4 @@
-package me.kmaxi.lootrunhelper;
+package me.kmaxi.lootrunhelper.utils;
 
 public class ColorUtils {
 
