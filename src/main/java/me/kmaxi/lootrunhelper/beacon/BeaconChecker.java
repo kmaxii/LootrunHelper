@@ -46,6 +46,9 @@ public class BeaconChecker {
     private static BeaconDataSaver dataSaver;
 
 
+    public static void clearDataSaver(){
+        dataSaver = null;
+    }
 
     public static BeaconDataSaver activeDataSaver() {
         if (dataSaver == null)

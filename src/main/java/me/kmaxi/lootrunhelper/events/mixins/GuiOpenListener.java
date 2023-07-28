@@ -1,5 +1,6 @@
 package me.kmaxi.lootrunhelper.events.mixins;
 
+import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.utils.ChosenCharacter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -25,6 +26,7 @@ public class GuiOpenListener {
         if (!title.getString().contains("Select a Character"))
             return;
         ChosenCharacter.listenForNextClick = true;
+        BeaconChecker.clearDataSaver();
 
     }
 
