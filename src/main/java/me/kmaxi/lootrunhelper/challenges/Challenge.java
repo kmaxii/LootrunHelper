@@ -9,6 +9,7 @@ import java.util.Map;
 public class Challenge {
     String challengeName;
     double x;
+    double y;
     double z;
     String type;
 
@@ -18,6 +19,10 @@ public class Challenge {
 
     public double getX() {
         return x;
+    }
+
+    public double getY() {
+        return y;
     }
 
     public double getZ() {

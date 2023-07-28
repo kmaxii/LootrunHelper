@@ -34,7 +34,7 @@ public class BeaconDestinations {
     }
 
     private static int getChallengeDistance(Challenge challenge) {
-        Vec3d challengePos = new Vec3d(challenge.getX(), 50, challenge.getZ());
+        Vec3d challengePos = new Vec3d(challenge.getX(), challenge.getY(), challenge.getZ());
         Vec3d playerPos = MinecraftClient.getInstance().player.getPos();
         return (int) challengePos.distanceTo(playerPos);
     }
