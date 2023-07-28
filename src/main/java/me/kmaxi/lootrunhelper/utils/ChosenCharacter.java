@@ -1,9 +1,9 @@
 package me.kmaxi.lootrunhelper.utils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ChosenCharacter {
 
@@ -27,19 +27,29 @@ public class ChosenCharacter {
     }
 
     private static void saveToFile(int character) {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            writer.write(String.valueOf(character));
+        try {
+            Path path = Paths.get(FILE_PATH);
+            Files.createDirectories(path.getParent());
+            try (FileWriter writer = new FileWriter(path.toFile())) {
+                writer.write(String.valueOf(character));
+            }
         } catch (IOException e) {
             // Handle exception if needed
             e.printStackTrace();
         }
     }
-
     private static int loadFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line = reader.readLine();
-            if (line != null && !line.isEmpty()) {
-                return Integer.parseInt(line);
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                return Integer.MAX_VALUE;
+            }
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line = reader.readLine();
+                if (line != null && !line.isEmpty()) {
+                    return Integer.parseInt(line);
+                }
             }
         } catch (IOException | NumberFormatException e) {
             // Handle exceptions if needed
