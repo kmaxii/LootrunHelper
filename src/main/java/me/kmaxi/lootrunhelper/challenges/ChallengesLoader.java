@@ -67,12 +67,14 @@ public class ChallengesLoader {
                 String challengeName = entry.getKey();
                 Map<String, Object> challengeDetails = entry.getValue();
                 double x = (Double) challengeDetails.get("x");
+                double y = (Double) challengeDetails.get("x");
                 double z = (Double) challengeDetails.get("z");
                 String type = (String) challengeDetails.get("type");
 
                 Challenge challenge = new Challenge();
                 challenge.challengeName = challengeName;
                 challenge.x = x;
+                challenge.y = y;
                 challenge.z = z;
                 challenge.type = type;
 
