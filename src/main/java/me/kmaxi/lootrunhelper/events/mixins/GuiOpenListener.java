@@ -1,5 +1,6 @@
 package me.kmaxi.lootrunhelper.events.mixins;
 
+import me.kmaxi.lootrunhelper.utils.ChosenCharacter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -23,8 +24,7 @@ public class GuiOpenListener {
 
         if (!title.getString().contains("Select a Character"))
             return;
-
-        System.out.println("The name of the chest inventory is: " + title.getString());
+        ChosenCharacter.listenForNextClick = true;
 
     }
 

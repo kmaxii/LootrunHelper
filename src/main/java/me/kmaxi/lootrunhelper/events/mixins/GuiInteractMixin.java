@@ -1,5 +1,6 @@
 package me.kmaxi.lootrunhelper.events.mixins;
 
+import me.kmaxi.lootrunhelper.utils.ChosenCharacter;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.slot.SlotActionType;
@@ -13,6 +14,11 @@ public class GuiInteractMixin {
 
     @Inject(method = "clickSlot", at = @At("HEAD"))
     private void onItemClick(int syncId, int slotId, int button, SlotActionType actionType, PlayerEntity player, CallbackInfo ci) {
-        System.out.println("Clicked button " + button + " on slot " + slotId + " with action type " + actionType);
+
+        if (!ChosenCharacter.listenForNextClick)
+            return;
+
+        ChosenCharacter.listenForNextClick = false;
+        ChosenCharacter.setChosenCharacter(slotId);
     }
 }
