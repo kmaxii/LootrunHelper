@@ -1,7 +1,7 @@
 package me.kmaxi.lootrunhelper.beacon;
 
 import me.kmaxi.lootrunhelper.challenges.Challenge;
-import me.kmaxi.lootrunhelper.challenges.ChallengeList;
+import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
@@ -12,7 +12,7 @@ public class BeaconDestinations {
     public static String destinations = "";
 
     public static void updateDestinations() {
-        List<Challenge> challenges = ChallengeList.getChallenges("locations.json");
+        List<Challenge> challenges = ChallengesLoader.loadRightChallenges();
 
 
         StringBuilder stringBuilder = new StringBuilder();

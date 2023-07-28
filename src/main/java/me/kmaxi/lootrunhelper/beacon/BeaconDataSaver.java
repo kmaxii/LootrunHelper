@@ -92,11 +92,50 @@ public class BeaconDataSaver {
         StringBuilder stringBuilder = new StringBuilder();
         for (String key : beaconData.keySet()) {
 
-            String colorText = ColorUtils.getCorrectColor(key);
-
-            stringBuilder.append(colorText).append("§f").append(beaconData.get(key)).append("\n");
+            stringBuilder.append(getFormattedData(key)).append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    private String getFormattedData(String key){
+        String finalText = "ERROR! WRONG KEY: §c" + key;
+        switch (key) {
+            case "RED":
+                finalText = "§cRED: §f" + beaconData.get(key) + "/10";
+                break;
+            case "GREEN":
+                finalText = "§aGREEN: §f" + beaconData.get(key) + "/10";
+                break;
+            case "BLUE":
+                finalText = "§9BLUE: §f" + beaconData.get(key) + "/∞";
+                break;
+            case "PURPLE":
+                finalText = "§dPURPLE: §f" + beaconData.get(key) + "/∞";
+                break;
+            case "YELLOW":
+                finalText = "§eYELLOW: §f" + beaconData.get(key) + "/∞";
+                break;
+            case "GRAY":
+                finalText = "§7GRAY: §f" + beaconData.get(key) + "/1";
+                break;
+            case "WHITE":
+                finalText = "§fWHITE: §f" + beaconData.get(key) + "/1";
+                break;
+            case "ORANGE":
+                finalText = "§6ORANGE: §f" + beaconData.get(key) + "/2";
+                break;
+            case "DARK_GRAY":
+                finalText = "§8DARK_GRAY: §f" + beaconData.get(key) + "/1";
+                break;
+            case "AQUA":
+                finalText = "§bAQUA: §f" + beaconData.get(key) + "/10";
+                break;
+            case "RAINBOW":
+                finalText = "§cR§6A§eI§aN§9B§5O§dW: §f" + beaconData.get(key) + "/1";
+                break;
+        }
+
+        return finalText;
     }
 
     public static void main(String[] args) {

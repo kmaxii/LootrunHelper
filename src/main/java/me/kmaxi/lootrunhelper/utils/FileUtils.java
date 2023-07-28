@@ -10,8 +10,9 @@ import java.io.OutputStream;
 public class FileUtils {
 
     public static void copyLootrunFiles() {
-        copyFilesFromResources("locationCorkus.json");
-        copyFilesFromResources("locationsSE.json");
+        copyFilesFromResources("corkusLootrun.json");
+        copyFilesFromResources("seLootrun.json");
+        copyFilesFromResources("starts.json");
     }
 
 
