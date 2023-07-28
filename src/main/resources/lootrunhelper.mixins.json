@@ -7,7 +7,9 @@
   "client": [
     "MixinChatListener",
     "MixinTitleListener",
-    "ShowTextMixin"
+    "ShowTextMixin",
+    "GuiInteractMixin",
+    "GuiOpenListener"
   ],
   "injectors": {
     "defaultRequire": 1
