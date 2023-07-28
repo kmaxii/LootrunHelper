@@ -79,8 +79,14 @@ public class BeaconDataSaver {
     }
 
     public void sendDataToChat() {
+
+        assert MinecraftClient.getInstance().player != null;
+        MinecraftClient.getInstance().player.sendMessage(Text.of(getData()));
+    }
+
+    public String getData(){
         if (beaconData == null) {
-            System.out.println("ERROR! BEACON DATA WAS NULL!!");
+           return "ERROR! BEACON DATA WAS NULL!!";
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -90,8 +96,7 @@ public class BeaconDataSaver {
 
             stringBuilder.append(colorText).append("§f").append(beaconData.get(key)).append("\n");
         }
-        assert MinecraftClient.getInstance().player != null;
-        MinecraftClient.getInstance().player.sendMessage(Text.of(stringBuilder.toString()));
+        return stringBuilder.toString();
     }
 
     public static void main(String[] args) {

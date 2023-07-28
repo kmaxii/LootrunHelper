@@ -1,8 +1,6 @@
 package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
 
 public class ReceiveTitleEvent {
 
@@ -37,7 +35,7 @@ public class ReceiveTitleEvent {
         }
         ignoreNext = true;
 
-        beaconOptionShowed();
+        enteredChallenge();
 
     }
 
@@ -47,14 +45,18 @@ public class ReceiveTitleEvent {
 
     private static void lootrunCompleted(){
         BeaconChecker.disable();
+        BeaconChecker.clearCurrentBeacons();
+
+
         BeaconChecker.activeDataSaver().sendDataToChat();
     }
 
-    private static void beaconOptionShowed(){
+    private static void enteredChallenge(){
         BeaconChecker.PickClosestBeacon();
 
-        MinecraftClient.getInstance().player.sendMessage(Text.of("Started Challange"));
         BeaconChecker.disable();
+
+        BeaconChecker.clearCurrentBeacons();
     }
 
     private static boolean isChallengeTitle(String title){

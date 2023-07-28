@@ -12,16 +12,26 @@ public class BeaconChecker {
 
     private static boolean nextPrintChallengeInfo = false;
 
+    public static void clearCurrentBeacons() {
+        if (lastBeacons != null)
+            lastBeacons.clear();
+        closestBeacon = null;
+        BeaconDestinations.destinations = "";
+    }
     public static void enable() {
-        isEnabled = true;
+        enabled = true;
         nextPrintChallengeInfo = true;
     }
 
     public static void disable() {
-        isEnabled = false;
+        enabled = false;
     }
 
-    private static boolean isEnabled = false;
+    public static boolean isEnabled() {
+        return enabled;
+    }
+
+    private static boolean enabled = false;
     private static int tickCounter = 0;
 
     private static int checkDelay = 20;
@@ -36,6 +46,7 @@ public class BeaconChecker {
     private static BeaconDataSaver getDataSaver;
 
 
+
     public static BeaconDataSaver activeDataSaver() {
         if (getDataSaver == null)
             getDataSaver = loadFromFile("beacon_data.json");
@@ -43,7 +54,7 @@ public class BeaconChecker {
     }
 
     public static void onTick() {
-        if (isEnabled && tickCounter % checkDelay == 0) {
+        if (enabled && tickCounter % checkDelay == 0) {
             tickCounter = 0;
             checkBeacons();
 
@@ -70,6 +81,9 @@ public class BeaconChecker {
     }
 
     public static void PickClosestBeacon() {
+        if (closestBeacon == null)
+            return;
+
         if (getDataSaver == null) {
             getDataSaver = loadFromFile("beacon_data.json");
         }
