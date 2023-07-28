@@ -21,15 +21,22 @@ public abstract class ShowTextMixin {
 
     @Inject(method = "render", at = @At("TAIL"))
     public void render(CallbackInfo ci) {
-
         if (BeaconChecker.closestBeacon == null)
             return;
 
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         MatrixStack matrixStack = new MatrixStack();
-        textRenderer.draw(matrixStack, Text.of(
-                "Closest beacon: " + BeaconChecker.closestBeacon.beaconType +
-                        " At: " + BeaconChecker.closestBeacon.position), 250, 250, 0xFFFFFF);
+
+        // Calculate the width of the text to be rendered
+        String textToRender = "Closest beacon: " + BeaconChecker.closestBeacon.beaconType +
+                " At: " + BeaconChecker.closestBeacon.position;
+        int textWidth = textRenderer.getWidth(textToRender);
+
+        // Set the position to the top right corner
+        int x = MinecraftClient.getInstance().getWindow().getScaledWidth() - textWidth - 10;
+        int y = 10;
+
+        textRenderer.draw(matrixStack, Text.of(textToRender), x, y, 0xFFFFFF);
     }
 }
 
