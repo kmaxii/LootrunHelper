@@ -1,146 +1,146 @@
 {
   "Toxic slay": {
     "x": 907.5,
-    "y": 50,
+    "y": 131,
     "z": -998.5,
     "type": "slay"
   },
   "The Place Coalesced": {
     "x": 879.5,
-    "y": 50,
+    "y": 93,
     "z": -802.5,
     "type": "spelunk"
   },
   "The Place Condensed": {
     "x": 1038.5,
-    "y": 50,
+    "y": 85,
     "z": -691.5,
     "type": "spelunk"
   },
   "Olmic slay": {
     "x": 602.5,
-    "y": 50,
+    "y": 85,
     "z": -406.5,
     "type": "slay"
   },
   "Statue Opening": {
     "x": 826.5,
-    "y": 50,
+    "y": 79,
     "z": -428.5,
     "type": "spelunk"
   },
   "Haze Cave": {
     "x": 948.5,
-    "y": 50,
+    "y": 93,
     "z": -1048.5,
     "type": "spelunk"
   },
   "Olmic destroy": {
     "x": 695.5,
-    "y": 50,
+    "y": 92,
     "z": -495.5,
     "type": "destroy"
   },
   "Exemplar": {
     "x": 1125.5,
-    "y": 50,
+    "y": 102,
     "z": -1094.5,
     "type": "slay"
   },
   "Eyeball Gauntlet": {
     "x": 1088.5,
-    "y": 50,
+    "y": 138,
     "z": -344.5,
     "type": "spelunk"
   },
   "Toxic Defend Terra": {
     "x": 1014.5,
-    "y": 50,
+    "y": 94,
     "z": -1052.5,
     "type": "defend"
   },
   "Eyeball defend": {
     "x": 866.5,
-    "y": 50,
+    "y": 101,
     "z": -336.5,
     "type": "defend"
   },
   "Eyeball slay": {
     "x": 897.5,
-    "y": 50,
+    "y": 78,
     "z": -523.5,
     "type": "slay"
   },
   "Farm slay": {
     "x": 1093.5,
-    "y": 50,
+    "y": 135,
     "z": -1136.5,
     "type": "slay"
   },
   "Blind Burrow": {
     "x": 1393.5,
-    "y": 50,
+    "y": 163,
     "z": -1054.5,
     "type": "spelunk"
   },
   "Arch destroy": {
     "x": 1147.5,
-    "y": 50,
+    "y": 78,
     "z": -953.5,
     "type": "destroy"
   },
 
   "The Gwanari": {
     "x": 983.5,
-    "y": 50,
+    "y": 76,
     "z": -469.5,
     "type": "spelunk"
   },
   "The Lantern Keeper's Abode": {
     "x": 1285.5,
-    "y": 50,
+    "y": 103,
     "z": -1059.5,
     "type": "spelunk"
   },
   "Caged Creatures": {
     "x": 1132.5,
-    "y": 50,
+    "y": 135,
     "z": -1126.5,
     "type": "spelunk"
   },
   "Toxic defend Respirator": {
     "x": 822.5,
-    "y": 50,
+    "y": 123,
     "z": -902.5,
     "type": "defend"
   },
   "Eyeball destroy": {
     "x": 957.5,
-    "y": 50,
+    "y": 93,
     "z": -409.5,
     "type": "destroy"
   },
   "Loot Symposium": {
     "x": 775.5,
-    "y": 50,
+    "y": 153,
     "z": -949.5,
     "type": "spelunk"
   },
   "Spiteful Crossing": {
     "x": 854.5,
-    "y": 50,
+    "y": 81,
     "z": -667.5,
     "type": "spelunk"
   },
   "Bone dragon": {
     "x": 1117.5,
-    "y": 50,
+    "y": 86,
     "z": -991.5,
     "type": "slay"
   },
   "Olmic defend": {
     "x": 691.5,
-    "y": 50,
+    "y": 92,
     "z": -374.5,
     "type": "defend"
   }
