@@ -13,10 +13,15 @@ public class BeaconChecker {
     private static boolean nextPrintChallengeInfo = false;
 
     public static void clearCurrentBeacons() {
-        if (lastBeacons != null)
-            lastBeacons.clear();
+        if (beaconList != null)
+            beaconList.clear();
         closestBeacon = null;
         BeaconDestinations.destinations = "";
+    }
+
+    public static void stashCurrentBeacons(){
+        if (beaconList != null)
+            beaconList = null;
     }
     public static void enable() {
         enabled = true;
@@ -37,10 +42,10 @@ public class BeaconChecker {
     private static int checkDelay = 20;
     public static Beacon closestBeacon;
 
-    private static HashSet<Beacon> lastBeacons;
+    private static BeaconList beaconList;
 
-    public static HashSet<Beacon> getLastBeacons() {
-        return lastBeacons;
+    public static BeaconList getLastBeacons() {
+        return beaconList;
     }
 
     private static BeaconDataSaver dataSaver;
@@ -80,7 +85,7 @@ public class BeaconChecker {
             }
         }
 
-        if (lastBeacons == null || lastBeacons.size() == 0) {
+        if (beaconList == null || beaconList.size() == 0) {
             return;
         }
 
@@ -102,13 +107,12 @@ public class BeaconChecker {
     private static void saveClosestBeacon(Vec3d pos) {
         double closestDistance = Double.MAX_VALUE;
 
-        if (lastBeacons == null) {
+        if (beaconList == null) {
             System.out.println("LAST BEACONS IS NULL");
             return;
         }
 
-        System.out.println("Saving closest beacon. There are: " + lastBeacons.size() + " beacons");
-        for (Beacon beacon : lastBeacons) {
+        for (Beacon beacon : beaconList) {
             double distance = beacon.position.distanceTo(pos);
             if (distance < closestDistance) {
                 closestDistance = distance;
@@ -139,19 +143,18 @@ public class BeaconChecker {
 
         //Must have entered a challenge or classed
         if (beacons.size() == 0) {
-            lastBeacons = null;
             return;
         }
 
-        if (lastBeacons == null) {
-            lastBeacons = beacons;
+        if (beaconList == null) {
+            beaconList = new BeaconList(beacons);
             return;
         }
 
         //Our current beacons are smaller than what we had before, must be close to a challenge
         //So find what beacons are not in the new list and add their latest location
-        if (beacons.size() < lastBeacons.size()) {
-           for (Beacon beacon : lastBeacons) {
+        if (beacons.size() < beaconList.size()) {
+           for (Beacon beacon : beaconList) {
                 boolean foundSameType = false;
                 for (Beacon newBeacon : beacons) {
                     if (beacon.beaconType == newBeacon.beaconType) {
@@ -165,6 +168,6 @@ public class BeaconChecker {
             }
         }
 
-        lastBeacons = beacons;
+        beaconList.replace(beacons);
     }
 }

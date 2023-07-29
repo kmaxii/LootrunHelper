@@ -2,10 +2,9 @@ package me.kmaxi.lootrunhelper.utils;
 
 import me.kmaxi.lootrunhelper.LootrunHelper;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FileUtils {
 
@@ -33,4 +32,15 @@ public class FileUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static void createDirectory(String directoryPath) {
+        Path path = Paths.get(directoryPath).getParent();
+        if (path != null) {
+            File file = new File(path.toString());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+        }
+    }
+
 }

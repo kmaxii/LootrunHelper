@@ -11,7 +11,7 @@ public class ReceiveChatEvent {
 
         if (message.startsWith("Select a character!")) {
             BeaconChecker.disable();
-            BeaconChecker.clearCurrentBeacons();
+            BeaconChecker.stashCurrentBeacons();
 
             return;
         }

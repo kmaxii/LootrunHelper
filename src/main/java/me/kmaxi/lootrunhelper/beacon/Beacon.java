@@ -19,6 +19,10 @@ public class Beacon {
     public BeaconType beaconType;
 
 
+    public Beacon(Vec3d position, BeaconType beaconType) {
+        this.position = position;
+        this.beaconType = beaconType;
+    }
     public Beacon(Vec3d position, ItemStack itemStack) {
         this.position = position;
         this.beaconType = getBeaconType(itemStack.getItem(), itemStack.getDamage());
