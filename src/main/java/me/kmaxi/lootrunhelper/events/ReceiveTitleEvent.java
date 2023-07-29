@@ -8,22 +8,26 @@ public class ReceiveTitleEvent {
      * If the next received title should be ignored. Useful because this method is called twice for each title
      */
     private static boolean ignoreNext;
+    private static boolean ignoreDupe;
     public static void receivedTitle(String title){
         title = title.toLowerCase().replaceAll("[^abcdefghijklmnopqrstuvwxyz?.! /]", "");
 
         System.out.println("Title: " + title);
 
         if (title.contains("prepare to lootrun")){
+            ignoreDupe = false;
             lootrunStarted();
             return;
         }
 
-        if (title.contains("lootrun completed")){
+        if (title.contains("lootrun completed")&&!ignoreDupe){
+            ignoreDupe= true;
             lootrunCompleted();
             return;
         }
 
-        if (title.contains("lootrun failed")){
+        if (title.contains("lootrun failed" ) && !ignoreDupe){
+            ignoreDupe= true;
             lootrunCompleted();
             return;
         }
