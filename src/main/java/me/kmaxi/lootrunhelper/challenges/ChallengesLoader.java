@@ -67,7 +67,7 @@ public class ChallengesLoader {
                 String challengeName = entry.getKey();
                 Map<String, Object> challengeDetails = entry.getValue();
                 double x = (Double) challengeDetails.get("x");
-                double y = (Double) challengeDetails.get("x");
+                double y = (Double) challengeDetails.get("y");
                 double z = (Double) challengeDetails.get("z");
                 String type = (String) challengeDetails.get("type");
 
