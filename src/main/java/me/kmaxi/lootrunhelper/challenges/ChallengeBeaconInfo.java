@@ -11,4 +11,5 @@ public class ChallengeBeaconInfo {
         this.beacon = beacon;
         this.challenge = challenge;
     }
+
 }

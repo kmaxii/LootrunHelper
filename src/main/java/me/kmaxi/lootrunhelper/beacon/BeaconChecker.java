@@ -10,7 +10,7 @@ import static me.kmaxi.lootrunhelper.beacon.BeaconDataSaver.loadFromFile;
 
 public class BeaconChecker {
 
-    private static boolean nextPrintChallengeInfo = false;
+    private static boolean nextCalculateChallenges = false;
 
     public static void clearCurrentBeacons() {
         if (beaconList != null)
@@ -25,7 +25,7 @@ public class BeaconChecker {
     }
     public static void enable() {
         enabled = true;
-        nextPrintChallengeInfo = true;
+        nextCalculateChallenges = true;
     }
 
     public static void disable() {
@@ -49,6 +49,8 @@ public class BeaconChecker {
     }
 
     private static BeaconDataSaver dataSaver;
+
+    private static boolean runTriangulation = false;
 
 
     public static void clearDataSaver(){
@@ -76,12 +78,17 @@ public class BeaconChecker {
                 return;
             }
 
+            if (runTriangulation) {
+                runTriangulation = !(BeaconDestinations.updateWithTriangulationIfMovedEnough());
+            }
+
             checkBeacons();
 
             saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
-            if (nextPrintChallengeInfo) {
+            if (nextCalculateChallenges) {
                 ListBeaconDestinations.run(null);
-                nextPrintChallengeInfo = false;
+                nextCalculateChallenges = false;
+                runTriangulation = true;
             }
         }
 
@@ -130,25 +137,25 @@ public class BeaconChecker {
     }
 
 
-    private static void checkBeacons() {
+    public static HashSet<Beacon>  checkBeacons() {
         HashSet<Beacon> beacons = BeaconHandler.getBeacons();
 
 
         if (beacons == null)     {
             System.out.println("Beacons is null");
-            return;
+            return null;
         }
 
         System.out.println("Beacons found: " + beacons.size());
 
         //Must have entered a challenge or classed
         if (beacons.size() == 0) {
-            return;
+            return null;
         }
 
         if (beaconList == null) {
             beaconList = new BeaconList(beacons);
-            return;
+            return beacons;
         }
 
         //Our current beacons are smaller than what we had before, must be close to a challenge
@@ -169,5 +176,6 @@ public class BeaconChecker {
         }
 
         beaconList.replace(beacons);
+        return beacons;
     }
 }

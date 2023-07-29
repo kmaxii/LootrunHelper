@@ -18,6 +18,11 @@ public class Beacon {
     public Vec3d position;
     public BeaconType beaconType;
 
+    private Vector2d directionVector;
+
+    public Vector2d getLastDirectionVector() {
+        return directionVector;
+    }
 
     public Beacon(Vec3d position, BeaconType beaconType) {
         this.position = position;
@@ -107,7 +112,7 @@ public class Beacon {
 
     @Override
     public String toString() {
-        return "Position: " + position + " Type: " + beaconType + " Hashcode: " + hashCode() + "\n";
+        return "Position: " + position + " Type: " + beaconType + " Hashcode: " + hashCode() + "\n" + "Direction Vector: " + directionVector;
     }
 
     public Challenge findChallengeItLeadsTo(List<Challenge> waypoints) {
@@ -115,7 +120,7 @@ public class Beacon {
         Challenge closestWaypoint = null;
 
         Vec3d playerPos = MinecraftClient.getInstance().player.getPos();
-        Vector2d directionVector = new Vector2d(position.x - playerPos.x, position.z - playerPos.z).normalize();
+        directionVector = new Vector2d(position.x - playerPos.x, position.z - playerPos.z).normalize();
 
 
         double maxDotProduct = Double.NEGATIVE_INFINITY;

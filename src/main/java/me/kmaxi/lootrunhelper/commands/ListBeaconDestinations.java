@@ -11,7 +11,7 @@ public class ListBeaconDestinations {
     public static int run(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
         System.out.println("Executing list command");
 
-        BeaconDestinations.updateDestinations();
+        BeaconDestinations.updateDestWithDot();
 
         MinecraftClient.getInstance().player.sendMessage(Text.of(BeaconDestinations.destinations), false);
 

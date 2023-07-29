@@ -12,6 +12,16 @@ public class Challenge {
     double y;
     double z;
     String type;
+    public Challenge(String challengeName, double x, double y, double z, String type) {
+        this.challengeName = challengeName;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.type = type;
+    }
+
+    public Challenge() {
+    }
 
     public String getChallengeName() {
         return challengeName;
