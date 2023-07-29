@@ -1,5 +1,7 @@
 package me.kmaxi.lootrunhelper.utils;
 
+import java.util.stream.Stream;
+
 public class ColorUtils {
 
     public static String getCorrectColor(String beaconType){
@@ -47,6 +49,21 @@ public class ColorUtils {
 
         colorText += "§f";
         return colorText;
+    }
 
+    public static Stream<String> getColorStream() {
+        return Stream.of(
+                "BLUE",
+                "PURPLE",
+                "YELLOW",
+                "RED",
+                "GREEN",
+                "AQUA",
+                "ORANGE",
+                "GRAY",
+                "WHITE",
+                "DARK_GRAY",
+                "RAINBOW"
+        );
     }
 }

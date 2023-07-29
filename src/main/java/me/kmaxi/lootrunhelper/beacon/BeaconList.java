@@ -10,10 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class BeaconList implements Iterable<Beacon> {
     private List<Beacon> beacons;
@@ -42,9 +39,14 @@ public class BeaconList implements Iterable<Beacon> {
         saveToJsonFile();
     }
 
+    public void sort() {
+        beacons.sort(Comparator.comparingInt(beacon -> beacon.beaconType.ordinal()));
+    }
+
     public void replace(HashSet<Beacon> beaconHashSet) {
         beacons.clear();
         beacons.addAll(beaconHashSet);
+        sort();
         saveToJsonFile();
     }
 

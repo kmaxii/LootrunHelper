@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import me.kmaxi.lootrunhelper.utils.ChosenCharacter;
+import me.kmaxi.lootrunhelper.utils.ColorUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
@@ -24,16 +25,16 @@ public class BeaconDataSaver {
     }
 
     private void initializeBeaconData() {
-        beaconData.put("RED", 0);
-        beaconData.put("GREEN", 0);
         beaconData.put("BLUE", 0);
         beaconData.put("PURPLE", 0);
         beaconData.put("YELLOW", 0);
-        beaconData.put("GRAY", 0);
-        beaconData.put("WHITE", 0);
-        beaconData.put("ORANGE", 0);
-        beaconData.put("DARK_GRAY", 0);
+        beaconData.put("GREEN", 0);
         beaconData.put("AQUA", 0);
+        beaconData.put("ORANGE", 0);
+        beaconData.put("GRAY", 0);
+        beaconData.put("RED", 0);
+        beaconData.put("WHITE", 0);
+        beaconData.put("DARK_GRAY", 0);
         beaconData.put("RAINBOW", 0);
     }
 
@@ -90,11 +91,16 @@ public class BeaconDataSaver {
             return "ERROR! BEACON DATA WAS NULL!!";
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String key : beaconData.keySet()) {
 
-            stringBuilder.append(getFormattedData(key)).append("\n");
-        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        ColorUtils.getColorStream().forEach(color -> {
+            stringBuilder.append(getFormattedData(color)).append("\n");
+
+        });
+
+
         return stringBuilder.toString();
     }
 

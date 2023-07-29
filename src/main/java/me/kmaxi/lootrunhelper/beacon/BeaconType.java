@@ -1,15 +1,15 @@
 package me.kmaxi.lootrunhelper.beacon;
 
 public enum BeaconType {
-    RED,
-    GREEN,
     BLUE,
     PURPLE,
     YELLOW,
+    RED,
+    GREEN,
+    AQUA,
+    ORANGE,
     GRAY,
     WHITE,
-    ORANGE,
     DARK_GRAY,
-    AQUA,
     RAINBOW
 }

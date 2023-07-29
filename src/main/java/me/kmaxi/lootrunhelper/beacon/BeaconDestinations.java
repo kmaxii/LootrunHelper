@@ -7,6 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class BeaconDestinations {
@@ -47,7 +48,13 @@ public class BeaconDestinations {
             beaconsInfo.add(beaconInfo);
         }
 
+        sortList();
         updateDistances();
+    }
+
+    private static void sortList(){
+        beaconsInfo.sort(Comparator.comparingInt(challengeBeaconInfo -> challengeBeaconInfo.beacon.beaconType.ordinal()));
+
     }
 
     private static int getChallengeDistance(Challenge challenge) {
