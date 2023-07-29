@@ -71,8 +71,8 @@ public abstract class ShowTextMixin {
 
         // Adjust y-coordinate for the second text to start below the first text
         y += totalHeight + SPACING_BETWEEN_LINES;
-
-        renderTextOnScreen(secondTextToRender, x, y, 0xFFFFFF);
+        int y2 = 330;
+        renderTextOnScreen(secondTextToRender, x, y2, 0xFFFFFF);
     }
 
 }
