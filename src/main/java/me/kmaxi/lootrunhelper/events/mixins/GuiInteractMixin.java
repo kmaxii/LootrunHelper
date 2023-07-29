@@ -19,6 +19,8 @@ public class GuiInteractMixin {
             return;
 
         ChosenCharacter.listenForNextClick = false;
-        ChosenCharacter.setChosenCharacter(slotId);
+        if (slotId >= 1 && slotId <=5|| slotId >= 10 && slotId <=14||slotId >= 19 && slotId <=22) {
+            ChosenCharacter.setChosenCharacter(slotId);
+        }
     }
 }
