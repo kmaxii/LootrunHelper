@@ -27,7 +27,7 @@ public class BeaconDestinations {
                     .append(beaconInfo.challenge.getType())
                     .append(". §l")
                     .append(getChallengeDistance(beaconInfo.challenge))
-                    .append("§rb")
+                    .append("§rm.")
                     .append("\n");
         }
 
