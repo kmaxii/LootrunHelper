@@ -16,9 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 public abstract class ShowTextMixin {
-    @Shadow
-    @Final
-    private MinecraftClient client;
 
     @Inject(method = "render", at = @At("TAIL"))
     public void render(CallbackInfo ci) {
@@ -56,7 +53,7 @@ public abstract class ShowTextMixin {
     }
 
     public void renderTwoTextBlocksOnScreen() {
-        if (!BeaconChecker.isEnabled() || BeaconDestinations.destinations.equals(""))
+        if (!BeaconChecker.isEnabled())
             return;
 
         int x = MinecraftClient.getInstance().getWindow().getScaledWidth() - 10;

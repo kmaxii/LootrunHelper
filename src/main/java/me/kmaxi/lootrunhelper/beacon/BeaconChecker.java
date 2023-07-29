@@ -57,30 +57,36 @@ public class BeaconChecker {
     }
 
     public static void onTick() {
-        if (enabled && tickCounter % checkDelay == 0) {
+
+        if (!enabled)
+            return;
+
+        tickCounter++;
+
+        if (tickCounter % checkDelay == 0) {
             tickCounter = 0;
+
+            if (MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null) {
+                System.out.println("MINECRAFT CLIENT OR PLAYER IS NULL");
+                return;
+            }
+
             checkBeacons();
 
-            if (MinecraftClient.getInstance() == null) {
-                System.out.println("MINECRAFT CLIENT IS NULL");
-                return;
-            }
-
-
-            if (MinecraftClient.getInstance().player == null) {
-                System.out.println("PLAYER IS NULL");
-                return;
-            }
-
             saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
-            printClosestBeacon();
             if (nextPrintChallengeInfo) {
                 ListBeaconDestinations.run(null);
                 nextPrintChallengeInfo = false;
             }
-
         }
-        tickCounter++;
+
+        if (lastBeacons == null || lastBeacons.size() == 0) {
+            return;
+        }
+
+        BeaconDestinations.updateDistances();
+
+
     }
 
     public static void PickClosestBeacon() {

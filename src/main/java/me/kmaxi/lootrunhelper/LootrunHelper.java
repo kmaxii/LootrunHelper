@@ -17,9 +17,8 @@ public class LootrunHelper implements ModInitializer {
     private static void register() {
         CommandsRegister.registerCommands();
 
-        BeaconChecker beaconChecker = new BeaconChecker();
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            beaconChecker.onTick();
+            BeaconChecker.onTick();
         });
     }
 }
