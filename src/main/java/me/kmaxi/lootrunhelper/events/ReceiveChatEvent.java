@@ -4,6 +4,8 @@ import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 
 public class ReceiveChatEvent {
 
+    private static boolean ignoreDupe;
+
     public static void receivedChat(String message) {
 
 
@@ -16,6 +18,7 @@ public class ReceiveChatEvent {
 
         if (!message.startsWith("\n" +
                 "§7§r                         ÀÀ§6§lChoose a Beacon!")) {
+            ignoreDupe = false;
             return;
         }
 
