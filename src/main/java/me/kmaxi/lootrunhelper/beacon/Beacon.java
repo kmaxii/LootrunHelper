@@ -17,11 +17,13 @@ public class Beacon {
 
     public Vec3d position;
     public BeaconType beaconType;
+    private boolean isVibrant;
 
 
     public Beacon(Vec3d position, BeaconType beaconType) {
         this.position = position;
         this.beaconType = beaconType;
+        isVibrant = false;
     }
     public Beacon(Vec3d position, ItemStack itemStack) {
         this.position = position;

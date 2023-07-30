@@ -12,6 +12,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import static me.kmaxi.lootrunhelper.utils.FileUtils.getBeaconListFileName;
+
 public class BeaconList implements Iterable<Beacon> {
     private List<Beacon> beacons;
 
@@ -66,7 +68,7 @@ public class BeaconList implements Iterable<Beacon> {
     }
 
     public void saveToJsonFile() {
-        String fileName = getFileName();
+        String fileName = getBeaconListFileName();
         FileUtils.createDirectory(fileName);
         try (FileWriter writer = new FileWriter(fileName)) {
             Gson gson = new Gson();
@@ -77,7 +79,7 @@ public class BeaconList implements Iterable<Beacon> {
     }
 
     public void loadFromJsonFile() {
-        String fileName = getFileName();
+        String fileName = getBeaconListFileName();
         try (FileReader reader = new FileReader(fileName)) {
             Gson gson = new Gson();
             beacons = gson.fromJson(reader, new TypeToken<List<Beacon>>() {
@@ -87,9 +89,7 @@ public class BeaconList implements Iterable<Beacon> {
         }
     }
 
-    private static String getFileName() {
-        return Config.CONFIG_DIRS + "beacon_list_" + ChosenCharacter.getChosenCharacter() + ".json";
-    }
+
 
     /* public static void main(String[] args) {
          BeaconList beaconList = new BeaconList();
