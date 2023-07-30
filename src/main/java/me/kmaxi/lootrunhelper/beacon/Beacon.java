@@ -17,17 +17,18 @@ public class Beacon {
 
     public Vec3d position;
     public BeaconType beaconType;
-    private boolean isVibrant;
+    public boolean isVibrant;
 
 
-    public Beacon(Vec3d position, BeaconType beaconType) {
+    public Beacon(Vec3d position, BeaconType beaconType, boolean isVibrant) {
         this.position = position;
         this.beaconType = beaconType;
-        isVibrant = false;
+        this.isVibrant = isVibrant;
     }
     public Beacon(Vec3d position, ItemStack itemStack) {
         this.position = position;
         this.beaconType = getBeaconType(itemStack.getItem(), itemStack.getDamage());
+        isVibrant = VibrantBeaconInfo.isVibrant(beaconType.toString());
     }
 
     public String getBeaconName() {
@@ -78,7 +79,7 @@ public class Beacon {
                 return BeaconType.PURPLE;
 
             case 6:
-                return BeaconType.GRAY;
+                return BeaconType.GREY;
 
             case 7:
                 return BeaconType.ORANGE;

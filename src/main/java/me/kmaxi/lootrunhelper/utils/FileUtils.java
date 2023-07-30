@@ -51,5 +51,13 @@ public class FileUtils {
             }
         }
     }
+    public static boolean doesFileExistInDirectory(String fileName) {
+
+        // Create a File object representing the file we want to check
+        File fileToCheck = new File(fileName);
+
+        // Use the exists() method to check if the file exists
+        return fileToCheck.exists();
+    }
 
 }
