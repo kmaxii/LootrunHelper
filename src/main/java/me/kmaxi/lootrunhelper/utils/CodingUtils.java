@@ -6,7 +6,8 @@ import net.minecraft.text.Text;
 
 public class CodingUtils {
     public static void msg(String msg){
-        MinecraftClient.getInstance().player.sendMessage(Text.of(msg));
+        if (MinecraftClient.getInstance() != null && MinecraftClient.getInstance().player != null)
+            MinecraftClient.getInstance().player.sendMessage(Text.of(msg));
     }
     public static ClientPlayerEntity player = MinecraftClient.getInstance().player;
 }
