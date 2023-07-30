@@ -1,6 +1,7 @@
 package me.kmaxi.lootrunhelper.beacon;
 
 import me.kmaxi.lootrunhelper.commands.ListBeaconDestinations;
+import me.kmaxi.lootrunhelper.data.CurrentData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
@@ -101,6 +102,12 @@ public class BeaconChecker {
         if (dataSaver == null) {
             dataSaver = loadFromFile();
         }
+
+
+        CurrentData.picketBeacon(closestBeacon);
+        CurrentData.finishedBeacon();
+
+
         dataSaver.pickBeacon(String.valueOf(closestBeacon.beaconType));
     }
 
