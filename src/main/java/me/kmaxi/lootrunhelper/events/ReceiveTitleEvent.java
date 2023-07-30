@@ -67,6 +67,7 @@ public class ReceiveTitleEvent {
         return title.equalsIgnoreCase("spelunk!")
                 || title.equalsIgnoreCase("defend!")
                 || title.equalsIgnoreCase("slay target!")
-                || title.equalsIgnoreCase("destroy");
+                || title.equalsIgnoreCase("destroy")
+                || title.equalsIgnoreCase("slay mobs!");
     }
 }
