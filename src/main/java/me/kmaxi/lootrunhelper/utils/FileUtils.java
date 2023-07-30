@@ -8,6 +8,15 @@ import java.nio.file.Paths;
 
 public class FileUtils {
 
+
+    public static String getDataFileName(){
+        return Config.CONFIG_DIRS + "data_" + ChosenCharacter.getChosenCharacter() + ".json";
+    }
+
+    public static String getBeaconListFileName() {
+        return Config.CONFIG_DIRS + "beacon_list_" + ChosenCharacter.getChosenCharacter() + ".json";
+    }
+
     public static void copyLootrunFiles() {
         copyFilesFromResources("corkusLootrun.json");
         copyFilesFromResources("seLootrun.json");
