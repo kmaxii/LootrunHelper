@@ -87,21 +87,14 @@ public class BeaconList implements Iterable<Beacon> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        for (Beacon beacon : beacons) {
+            if (beacon.beaconType == null)
+                beacons.remove(beacon);
+        }
     }
 
 
-
-    /* public static void main(String[] args) {
-         BeaconList beaconList = new BeaconList();
-         beaconList.add(new Beacon(new Vec3d(1, 2, 3), BeaconType.RED));
-         beaconList.add(new Beacon(new Vec3d(4, 5, 6), BeaconType.GREEN));
-         beaconList.saveToJsonFile();
-
-         BeaconList loadedBeaconList = new BeaconList();
-         loadedBeaconList.loadFromJsonFile();
-         System.out.println(loadedBeaconList.beacons);
-     }
- */
     @NotNull
     @Override
     public Iterator<Beacon> iterator() {
