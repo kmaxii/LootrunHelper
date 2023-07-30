@@ -5,6 +5,7 @@ import me.kmaxi.lootrunhelper.challenges.Challenge;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector2d;
 
@@ -20,6 +21,11 @@ public class Beacon {
     public boolean isVibrant;
 
 
+    public Beacon(Vec3d position, BeaconType beaconType) {
+        this.position = position;
+        this.beaconType = beaconType;
+        isVibrant = VibrantBeaconInfo.isVibrant(beaconType.toString());
+    }
     public Beacon(Vec3d position, BeaconType beaconType, boolean isVibrant) {
         this.position = position;
         this.beaconType = beaconType;
@@ -57,21 +63,20 @@ public class Beacon {
         return result;
     }
 
-    public BeaconType getBeaconType(Item item, int damage) {
+    public static BeaconType getBeaconType(Item item, int damage) {
 
-        if (!beaconItems.contains(item)){
-            System.out.println("Beacon type not found for " + item.toString() + " with durra: " + damage);
+
+        if (item == Items.GOLDEN_SHOVEL && damage == 25)
+            return BeaconType.GREEN;
+
+        if (!(item == Items.GOLDEN_PICKAXE)){
             return null;
 
         }
 
         switch(damage){
-            case 25:
-                return BeaconType.GREEN;
-
             case 3:
                 return BeaconType.YELLOW;
-
             case 4:
                 return BeaconType.BLUE;
 

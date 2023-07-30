@@ -51,7 +51,11 @@ public class BeaconHandler {
                 if (!beaconItems.contains(item))
                     continue;
 
-                Beacon beacon = new Beacon(armorStand.getPos(), helmet);
+                BeaconType beaconType = Beacon.getBeaconType(helmet.getItem(), helmet.getDamage());
+                if (beaconType == null)
+                    continue;
+
+                Beacon beacon = new Beacon(armorStand.getPos(), beaconType);
 
                 foundBeacons.add(beacon);
 
