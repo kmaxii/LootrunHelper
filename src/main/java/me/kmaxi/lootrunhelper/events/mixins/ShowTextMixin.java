@@ -55,7 +55,7 @@ public abstract class ShowTextMixin {
             return;
 
         int x = MinecraftClient.getInstance().getWindow().getScaledWidth() - 10;
-        int y = 10;
+        int y = MinecraftClient.getInstance().getWindow().getScaledHeight() -MinecraftClient.getInstance().getWindow().getScaledWidth()+10;
 
         String textToRender = BeaconDestinations.destinations;
         renderTextOnScreen(textToRender, x, y, 0xFFFFFF);
@@ -69,7 +69,7 @@ public abstract class ShowTextMixin {
 
         // Adjust y-coordinate for the second text to start below the first text
         y += totalHeight + SPACING_BETWEEN_LINES;
-        int y2 = 330;
+        int y2 = MinecraftClient.getInstance().getWindow().getScaledHeight() -(MinecraftClient.getInstance().getWindow().getScaledHeight()/5)*2;
         renderTextOnScreen(secondTextToRender, x, y2, 0xFFFFFF);
     }
 

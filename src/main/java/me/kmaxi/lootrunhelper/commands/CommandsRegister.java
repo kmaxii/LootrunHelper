@@ -16,5 +16,10 @@ public class CommandsRegister {
                     .literal("destinations")
                     .executes(ListBeaconDestinations::run));
         });
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            dispatcher.register(ClientCommandManager
+                    .literal("lootrunstats")
+                    .executes(ListStatsCommand::run));
+        });
     }
 }

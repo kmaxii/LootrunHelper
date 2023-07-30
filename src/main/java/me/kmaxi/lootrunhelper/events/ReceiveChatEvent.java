@@ -10,8 +10,6 @@ public class ReceiveChatEvent {
 
     public static void receivedChat(String message) {
 
-        System.out.println("Got message: " + message);
-
         if (message.startsWith("Select a character!")) {
             BeaconChecker.disable();
             BeaconChecker.stashCurrentBeacons();
@@ -53,7 +51,7 @@ public class ReceiveChatEvent {
         String substring = message.substring(message.indexOf("curses") + 6);
 
 
-
+/*
         while (substring.length() > 0) {
             if (substring.startsWith("+35%enemywalkspeed")) {
                 CurrentData.addEnemyWalkSpeedCurse(35);
@@ -66,7 +64,7 @@ public class ReceiveChatEvent {
                 continue;
             }
             if (substring.startsWith("+40%enemyhealth")) {
-                CurrentData.addEnemyDamageCurse(40);
+                CurrentData.addEnemyHealthCurse(40);
                 substring = substring.substring(substring.indexOf("+40%enemyhealth") + 15);
                 continue;
             }
@@ -79,7 +77,7 @@ public class ReceiveChatEvent {
                 CurrentData.addEnemyDamageCurse(30);
                 substring = substring.substring(substring.indexOf("+30%enemydamage") + 15);
             }
-        }
+        }*/
     }
 
 
