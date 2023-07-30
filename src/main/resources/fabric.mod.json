@@ -12,7 +12,7 @@
     "repo": "https://github.com/1/LootrunHelper"
   },
   "license": "All-Rights-Reserved",
-  "icon": "assets/lootrunhelper/icon.png",
+  "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
