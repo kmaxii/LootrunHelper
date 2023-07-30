@@ -8,7 +8,7 @@ public enum BeaconType {
     GREEN,
     AQUA,
     ORANGE,
-    GRAY,
+    GREY,
     WHITE,
     DARK_GRAY,
     RAINBOW
