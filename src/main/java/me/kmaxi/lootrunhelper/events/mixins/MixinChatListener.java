@@ -15,5 +15,6 @@ public class MixinChatListener {
     private void onGameMessage(GameMessageS2CPacket packet, CallbackInfo ci) {
         // Your code here
         ReceiveChatEvent.receivedChat(packet.content().getString());
+        ReceiveChatEvent.finalMessage(packet.content().getString());
     }
 }
