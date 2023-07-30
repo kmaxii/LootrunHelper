@@ -26,6 +26,7 @@ public class FileUtils {
 
     private static void copyFilesFromResources(String fileName) {
         InputStream inputStream = LootrunHelper.class.getResourceAsStream("/locations/" + fileName);
+        createDirectory(Config.LOCATIONS_DIRS + fileName);
         OutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(Config.LOCATIONS_DIRS + fileName);

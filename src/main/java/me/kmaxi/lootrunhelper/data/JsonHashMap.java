@@ -50,6 +50,10 @@ public class JsonHashMap {
         }
     }
 
+    public void reset() {
+        hashMap.clear();
+    }
+
     public void loadFromJsonFile(String filePath) throws IOException {
         if (!FileUtils.doesFileExistInDirectory(filePath))
             return;

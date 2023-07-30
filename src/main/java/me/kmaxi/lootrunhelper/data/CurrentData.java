@@ -38,7 +38,12 @@ public class CurrentData {
     }
 
     public static void resetFile(){
-
+        jsonHashMap.reset();
+        try {
+            jsonHashMap.saveToJsonFile(FileUtils.getDataFileName());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void addEnemyWalkSpeedCurse(int amount) {

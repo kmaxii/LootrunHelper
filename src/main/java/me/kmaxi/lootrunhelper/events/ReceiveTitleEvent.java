@@ -1,6 +1,7 @@
 package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
+import me.kmaxi.lootrunhelper.data.CurrentData;
 
 public class ReceiveTitleEvent {
 
@@ -51,7 +52,7 @@ public class ReceiveTitleEvent {
         BeaconChecker.disable();
         BeaconChecker.clearCurrentBeacons();
 
-
+        CurrentData.resetFile();
         BeaconChecker.activeDataSaver().sendDataToChat();
     }
 
