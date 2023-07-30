@@ -13,7 +13,6 @@ public class VibrantBeaconInfo {
     private static HashSet<String> vibrantBeacons = new HashSet<>();
 
     public static boolean isVibrant(String type) {
-        System.out.println("Checking if " + type.toLowerCase() + " is vibrant. Current vibrants are: " + vibrantBeacons);
         return vibrantBeacons.contains(type.toLowerCase());
     }
 
