@@ -55,7 +55,7 @@ public abstract class ShowTextMixin {
             return;
 
         int x = MinecraftClient.getInstance().getWindow().getScaledWidth() - 10;
-        int y = MinecraftClient.getInstance().getWindow().getScaledHeight() -MinecraftClient.getInstance().getWindow().getScaledWidth()+10;
+        int y = 10;
 
         String textToRender = BeaconDestinations.destinations;
         renderTextOnScreen(textToRender, x, y, 0xFFFFFF);

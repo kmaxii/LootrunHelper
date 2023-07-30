@@ -15,17 +15,18 @@ public class ListStatsCommand {
 
     public static int run(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
 
-        msg("§b"+
-                "Walk Speed Curse: " + getEnemyWalkSpeedCurse() +"\n" +
-                "Enemy Attackspeed Curse: " + getEnemyAttackSpeedCurse()+"\n" +
-                "Enemy Health Curse: " + getEnemyHealthCurse()+"\n" +
-                "Enemy Resistance Curse: " + getEnemyResistanceCurse()+"\n" +
-                "Enemy Damage Curse: " + getEnemyDamageCurse() +"\n" +
-                "Vibrant Count: " + getVibrantCount()+"\n" +
-                "Rerolls count: " + getRerollsCount()+"\n" +
-                "Pull count: "+ getPullsCount() +"\n" +
-                "Challanges from White: "+ getChallengesFromWhiteCount()+"\n" +
-                "Curse count: "+getCursesCount());
+        msg("§5§lCurses: " + "\n" +
+                "   §4§l!!!Curse stats currently not updating!!!" +"\n"+
+                "   §5Walk Speed Curse: §f" + getEnemyWalkSpeedCurse() + "§7%\n" +
+                "   §5Enemy Attackspeed Curse: §f" + getEnemyAttackSpeedCurse() + "§7%\n" +
+                "   §5Enemy Health Curse: §f" + getEnemyHealthCurse() + "§7\n" +
+                "   §5Enemy Resistance Curse: §f" + getEnemyResistanceCurse() + "§7%\n" +
+                "   §5Enemy Damage Curse: §f" + getEnemyDamageCurse() + "§7%\n" +
+                "   §5Curse count: §f" + getCursesCount()  + "\n"+
+                "   §eVibrant Count: §f" + getVibrantCount() + "\n" +
+                "   §ePull count: §f" + getPullsCount() + "\n" +
+                "   §8Rerolls count: §f" + getRerollsCount() + "\n" +
+                "   §f§lChallanges from White: §r§f" + getChallengesFromWhiteCount());
 
         return 1;
 
