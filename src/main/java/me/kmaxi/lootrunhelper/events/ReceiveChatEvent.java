@@ -10,7 +10,7 @@ public class ReceiveChatEvent {
 
     public static void receivedChat(String message) {
 
-        //System.out.println("Got message: " + message);
+        System.out.println("Got message: " + message);
 
         if (message.startsWith("Select a character!")) {
             BeaconChecker.disable();
@@ -38,10 +38,20 @@ public class ReceiveChatEvent {
         message = message.toLowerCase().replaceAll("[^abcdefghijklmnopqrstuvwxyz1234567890%+]", "");
         if (!message.startsWith("challengecompletednextbeaconswillappearsoon"))
             return;
-        System.out.println(message);
-        if (!message.contains("curse"))
-            return;
+
+        FinishedChallenge(message);
+    }
+
+    private static void FinishedChallenge(String message){
+
+        if (message.contains("curse"))
+            updateCurses(message);
+
+    }
+
+    private static void updateCurses(String message){
         String substring = message.substring(message.indexOf("curses") + 6);
+
 
 
         while (substring.length() > 0) {

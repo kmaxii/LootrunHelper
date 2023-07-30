@@ -9,8 +9,7 @@
     "MixinTitleListener",
     "ShowTextMixin",
     "GuiInteractMixin",
-    "GuiOpenListener",
-    "ScoreboardMixin"
+    "GuiOpenListener"
   ],
   "injectors": {
     "defaultRequire": 1

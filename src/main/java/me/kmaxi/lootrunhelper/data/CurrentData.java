@@ -37,6 +37,10 @@ public class CurrentData {
         }
     }
 
+    public static void resetFile(){
+
+    }
+
     public static void addEnemyWalkSpeedCurse(int amount) {
         jsonHashMap.add(ENEMY_WALK_SPEED, amount);
     }

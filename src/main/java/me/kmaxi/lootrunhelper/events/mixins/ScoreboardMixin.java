@@ -1,5 +1,6 @@
 package me.kmaxi.lootrunhelper.events.mixins;
 
+import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -21,7 +22,7 @@ public abstract class ScoreboardMixin {
         String playerName = packet.getPlayerName();
 
         int activeReds = CurrentData.getRedChallengeCount();
-        if (activeReds == 0 || !playerName.contains("Challenges:"))
+        if (activeReds == 0 || !playerName.contains("Challenges:") || playerName.contains("§c("))
             return;
 
         String objectiveName = packet.getObjectiveName();
@@ -31,6 +32,9 @@ public abstract class ScoreboardMixin {
 
         packet = new ScoreboardPlayerUpdateS2CPacket(packet.getUpdateMode(), objectiveName, playerName, packet.getScore());
 
+        //  MinecraftClient.getInstance().player.networkHandler.sendPacket(packet);
+
+        assert MinecraftClient.getInstance().player != null;
         NetworkThreadUtils.forceMainThread(packet, MinecraftClient.getInstance().player.networkHandler, MinecraftClient.getInstance());
         Scoreboard scoreboard = MinecraftClient.getInstance().world.getScoreboard();
         String string = packet.getObjectiveName();

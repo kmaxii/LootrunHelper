@@ -3,6 +3,7 @@ package me.kmaxi.lootrunhelper.beacon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.utils.ChosenCharacter;
 import me.kmaxi.lootrunhelper.utils.ColorUtils;
 import net.minecraft.client.MinecraftClient;
@@ -108,7 +109,7 @@ public class BeaconDataSaver {
         String finalText = "ERROR! WRONG KEY: §c" + key;
         switch (key) {
             case "RED":
-                finalText = "§cRED: §f" + beaconData.get(key) + "/10";
+                finalText = "§cRED: §f" + beaconData.get(key) + "/10 (§c" + CurrentData.getRedChallengeCount() + "§f)";
                 break;
             case "GREEN":
                 finalText = "§aGREEN: §f" + beaconData.get(key) + "/10";

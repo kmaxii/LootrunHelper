@@ -12,7 +12,6 @@ import static me.kmaxi.lootrunhelper.beacon.BeaconDataSaver.loadFromFile;
 public class BeaconChecker {
 
     private static boolean nextPrintChallengeInfo = false;
-
     public static void clearCurrentBeacons() {
         if (beaconList != null)
             beaconList.clear();
