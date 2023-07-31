@@ -3,6 +3,7 @@ package me.kmaxi.lootrunhelper.challenges;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import me.kmaxi.lootrunhelper.data.CurrentData;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import me.kmaxi.lootrunhelper.utils.Config;
 import me.kmaxi.lootrunhelper.utils.FileUtils;
 import net.minecraft.client.MinecraftClient;
@@ -29,7 +30,10 @@ public class ChallengesLoader {
         }
 
         int currentLrIndex = CurrentData.getCurrentLootrunIndex();
-        if (currentLrIndex != Integer.MAX_VALUE){
+
+        CodingUtils.msg("Current lr index: : " + currentLrIndex);
+
+        if (currentLrIndex != Integer.MAX_VALUE && currentLrIndex != -1 && currentLrIndex < FileUtils.lootrunIndexes.size()){
             challenges = getChallenges(FileUtils.lootrunIndexes.get(currentLrIndex));
             return challenges;
         }

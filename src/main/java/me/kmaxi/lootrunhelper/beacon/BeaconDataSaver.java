@@ -111,7 +111,7 @@ public class BeaconDataSaver {
         String finalText = "ERROR! WRONG KEY: §c" + key;
         switch (key) {
             case "RED":
-                finalText = "§cRED: §f" + beaconData.get(key) + "/10 (§c" + CurrentData.getRedChallengeCount() + "§f)";
+                finalText = "§cRED: §f" + beaconData.get(key) + "/10";
                 break;
             case "GREEN":
                 finalText = "§aGREEN: §f" + beaconData.get(key) + "/10";

@@ -16,17 +16,18 @@ public class ListStatsCommand {
 
     public static int run(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
 
-        msg("\n                                              §5§lCurses\n" +
-                "   §5Curse count: §f" + getCursesCount()+ "                       §5Walk Speed Curse: §f" + getEnemyWalkSpeedCurse() + "§7%\n" +
-                "   §5Attackspeed Curse: §f" + getEnemyAttackSpeedCurse() + "§7%" +"                       §5Health Curse: §f" + getEnemyHealthCurse() + "§7\n" +
-                "   §5Resistance Curse: §f" + getEnemyResistanceCurse() + "§7%" +"                       §5Damage Curse: §f" + getEnemyDamageCurse() + "§7%\n" +
-                "\n                                              §6§lRolls\n" +
-                "   §6Pull count: §f" + getPullsCount() + "                       §6Rerolls count: §f" + getRerollsCount() + "\n" +
-                "                       §6Effective pulls: §f" + getPullsCount()+getPullsCount()*getRerollsCount() + "\n" +
-                "\n                                              §3§lChallenge info\n" +
-                "   §bVibrant Count: §f" + getVibrantCount()  +"                       §bChallanges from White: §f" + getChallengesFromWhiteCount()+"\n" +
-                "\n                                              §4§lMobs Buffs\n" +
-                "   §cHealth from challanges: §f" + CurrentData.getEnemyHealthChallenge() +"                       §cDamage from challanges: §f" + CurrentData.getEnemyDamageChallenge() + "\n");
+        msg("\n                                 §5§lCurses\n" +
+                "      §5Curse count: §d" + getCursesCount()+ "                    §5Walk Speed Curse: §d" + getEnemyWalkSpeedCurse() + "§7%\n" +
+                "   §5Attackspeed Curse: §d" + getEnemyAttackSpeedCurse() + "§7%" +"                 §5Health Curse: §d" + getEnemyHealthCurse() + "§7%\n" +
+                "    §5Resistance Curse: §d" + getEnemyResistanceCurse() + "§7%" +"                 §5Damage Curse: §d" + getEnemyDamageCurse() + "§7%\n" +
+                "\n                               §4§lMob Buffs\n" +
+                "        §cHealth: §f" + CurrentData.getEnemyHealthChallenge() +"§7%                                §cDamage: §f" + CurrentData.getEnemyDamageChallenge() + "§7%" +
+
+                "\n                                  §6§lRolls\n" +
+                "        §6Pull count: §f" + getPullsCount() + "                       §6Rerolls count: §f" + getRerollsCount() + "\n" +
+                "      §6Effective pulls: §f" + getEffectivePulls() + "\n" +
+                "\n                            §3§lChallenge info\n" +
+                "   §bVibrants taken: §f" + getVibrantCount()  +"                     §bChallanges from White: §f" + getChallengesFromWhiteCount()+"\n");
 
         return 1;
 

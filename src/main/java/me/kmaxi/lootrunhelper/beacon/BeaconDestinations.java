@@ -30,8 +30,10 @@ public class BeaconDestinations {
 
     public static void onTick() {
 
-        if (updateWhenStandingStill.size() == 0)
+        if (updateWhenStandingStill.size() == 0 || MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null)
             return;
+
+
 
         Vec3d currentPos = MinecraftClient.getInstance().player.getPos();
 

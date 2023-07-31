@@ -8,7 +8,8 @@
     "MixinChatListener",
     "MixinTitleListener",
     "GuiInteractMixin",
-    "GuiOpenListener"
+    "GuiOpenListener",
+    "ScoreboardMixin"
   ],
   "injectors": {
     "defaultRequire": 1

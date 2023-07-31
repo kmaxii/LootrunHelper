@@ -1,4 +1,4 @@
-package me.kmaxi.lootrunhelper;
+package me.kmaxi.lootrunhelper.ui;
 
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.BeaconDestinations;
@@ -12,7 +12,7 @@ public class UIRenderer {
 
     private static final int SPACING_BETWEEN_LINES = 2;
 
-    private static void renderTextOnScreen(String text, int x, int y, int color) {
+    private static void renderTextOnScreen(String text, int x, int y, int color, TextRenderType textRenderType) {
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         MatrixStack matrixStack = new MatrixStack();
 
@@ -33,9 +33,15 @@ public class UIRenderer {
         // Render the text
         for (String line : lines) {
             int textWidth = textRenderer.getWidth(line);
-            int xOffset = maxWidth -  textWidth ; // Calculate the offset to center the line horizontally
-        //    textRenderer.drawWithShadow(matrixStack, Text.of(line), x + xOffset, y, color);
-            textRenderer.drawWithOutline(Text.of(line).asOrderedText(), x + xOffset, y, color, 0x000000, matrixStack.peek().getPositionMatrix(), vertexConsumers, 255);
+            int xOffset = maxWidth - textWidth; // Calculate the offset to center the line horizontally
+
+            switch (textRenderType) {
+                case NONE -> textRenderer.draw(matrixStack, Text.of(line), x + xOffset, y, color);
+                case SHADOW -> textRenderer.drawWithShadow(matrixStack, Text.of(line), x + xOffset, y, color);
+                case OUTLINE ->
+                        textRenderer.drawWithOutline(Text.of(line).asOrderedText(), x + xOffset, y, color, 0x000000, matrixStack.peek().getPositionMatrix(), vertexConsumers, 255);
+            }
+
             y += textRenderer.fontHeight + SPACING_BETWEEN_LINES;
         }
         textRenderer.drawWithOutline(Text.of("\ne").asOrderedText(), x + 10000, y, color, 0x000000, matrixStack.peek().getPositionMatrix(), vertexConsumers, 255);
@@ -50,7 +56,7 @@ public class UIRenderer {
         int y = 10;
 
         String textToRender = BeaconDestinations.destinations;
-        renderTextOnScreen(textToRender, x, y, 0xFFFFFF);
+        renderTextOnScreen(textToRender, x, y, 0xFFFFFF, TextRenderType.SHADOW);
 
         String secondTextToRender = BeaconChecker.activeDataSaver().getData();
 
@@ -61,7 +67,7 @@ public class UIRenderer {
 
         // Adjust y-coordinate for the second text to start below the first text
         y += totalHeight + SPACING_BETWEEN_LINES;
-        int y2 = MinecraftClient.getInstance().getWindow().getScaledHeight() -(MinecraftClient.getInstance().getWindow().getScaledHeight()/5)*2;
-        renderTextOnScreen(secondTextToRender, x, y2, 0xFFFFFF);
+        int y2 = MinecraftClient.getInstance().getWindow().getScaledHeight() - (MinecraftClient.getInstance().getWindow().getScaledHeight() / 5) * 2;
+        renderTextOnScreen(secondTextToRender, x, y2, 0xFFFFFF, TextRenderType.OUTLINE);
     }
 }
