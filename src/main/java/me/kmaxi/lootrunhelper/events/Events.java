@@ -48,7 +48,7 @@ public class Events {
         ignoreBeaconShowMessage = true;
         updateCurses(noColorMessage);
         BeaconChecker.activeDataSaver().updateString();
-        //DebuffTracker.updateDebuffs(noColorMessage);
+        DebuffTracker.updateDebuffs(noColorMessage);
     }
 
     /**
