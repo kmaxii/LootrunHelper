@@ -1,14 +1,7 @@
 package me.kmaxi.lootrunhelper.events;
 
-import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
-import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
-import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
-import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.utils.CodingUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.world.tick.SimpleTickScheduler;
 
-import static me.kmaxi.lootrunhelper.data.CursesTracker.updateCurses;
 import static me.kmaxi.lootrunhelper.events.Events.*;
 
 public class ReceiveChatEvent {
@@ -33,9 +26,8 @@ public class ReceiveChatEvent {
             onSwitchCharacterMessage();
             return;
         }
-        if(CodingUtils.removeColorCodes(message).startsWith("\n" +
-                "                          ÁÁChallenge Failed!")){
-            message = CodingUtils.removeColorCodes(message);
+        if (CodingUtils.removeColorCodes(message).startsWith("\n" +
+                "                          ÀÀChallenge Failed!")) {
             onChallengeFailed(message);
             return;
         }
@@ -48,11 +40,6 @@ public class ReceiveChatEvent {
 
         onChooseBeaconMessage(message);
     }
-
-
-
-
-
 
 
 }

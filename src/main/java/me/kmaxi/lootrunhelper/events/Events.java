@@ -5,16 +5,15 @@ import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
 import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.data.DebuffTracker;
-import me.kmaxi.lootrunhelper.utils.CodingUtils;
 
+import static me.kmaxi.lootrunhelper.data.CurrentData.addChallengesFailed;
 import static me.kmaxi.lootrunhelper.data.CursesTracker.updateCurses;
-import static me.kmaxi.lootrunhelper.data.CurrentData.*;
 
 public class Events {
 
     private static boolean ignoreBeaconShowMessage = false;
 
-    public static void lootrunStarted(){
+    public static void lootrunStarted() {
         BeaconChecker.activeDataSaver().clearData();
     }
 
@@ -32,24 +31,22 @@ public class Events {
         BeaconChecker.activeDataSaver().updateString();
     }
 
-    public static void enteredChallenge(){
+    public static void enteredChallenge() {
         BeaconChecker.PickClosestBeacon();
 
         BeaconChecker.disable();
 
         BeaconChecker.clearCurrentBeacons();
     }
-    public static void FinishedChallenge(String noColorMessage) {
 
-        System.out.println("Finished challenge");
+    public static void FinishedChallenge(String message) {
+
         CurrentData.finishedBeacon();
-        System.out.println("Saved data");
         BeaconChecker.enable();
-        System.out.println("");
         ignoreBeaconShowMessage = true;
-        updateCurses(noColorMessage);
+        updateCurses(message);
         BeaconChecker.activeDataSaver().updateString();
-        DebuffTracker.updateDebuffs(noColorMessage);
+        DebuffTracker.updateDebuffs(message);
     }
     public static void onChallengeFailed(String noColorMessage) {
         addChallengesFailed();
@@ -59,7 +56,7 @@ public class Events {
     /**
      * Called when the lootrun is completed and when the player fails it
      */
-    public static void lootrunCompleted(){
+    public static void lootrunCompleted() {
         BeaconChecker.disable();
         BeaconChecker.clearCurrentBeacons();
 
