@@ -158,6 +158,10 @@ public class CurrentData {
         return jsonHashMap.get(PULLS_COUNT);
     }
 
+    public static int getEffectivePulls(){
+        return getPullsCount() + getPullsCount()  * getRerollsCount();
+    }
+
 
     private static void addChallengesFromWhite(int amount) {
         jsonHashMap.add(CHALLENGES_FROM_WHITE, amount);
