@@ -33,11 +33,18 @@ public class ReceiveChatEvent {
             onSwitchCharacterMessage();
             return;
         }
+        if(CodingUtils.removeColorCodes(message).startsWith(" \n" +
+                "                          ÁÁChallenge Failed!")){
+            message = CodingUtils.removeColorCodes(message);
+            onChallengeFailed(message);
+            return;
+        }
 
         if (!message.startsWith("\n" +
                 "§7§r                         ÀÀ§6§lChoose a Beacon!")) {
             return;
         }
+
 
         onChooseBeaconMessage(message);
     }

@@ -185,7 +185,7 @@ public class CurrentData {
     }
 
 
-    private static void addChallengesFailed() {
+    public static void addChallengesFailed() {
         jsonHashMap.add(CHALLENGES_FAILED_COUNT);
     }
 
