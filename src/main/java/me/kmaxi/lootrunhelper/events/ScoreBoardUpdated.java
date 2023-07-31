@@ -1,12 +1,14 @@
 package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.data.CurrentData;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.packet.s2c.play.ScoreboardPlayerUpdateS2CPacket;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.scoreboard.ScoreboardPlayerScore;
+import net.minecraft.scoreboard.ServerScoreboard;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.HashMap;
@@ -26,6 +28,8 @@ public class ScoreBoardUpdated {
 
         if (realToMyMessage.containsKey(playerName)) {
             playerName = realToMyMessage.get(playerName);
+        } else if (packet.getUpdateMode() == ServerScoreboard.UpdateMode.REMOVE) {
+            playerName = packet.getPlayerName();
         } else {
             String newPlayerName = playerName + " §c(" + activeReds + ")";
             realToMyMessage.put(playerName, newPlayerName);
