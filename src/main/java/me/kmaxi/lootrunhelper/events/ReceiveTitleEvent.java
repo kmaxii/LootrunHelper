@@ -4,6 +4,8 @@ import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 
+import static me.kmaxi.lootrunhelper.events.Events.*;
+
 public class ReceiveTitleEvent {
 
     /**
@@ -45,26 +47,6 @@ public class ReceiveTitleEvent {
 
     }
 
-    private static void lootrunStarted(){
-        BeaconChecker.activeDataSaver().clearData();
-    }
-
-    private static void lootrunCompleted(){
-        BeaconChecker.disable();
-        BeaconChecker.clearCurrentBeacons();
-
-        CurrentData.resetFile();
-        BeaconChecker.activeDataSaver().sendDataToChat();
-        ChallengesLoader.clearSavedList();
-    }
-
-    private static void enteredChallenge(){
-        BeaconChecker.PickClosestBeacon();
-
-        BeaconChecker.disable();
-
-        BeaconChecker.clearCurrentBeacons();
-    }
 
     private static boolean isChallengeTitle(String title){
         return title.equalsIgnoreCase("spelunk!")

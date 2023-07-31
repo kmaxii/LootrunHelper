@@ -20,7 +20,7 @@ public class BeaconChecker {
         BeaconDestinations.destinations = "";
     }
 
-    public static void stashCurrentBeacons() {
+    public static void setBeaconListToNull() {
         if (beaconList != null)
             beaconList = null;
     }
@@ -77,6 +77,9 @@ public class BeaconChecker {
 
         if (tickCounter % checkDelay == 0) {
             tickCounter = 0;
+
+            BeaconChecker.activeDataSaver().updateString();
+
             if (MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null)
                 return;
 

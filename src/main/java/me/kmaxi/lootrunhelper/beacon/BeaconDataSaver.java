@@ -19,6 +19,8 @@ public class BeaconDataSaver {
 
     private String fileName;
 
+    private static String beaconDataString = "";
+
     public BeaconDataSaver(String fileName) {
         beaconData = new HashMap<>();
         initializeBeaconData();
@@ -88,21 +90,21 @@ public class BeaconDataSaver {
     }
 
     public String getData() {
+        return beaconDataString;
+    }
+
+    public void updateString(){
         if (beaconData == null) {
-            return "ERROR! BEACON DATA WAS NULL!!";
+            return;
         }
-
-
 
         StringBuilder stringBuilder = new StringBuilder();
 
         ColorUtils.getColorStream().forEach(color -> {
             stringBuilder.append(getFormattedData(color)).append("\n");
-
         });
 
-
-        return stringBuilder.toString();
+        beaconDataString = stringBuilder.toString();
     }
 
     private String getFormattedData(String key) {

@@ -9,12 +9,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.world.tick.SimpleTickScheduler;
 
 import static me.kmaxi.lootrunhelper.data.CursesTracker.updateCurses;
+import static me.kmaxi.lootrunhelper.events.Events.*;
 
 public class ReceiveChatEvent {
 
     private static boolean ignoreDupes;
 
-    private static boolean ignoreBeaconShowMessage = false;
 
     public static void receivedChat(String message) {
         if (ignoreDupes) {
@@ -42,35 +42,10 @@ public class ReceiveChatEvent {
         onChooseBeaconMessage(message);
     }
 
-    private static void onSwitchCharacterMessage() {
-        BeaconChecker.disable();
-        BeaconChecker.stashCurrentBeacons();
-        ChallengesLoader.clearSavedList();
-    }
-
-    private static void onChooseBeaconMessage(String message) {
-        VibrantBeaconInfo.clear();
-        VibrantBeaconInfo.updateFromChatMessage(message);
-
-        if (ignoreBeaconShowMessage) {
-            ignoreBeaconShowMessage = false;
-            return;
-        }
-        CurrentData.loadFromFile();
-
-        BeaconChecker.enable();
-    }
 
 
-    private static void FinishedChallenge(String noColorMessage) {
 
-        CodingUtils.msg("Challenge finished!");
-        CurrentData.finishedBeacon();
-        BeaconChecker.enable();
-        ignoreBeaconShowMessage = true;
-        updateCurses(noColorMessage);
 
-    }
 
 
 }
