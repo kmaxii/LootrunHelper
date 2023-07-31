@@ -13,7 +13,7 @@ public class ReceiveTitleEvent {
     public static void receivedTitle(String title){
         title = title.toLowerCase().replaceAll("[^abcdefghijklmnopqrstuvwxyz?.! /]", "");
 
-        System.out.println("Title: " + title);
+        //System.out.println("Title: " + title);
 
         if (title.contains("prepare to lootrun")){
             ignoreDupe = false;

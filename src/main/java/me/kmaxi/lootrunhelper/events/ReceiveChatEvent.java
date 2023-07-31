@@ -14,11 +14,20 @@ import static me.kmaxi.lootrunhelper.utils.CodingUtils.removeColorCodes;
 
 public class ReceiveChatEvent {
 
-    private static boolean ignoreDupe;
+    private static boolean ignoreDupes;
 
     private static boolean ignoreBeaconShowMessage = false;
 
     public static void receivedChat(String message) {
+
+        System.out.println("Message: " + message);
+        if (ignoreDupes){
+            ignoreDupes = false;
+            return;
+        }
+        ignoreDupes = true;
+
+
         finalMessage(message);
 
         if (message.startsWith("Select a character!")) {
@@ -30,7 +39,6 @@ public class ReceiveChatEvent {
 
         if (!message.startsWith("\n" +
                 "§7§r                         ÀÀ§6§lChoose a Beacon!")) {
-            ignoreDupe = false;
             return;
         }
 
@@ -51,8 +59,7 @@ public class ReceiveChatEvent {
     }
     public static void finalMessage(String message) {
 
-        String noColorMessage = removeColorCodes(message);
-        if (!noColorMessage.startsWith("                       ÀÀÀChallenge Completed")) {
+        if (!message.startsWith("\n                       ÀÀÀChallenge Completed")) {
             return;
         }
         FinishedChallenge(message);
@@ -65,7 +72,8 @@ public class ReceiveChatEvent {
         ignoreBeaconShowMessage = true;
 
 
-        CursesTracker.updateCurses(noColorMessage);
+
+        BeaconChecker.enable();
     }
 
 

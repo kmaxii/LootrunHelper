@@ -13,6 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinChatListener {
     @Inject(method = "onGameMessage", at = @At("HEAD"))
     private void onGameMessage(GameMessageS2CPacket packet, CallbackInfo ci) {
+
+        if (packet.overlay())
+            return;
         // Your code here
         ReceiveChatEvent.receivedChat(packet.content().getString());
     }
