@@ -39,8 +39,8 @@ public class ReceiveChatEvent {
             return;
         }
         CurrentData.loadFromFile();
-        if (!BeaconChecker.isEnabled())
-            BeaconChecker.enable();
+
+        BeaconChecker.enable();
     }
     public static void finalMessage(String message) {
 
