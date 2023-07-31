@@ -52,7 +52,8 @@ public class ReceiveChatEvent {
     public static void finalMessage(String message) {
 
         String noColorMessage = removeColorCodes(message);
-        if (!noColorMessage.startsWith("                       ÀÀÀChallenge Completed")) {
+        if (!noColorMessage.startsWith("\n" +
+                "                       ÀÀÀChallenge Completed")) {
             return;
         }
         FinishedChallenge(message);
