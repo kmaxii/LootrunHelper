@@ -4,15 +4,13 @@ import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import static me.kmaxi.lootrunhelper.utils.CodingUtils.removeColorCodes;
 
 public class ReceiveChatEvent {
 
     private static boolean ignoreDupe;
+
+    private static boolean ignoreBeaconShowMessage = false;
 
     public static void receivedChat(String message) {
 
@@ -29,13 +27,21 @@ public class ReceiveChatEvent {
             return;
         }
 
+        onChooseBeaconMessage(message);
+    }
+
+    private static void onChooseBeaconMessage(String message){
         VibrantBeaconInfo.clear();
         VibrantBeaconInfo.updateFromChatMessage(message);
 
+        if (ignoreBeaconShowMessage){
+            ignoreBeaconShowMessage = false;
+            return;
+        }
         CurrentData.loadFromFile();
-        BeaconChecker.enable();
+        if (!BeaconChecker.isEnabled())
+            BeaconChecker.enable();
     }
-
     public static void finalMessage(String message) {
 
         String noColorMessage = removeColorCodes(message);
@@ -47,6 +53,9 @@ public class ReceiveChatEvent {
 
     private static void FinishedChallenge(String noColorMessage) {
 
+        CurrentData.finishedBeacon();
+        BeaconChecker.enable();
+        ignoreBeaconShowMessage = true;
 
         if (!noColorMessage.contains("ÀCurses")) {
             return;
@@ -56,7 +65,7 @@ public class ReceiveChatEvent {
 
     private static void updateCurses(String noColorMessage) {
 
-        String noColorMessageSubstring = noColorMessage.substring(noColorMessage.indexOf("ÀCurses")+8);
+        String noColorMessageSubstring = noColorMessage.substring(noColorMessage.indexOf("ÀCurses") + 8);
         System.out.println(noColorMessageSubstring);
         /*                       ÀÀÀChallenge Completed
                   ÀÀÀNext beacons will appear soon!
@@ -85,6 +94,7 @@ public class ReceiveChatEvent {
                          ÀÀÀ[+40% Enemy Health]*/
 
     }
+
     /*public static String[] extractWordsAfterCurses(String input){
         List<String> words = new ArrayList<>();
         Pattern pattern = Pattern.compile("Curses\n")

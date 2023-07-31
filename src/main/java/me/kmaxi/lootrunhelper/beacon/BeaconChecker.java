@@ -12,6 +12,7 @@ import static me.kmaxi.lootrunhelper.beacon.BeaconDataSaver.loadFromFile;
 public class BeaconChecker {
 
     private static boolean nextPrintChallengeInfo = false;
+
     public static void clearCurrentBeacons() {
         if (beaconList != null)
             beaconList.clear();
@@ -19,13 +20,15 @@ public class BeaconChecker {
         BeaconDestinations.destinations = "";
     }
 
-    public static void stashCurrentBeacons(){
+    public static void stashCurrentBeacons() {
         if (beaconList != null)
             beaconList = null;
     }
+
     public static void enable() {
         enabled = true;
         nextPrintChallengeInfo = true;
+        updateBeacons();
     }
 
     public static void disable() {
@@ -52,7 +55,7 @@ public class BeaconChecker {
     private static BeaconDataSaver dataSaver;
 
 
-    public static void clearDataSaver(){
+    public static void clearDataSaver() {
         dataSaver = null;
     }
 
@@ -73,19 +76,11 @@ public class BeaconChecker {
 
         if (tickCounter % checkDelay == 0) {
             tickCounter = 0;
-
-            if (MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null) {
-                System.out.println("MINECRAFT CLIENT OR PLAYER IS NULL");
+            if (MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null)
                 return;
-            }
 
-            checkBeacons();
+            updateBeacons();
 
-            saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
-            if (nextPrintChallengeInfo) {
-                ListBeaconDestinations.run(null);
-                nextPrintChallengeInfo = false;
-            }
         }
 
         if (beaconList == null || beaconList.size() == 0) {
@@ -93,8 +88,18 @@ public class BeaconChecker {
         }
 
         BeaconDestinations.updateDistances();
+    }
 
+    public static void updateBeacons() {
 
+        checkBeacons();
+
+        saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
+
+        if (nextPrintChallengeInfo) {
+            ListBeaconDestinations.run(null);
+            nextPrintChallengeInfo = false;
+        }
     }
 
     public static void PickClosestBeacon() {
@@ -143,7 +148,7 @@ public class BeaconChecker {
         HashSet<Beacon> beacons = BeaconHandler.getBeacons();
 
 
-        if (beacons == null)     {
+        if (beacons == null) {
             System.out.println("Beacons is null");
             return;
         }
@@ -165,7 +170,7 @@ public class BeaconChecker {
         //Our current beacons are smaller than what we had before, must be close to a challenge
         //So find what beacons are not in the new list and add their latest location
         if (beacons.size() < beaconList.size()) {
-           for (Beacon beacon : beaconList) {
+            for (Beacon beacon : beaconList) {
                 boolean foundSameType = false;
                 for (Beacon newBeacon : beacons) {
                     if (beacon.beaconType == newBeacon.beaconType) {
