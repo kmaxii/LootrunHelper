@@ -24,6 +24,7 @@ import static me.kmaxi.lootrunhelper.utils.CodingUtils.msg;
 public class LootrunHelper implements ModInitializer {
     public static KeyBinding cordsChecker;
 
+    public static boolean scoreboardPacketInterupt;
     @Override
     public void onInitialize() {
         FileUtils.copyLootrunFiles();
@@ -43,8 +44,9 @@ public class LootrunHelper implements ModInitializer {
         ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (cordsChecker.wasPressed()) {
-                System.out.println("Beacon location: " + BeaconChecker.closestBeacon.position);
-                msg("§6Beacon location §clogged");
+                scoreboardPacketInterupt = !scoreboardPacketInterupt;
+                msg("Scoreboard Packet Interupt: " + scoreboardPacketInterupt);
+
             }
         });
 

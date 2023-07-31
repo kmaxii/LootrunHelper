@@ -40,13 +40,15 @@ public class Events {
     }
     public static void FinishedChallenge(String noColorMessage) {
 
-        CodingUtils.msg("Challenge finished!");
+        System.out.println("Finished challenge");
         CurrentData.finishedBeacon();
+        System.out.println("Saved data");
         BeaconChecker.enable();
+        System.out.println("");
         ignoreBeaconShowMessage = true;
         updateCurses(noColorMessage);
         BeaconChecker.activeDataSaver().updateString();
-        DebuffTracker.updateDebuffs(noColorMessage);
+        //DebuffTracker.updateDebuffs(noColorMessage);
     }
 
     /**
@@ -65,6 +67,8 @@ public class Events {
         BeaconChecker.disable();
         BeaconChecker.setBeaconListToNull();
         ChallengesLoader.clearSavedList();
+        CurrentData.clearCurrent();
+
     }
 
 

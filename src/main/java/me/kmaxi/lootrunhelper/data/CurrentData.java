@@ -31,6 +31,19 @@ public class CurrentData {
 
     private static Beacon currentBacon;
 
+    public static void saveJson(){
+        try {
+            jsonHashMap.saveToJsonFile(FileUtils.getDataFileName());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static void clearCurrent(){
+        saveJson();
+        jsonHashMap.reset();
+    }
 
     public static void loadFromFile(){
         try {
@@ -253,13 +266,11 @@ public class CurrentData {
         if (clearAqua)
             clearAquaStreak();
 
-        try {
-            jsonHashMap.saveToJsonFile(FileUtils.getDataFileName());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+       saveJson();
 
     }
+
+
 
     private static void finishedGray(boolean isVibrant) {
         addRerolls(calculateEffect(1, isVibrant));
