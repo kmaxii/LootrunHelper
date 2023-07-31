@@ -1,7 +1,7 @@
 package me.kmaxi.lootrunhelper.beacon;
 
-import me.kmaxi.lootrunhelper.utils.ColorUtils;
 import me.kmaxi.lootrunhelper.challenges.Challenge;
+import me.kmaxi.lootrunhelper.utils.ColorUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,8 +10,6 @@ import net.minecraft.util.math.Vec3d;
 import org.joml.Vector2d;
 
 import java.util.List;
-
-import static me.kmaxi.lootrunhelper.beacon.BeaconHandler.beaconItems;
 
 public class Beacon {
 
@@ -26,11 +24,13 @@ public class Beacon {
         this.beaconType = beaconType;
         isVibrant = VibrantBeaconInfo.isVibrant(beaconType.toString());
     }
+
     public Beacon(Vec3d position, BeaconType beaconType, boolean isVibrant) {
         this.position = position;
         this.beaconType = beaconType;
         this.isVibrant = isVibrant;
     }
+
     public Beacon(Vec3d position, ItemStack itemStack) {
         this.position = position;
         this.beaconType = getBeaconType(itemStack.getItem(), itemStack.getDamage());
@@ -69,12 +69,12 @@ public class Beacon {
         if (item == Items.GOLDEN_SHOVEL && damage == 25)
             return BeaconType.GREEN;
 
-        if (!(item == Items.GOLDEN_PICKAXE)){
+        if (!(item == Items.GOLDEN_PICKAXE)) {
             return null;
 
         }
 
-        switch(damage){
+        switch (damage) {
             case 3:
                 return BeaconType.YELLOW;
             case 4:
@@ -108,6 +108,7 @@ public class Beacon {
         System.out.println("Beacon type not found for " + item.toString() + " with durra: " + damage);
         return null;
     }
+
     private static boolean sameCords(Vec3d v1, Vec3d v2) {
         return v1.x == v2.x && v1.z == v2.z;
     }

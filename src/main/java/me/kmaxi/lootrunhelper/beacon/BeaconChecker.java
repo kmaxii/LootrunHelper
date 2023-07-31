@@ -30,6 +30,7 @@ public class BeaconChecker {
 
     public static void disable() {
         enabled = false;
+        BeaconDestinations.resetDistances();
     }
 
     public static boolean isEnabled() {
@@ -65,6 +66,8 @@ public class BeaconChecker {
 
         if (!enabled)
             return;
+        BeaconDestinations.onTick();
+
 
         tickCounter++;
 
@@ -151,6 +154,8 @@ public class BeaconChecker {
         if (beacons.size() == 0) {
             return;
         }
+
+        BeaconDestinations.updateBeacons(beacons);
 
         if (beaconList == null) {
             beaconList = new BeaconList(beacons);

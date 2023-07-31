@@ -14,7 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Box;
-
+import net.minecraft.util.math.Vec3d;
 
 
 import java.util.Arrays;
@@ -61,9 +61,13 @@ public class BeaconHandler {
                 if (armorStand.getPos().y < lowestYCord)
                     lowestYCord = (armorStand.getPos().y);
 
-                CodingUtils.msg("Lowest y cord:"  + lowestYCord);
+                Vec3d beaconPos = armorStand.getPos();
 
-                Beacon beacon = new Beacon(armorStand.getPos(), beaconType);
+                Beacon beacon = new Beacon(beaconPos, beaconType);
+
+                if (endsWithPointFive(beaconPos.x) && endsWithPointFive(beaconPos.y)){
+                    BeaconDestinations.beaconDestinationClose(beacon, beaconPos);
+                }
 
                 foundBeacons.add(beacon);
 
@@ -77,5 +81,11 @@ public class BeaconHandler {
     }
 
 
+    public static boolean endsWithPointFive(double number) {
+        double decimalPart = number % 1.0; // Get the decimal part of the number
+
+        // Check if the decimal part is exactly 0.5 (within a small epsilon for floating-point comparison)
+        return Math.abs(decimalPart - 0.5) < 1e-6;
+    }
 
 }
