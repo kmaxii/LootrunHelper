@@ -37,22 +37,24 @@ public class ReceiveChatEvent {
     }
 
     public static void finalMessage(String message) {
-        FinishedChallenge(message);
-    }
 
-    private static void FinishedChallenge(String message) {
         String noColorMessage = removeColorCodes(message);
         if (!noColorMessage.startsWith("                       ÀÀÀChallenge Completed")) {
             return;
         }
+        FinishedChallenge(message);
+    }
+
+    private static void FinishedChallenge(String noColorMessage) {
+
 
         if (!noColorMessage.contains("ÀCurses")) {
             return;
         }
-        updateCurses(message, noColorMessage);
+        updateCurses(noColorMessage);
     }
 
-    private static void updateCurses(String message, String noColorMessage) {
+    private static void updateCurses(String noColorMessage) {
 
         String noColorMessageSubstring = noColorMessage.substring(noColorMessage.indexOf("ÀCurses")+8);
         System.out.println(noColorMessageSubstring);
