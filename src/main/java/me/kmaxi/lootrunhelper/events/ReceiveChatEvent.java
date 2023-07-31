@@ -4,7 +4,11 @@ import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.data.CursesTracker;
-import me.kmaxi.lootrunhelper.utils.CodingUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static me.kmaxi.lootrunhelper.utils.CodingUtils.removeColorCodes;
 
@@ -16,42 +20,27 @@ public class ReceiveChatEvent {
 
     public static void receivedChat(String message) {
 
-        if (ignoreDupe){
-            ignoreDupe = false;
-            return;
-        }
-        ignoreDupe = true;
-
-        String noColorMessage = removeColorCodes(message);
-        if (noColorMessage.startsWith("                       ÀÀÀChallenge Completed")) {
-            FinishedChallenge(message);
-        }
-
-
         if (message.startsWith("Select a character!")) {
             BeaconChecker.disable();
             BeaconChecker.stashCurrentBeacons();
-
-            System.out.println("Showed select character");
 
             return;
         }
 
         if (!message.startsWith("\n" +
                 "§7§r                         ÀÀ§6§lChoose a Beacon!")) {
+            ignoreDupe = false;
             return;
         }
 
         onChooseBeaconMessage(message);
     }
 
-    private static void onChooseBeaconMessage(String message) {
+    private static void onChooseBeaconMessage(String message){
         VibrantBeaconInfo.clear();
         VibrantBeaconInfo.updateFromChatMessage(message);
 
-        CodingUtils.msg("Choose a beacon!");
-
-        if (ignoreBeaconShowMessage) {
+        if (ignoreBeaconShowMessage){
             ignoreBeaconShowMessage = false;
             return;
         }
@@ -59,7 +48,14 @@ public class ReceiveChatEvent {
 
         BeaconChecker.enable();
     }
+    public static void finalMessage(String message) {
 
+        String noColorMessage = removeColorCodes(message);
+        if (!noColorMessage.startsWith("                       ÀÀÀChallenge Completed")) {
+            return;
+        }
+        FinishedChallenge(message);
+    }
 
     private static void FinishedChallenge(String noColorMessage) {
 
@@ -68,8 +64,9 @@ public class ReceiveChatEvent {
         ignoreBeaconShowMessage = true;
 
 
-     //   CursesTracker.updateCurses(noColorMessage);
+        CursesTracker.updateCurses(noColorMessage);
     }
+
 
 
 }
