@@ -69,8 +69,6 @@ public class Events {
         BeaconChecker.disable();
         BeaconChecker.setBeaconListToNull();
         ChallengesLoader.clearSavedList();
-        CurrentData.clearCurrent();
-
     }
 
 
