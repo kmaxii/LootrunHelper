@@ -14,8 +14,8 @@ public class CursesTracker {
             return;
         }
 
-        String noColorMessageSubstring = noColorMessage.substring(noColorMessage.indexOf("ÀCurses") + 8);
-        System.out.println(getCurseFromText(noColorMessageSubstring));
+
+        System.out.println(getCurseFromText(noColorMessage));
         /*                       ÀÀÀChallenge Completed
                   ÀÀÀNext beacons will appear soon!
 
@@ -44,23 +44,20 @@ public class CursesTracker {
 
     }
 
-    /*public static String[] extractWordsAfterCurses(String input){
+    public static String[] getCurseFromText(String input) {
         List<String> words = new ArrayList<>();
-        Pattern pattern = Pattern.compile("Curses\n")
-    }*/
-    public static String[] getCurseFromText(String input){
-        List<String> words = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\d+");
+        Pattern pattern = Pattern.compile("ÀCurses\\s+\\[\\+(\\d+)%");
         Matcher matcher = pattern.matcher(input);
         while (matcher.find()) {
-            words.add(matcher.group());
+            words.add(matcher.group(1));
+            System.out.println(matcher.group(1));
         }
         return words.toArray(new String[0]);
     }
 
 
     public static void main(String[] args) {
-        finalMessage("                       ÀÀÀChallenge Completed\n" +
+        /*finalMessage("                       ÀÀÀChallenge Completed\n" +
                 "                  ÀÀÀNext beacons will appear soon!\n" +
                 "\n" +
                 "                          ÀÀ[+15% Mob Damage]\n" +
@@ -85,6 +82,49 @@ public class CursesTracker {
                 "                         [+30% Enemy Damage]\n" +
                 "                         [+30% Enemy Damage]\n" +
                 "                         ÀÀÀ[+40% Enemy Health]");
+    */
+
+        String input = "ÀÀÀChallenge Completed\n" +
+                "ÀÀÀNext beacons will appear soon!\n" +
+                "\n" +
+                "ÀÀ[+15% Mob Damage]\n" +
+                "À[+50% Mob Health]\n" +
+                "\n" +
+                "ÀCurses\n" +
+                "ÀÀÀ[+35% Enemy Walk Speed]\n" +
+                "ÀÀÀ[+15% Enemy Resistance]\n" +
+                "[+25% Enemy Attack Speed]\n" +
+                "ÀÀÀ[+35% Enemy Walk Speed]\n" +
+                "ÀÀÀ[+35% Enemy Walk Speed]\n" +
+                "ÀÀÀ[+15% Enemy Resistance]\n" +
+                "ÀÀÀ[+15% Enemy Resistance]\n" +
+                "ÀÀÀ[+35% Enemy Walk Speed]\n" +
+                "ÀÀÀ[+40% Enemy Health]\n" +
+                "[+30% Enemy Damage]\n" +
+                "ÀÀÀ[+40% Enemy Health]\n" +
+                "ÀÀÀ[+40% Enemy Health]\n" +
+                "ÀÀÀ[+40% Enemy Health]\n" +
+                "ÀÀÀ[+40% Enemy Health]\n" +
+                "[+30% Enemy Damage]\n" +
+                "[+30% Enemy Damage]\n" +
+                "[+30% Enemy Damage]\n" +
+                "ÀÀÀ[+40% Enemy Health]";
+
+        List<Integer> cursesNumbers = extractCursesNumbers(input);
+        System.out.println(cursesNumbers);
     }
 
+    public static List<Integer> extractCursesNumbers(String input) {
+        List<Integer> numbers = new ArrayList<>();
+        Pattern pattern = Pattern.compile("curse.*?\\[\\+(\\d+)%\\]");
+        Matcher matcher = pattern.matcher(input);
+
+        while (matcher.find()) {
+            String numberStr = matcher.group(1);
+            int number = Integer.parseInt(numberStr);
+            numbers.add(number);
+        }
+
+        return numbers;
+    }
 }
