@@ -19,6 +19,7 @@ public class ReceiveChatEvent {
     private static boolean ignoreBeaconShowMessage = false;
 
     public static void receivedChat(String message) {
+        finalMessage(message);
 
         if (message.startsWith("Select a character!")) {
             BeaconChecker.disable();
