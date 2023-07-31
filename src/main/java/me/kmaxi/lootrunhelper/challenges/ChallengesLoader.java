@@ -28,15 +28,13 @@ public class ChallengesLoader {
         if (challenges != null) {
             return challenges;
         }
-
+/*
         int currentLrIndex = CurrentData.getCurrentLootrunIndex();
-
-        CodingUtils.msg("Current lr index: : " + currentLrIndex);
 
         if (currentLrIndex != Integer.MAX_VALUE && currentLrIndex != -1 && currentLrIndex < FileUtils.lootrunIndexes.size()){
             challenges = getChallenges(FileUtils.lootrunIndexes.get(currentLrIndex));
             return challenges;
-        }
+        }*/
 
         String fileName = findClosestLocationName(MinecraftClient.getInstance().player.getPos()) + ".json";
         CurrentData.setCurrentLootrunIndex(FileUtils.lootrunIndexes.indexOf(fileName));
@@ -105,9 +103,6 @@ public class ChallengesLoader {
                 challenges.add(challenge);
             }
 
-            for (Challenge challenge : challenges) {
-                System.out.println(challenge);
-            }
 
             return challenges;
 
