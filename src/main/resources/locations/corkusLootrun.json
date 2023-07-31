@@ -36,7 +36,7 @@
     "type": "protect"
   },
   "Avos Animated Totem": {
-    "x": -1758,
+    "x": -1758.5,
     "y": 35,
     "z": -2499.5,
     "type": "spelunk"
@@ -54,9 +54,9 @@
     "type": "slay"
   },
   "Corkus Quarry": {
-    "x": -1364,
+    "x": -1364.5,
     "y": 93,
-    "z": -2735,
+    "z": -2735.5,
     "type": "spelunk"
   },
   "Junk Pit": {
