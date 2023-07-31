@@ -156,7 +156,6 @@ public class BeaconChecker {
             return;
         }
 
-        System.out.println("Beacons found: " + beacons.size());
 
         //Must have entered a challenge or classed
         if (beacons.size() == 0) {

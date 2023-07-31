@@ -3,7 +3,6 @@ package me.kmaxi.lootrunhelper.beacon;
 import me.kmaxi.lootrunhelper.challenges.Challenge;
 import me.kmaxi.lootrunhelper.challenges.ChallengeBeaconInfo;
 import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
-import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
@@ -32,7 +31,6 @@ public class BeaconDestinations {
 
         if (updateWhenStandingStill.size() == 0 || MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null)
             return;
-
 
 
         Vec3d currentPos = MinecraftClient.getInstance().player.getPos();
@@ -76,10 +74,8 @@ public class BeaconDestinations {
         }
     }
 
-    private static Challenge getChallengeAtPos(Vec3d pos){
+    private static Challenge getChallengeAtPos(Vec3d pos) {
 
-
-        System.out.println("Pos of beacon:" + pos);
         var challenges = ChallengesLoader.loadRightChallenges();
 
         for (var challenge : challenges) {
@@ -151,7 +147,7 @@ public class BeaconDestinations {
                     .append("§r;§n ") //of type
                     .append(beaconInfo.challenge.getType())
                     .append(". §l")
-                    .append((int)Math.sqrt(distanceToChallenge))
+                    .append((int) Math.sqrt(distanceToChallenge))
                     .append("§rm.")
                     .append("\n");
         }
@@ -188,6 +184,7 @@ public class BeaconDestinations {
 
         return (int) challengePos.squaredDistanceTo(playerPos);
     }
+
     private static int getChallengeDistance(Challenge challenge) {
 
         Vec3d challengePos = new Vec3d(challenge.getX(), challenge.getY(), challenge.getZ());
