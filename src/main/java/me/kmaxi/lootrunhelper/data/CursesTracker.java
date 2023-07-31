@@ -1,11 +1,12 @@
 package me.kmaxi.lootrunhelper.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-import static me.kmaxi.lootrunhelper.events.ReceiveChatEvent.finalMessage;
 
 public class CursesTracker {
 
@@ -110,8 +111,11 @@ public class CursesTracker {
                 "[+30% Enemy Damage]\n" +
                 "ÀÀÀ[+40% Enemy Health]";
 
-        List<Integer> cursesNumbers = extractCursesNumbers(input);
-        System.out.println(cursesNumbers);
+        var cursesNumbers = Arrays.stream(input.replaceAll("[^0123456789\n]", "").split("\n")).toList();
+        var finalList = cursesNumbers.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        System.out.println(finalList);
+       // List<Integer> cursesNumbers = extractCursesNumbers(input);
+     //   System.out.println(cursesNumbers);
     }
 
     public static List<Integer> extractCursesNumbers(String input) {
