@@ -65,7 +65,7 @@ public class BeaconHandler {
 
                 Beacon beacon = new Beacon(beaconPos, beaconType);
 
-                if (endsWithPointFive(beaconPos.x) && endsWithPointFive(beaconPos.y)){
+                if (endsWithPointFive(beaconPos.x) && endsWithPointFive(beaconPos.z)){
                     BeaconDestinations.beaconDestinationClose(beacon, beaconPos);
                 }
 
@@ -82,6 +82,9 @@ public class BeaconHandler {
 
 
     public static boolean endsWithPointFive(double number) {
+
+        number = Math.abs(number);
+
         double decimalPart = number % 1.0; // Get the decimal part of the number
 
         // Check if the decimal part is exactly 0.5 (within a small epsilon for floating-point comparison)
