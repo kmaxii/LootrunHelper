@@ -3,14 +3,8 @@ package me.kmaxi.lootrunhelper.events;
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
 import me.kmaxi.lootrunhelper.data.CurrentData;
-import me.kmaxi.lootrunhelper.data.CursesTracker;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static me.kmaxi.lootrunhelper.utils.CodingUtils.removeColorCodes;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.world.tick.SimpleTickScheduler;
 
 public class ReceiveChatEvent {
 
@@ -21,7 +15,7 @@ public class ReceiveChatEvent {
     public static void receivedChat(String message) {
 
         System.out.println("Message: " + message);
-        if (ignoreDupes){
+        if (ignoreDupes) {
             ignoreDupes = false;
             return;
         }
@@ -45,11 +39,11 @@ public class ReceiveChatEvent {
         onChooseBeaconMessage(message);
     }
 
-    private static void onChooseBeaconMessage(String message){
+    private static void onChooseBeaconMessage(String message) {
         VibrantBeaconInfo.clear();
         VibrantBeaconInfo.updateFromChatMessage(message);
 
-        if (ignoreBeaconShowMessage){
+        if (ignoreBeaconShowMessage) {
             ignoreBeaconShowMessage = false;
             return;
         }
@@ -57,6 +51,7 @@ public class ReceiveChatEvent {
 
         BeaconChecker.enable();
     }
+
     public static void finalMessage(String message) {
 
         if (!message.startsWith("\n                       ÀÀÀChallenge Completed")) {
@@ -71,11 +66,7 @@ public class ReceiveChatEvent {
         BeaconChecker.enable();
         ignoreBeaconShowMessage = true;
 
-
-
-        BeaconChecker.enable();
     }
-
 
 
 }
