@@ -6,9 +6,9 @@
     "type": "spelunk"
   },
   "Arch south": {
-    "x": -1439,
+    "x": -1439.5,
     "y": 70,
-    "z": -2437,
+    "z": -2437.5,
     "type": "slay"
   },
   "steamworks": {

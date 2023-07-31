@@ -6,6 +6,8 @@ import me.kmaxi.lootrunhelper.data.CurrentData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.world.tick.SimpleTickScheduler;
 
+import static me.kmaxi.lootrunhelper.data.CursesTracker.updateCurses;
+
 public class ReceiveChatEvent {
 
     private static boolean ignoreDupes;
@@ -65,6 +67,7 @@ public class ReceiveChatEvent {
         CurrentData.finishedBeacon();
         BeaconChecker.enable();
         ignoreBeaconShowMessage = true;
+        updateCurses(noColorMessage);
 
     }
 
