@@ -33,7 +33,7 @@ public class ReceiveChatEvent {
             onSwitchCharacterMessage();
             return;
         }
-        if(CodingUtils.removeColorCodes(message).startsWith(" \n" +
+        if(CodingUtils.removeColorCodes(message).startsWith("\n" +
                 "                          ÁÁChallenge Failed!")){
             message = CodingUtils.removeColorCodes(message);
             onChallengeFailed(message);
