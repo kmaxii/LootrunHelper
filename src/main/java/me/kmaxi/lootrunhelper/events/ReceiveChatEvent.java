@@ -2,6 +2,7 @@ package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
+import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
@@ -16,8 +17,6 @@ public class ReceiveChatEvent {
     private static boolean ignoreBeaconShowMessage = false;
 
     public static void receivedChat(String message) {
-
-        System.out.println("Message: " + message);
         if (ignoreDupes) {
             ignoreDupes = false;
             return;
@@ -30,9 +29,8 @@ public class ReceiveChatEvent {
         }
 
         if (message.startsWith("Select a character!")) {
-            BeaconChecker.disable();
-            BeaconChecker.stashCurrentBeacons();
 
+            onSwitchCharacterMessage();
             return;
         }
 
@@ -42,6 +40,12 @@ public class ReceiveChatEvent {
         }
 
         onChooseBeaconMessage(message);
+    }
+
+    private static void onSwitchCharacterMessage() {
+        BeaconChecker.disable();
+        BeaconChecker.stashCurrentBeacons();
+        ChallengesLoader.clearSavedList();
     }
 
     private static void onChooseBeaconMessage(String message) {

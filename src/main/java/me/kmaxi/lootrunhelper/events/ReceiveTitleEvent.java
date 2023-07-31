@@ -1,6 +1,7 @@
 package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
+import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 
 public class ReceiveTitleEvent {
@@ -54,6 +55,7 @@ public class ReceiveTitleEvent {
 
         CurrentData.resetFile();
         BeaconChecker.activeDataSaver().sendDataToChat();
+        ChallengesLoader.clearSavedList();
     }
 
     private static void enteredChallenge(){

@@ -2,7 +2,9 @@ package me.kmaxi.lootrunhelper.challenges;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.utils.Config;
+import me.kmaxi.lootrunhelper.utils.FileUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
@@ -15,10 +17,28 @@ import java.util.List;
 import java.util.Map;
 
 public class ChallengesLoader {
+    private static List<Challenge> challenges;
+
+    public static void clearSavedList(){
+        challenges = null;
+    }
 
     public static List<Challenge> loadRightChallenges() {
-        String fileName = findClosestLocationName(MinecraftClient.getInstance().player.getPos());
-        return getChallenges(fileName + ".json");
+        if (challenges != null) {
+            return challenges;
+        }
+
+        int currentLrIndex = CurrentData.getCurrentLootrunIndex();
+        if (currentLrIndex != Integer.MAX_VALUE){
+            challenges = getChallenges(FileUtils.lootrunIndexes.get(currentLrIndex));
+            return challenges;
+        }
+
+        String fileName = findClosestLocationName(MinecraftClient.getInstance().player.getPos()) + ".json";
+        CurrentData.setCurrentLootrunIndex(FileUtils.lootrunIndexes.indexOf(fileName));
+
+        challenges = getChallenges(fileName);
+        return challenges;
     }
 
     private static String findClosestLocationName(Vec3d playerPos) {

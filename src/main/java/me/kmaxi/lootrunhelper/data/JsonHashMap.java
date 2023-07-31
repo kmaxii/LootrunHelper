@@ -12,9 +12,14 @@ public class JsonHashMap {
         hashMap = new HashMap<>();
     }
 
+    public boolean contains(String key) {
+        return hashMap.containsKey(key);
+    }
+
     public void put(String key, int value) {
         hashMap.put(key, value);
     }
+
 
     public void add(String key) {
         add(key, 1);

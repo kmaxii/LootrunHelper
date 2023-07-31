@@ -19,10 +19,11 @@ public class CurrentData {
     private static final String CHALLENGES_FAILED_COUNT = "CHALLENGES_FAILED_COUNT";
     private static final String CHALLENGES_FROM_WHITE = "CHALLENGES_FROM_WHITE";
     private static final String ENEMY_WALK_SPEED = "ENEMY_WALK_SPEED";
-    private static final String ENEMY_ATTACK_SPEED = "ENEMY_ATTACK_APEED";
+    private static final String ENEMY_ATTACK_SPEED = "ENEMY_ATTACK_SPEED";
     private static final String ENEMY_HEALTH = "ENEMY_HEALTH";
     private static final String ENEMY_RESISTANCE = "ENEMY_RESISTANCE";
     private static final String ENEMY_DAMAGE = "ENEMY_DAMAGE";
+    private static final String CURRENT_LOOTRUN_NAME = "CURRENT_LOOTRUN_NAME";
 
     private static final String TIME = "TIME";
 
@@ -44,6 +45,14 @@ public class CurrentData {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void setCurrentLootrunIndex(int index){
+        jsonHashMap.put(CURRENT_LOOTRUN_NAME, index);
+    }
+
+    public static int getCurrentLootrunIndex(){
+        return jsonHashMap.contains(CURRENT_LOOTRUN_NAME) ? jsonHashMap.get(CURRENT_LOOTRUN_NAME) : Integer.MAX_VALUE;
     }
 
     public static void addEnemyWalkSpeedCurse(int amount) {

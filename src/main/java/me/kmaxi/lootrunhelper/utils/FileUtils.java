@@ -5,9 +5,13 @@ import me.kmaxi.lootrunhelper.LootrunHelper;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class FileUtils {
 
+    public static ArrayList<String> lootrunIndexes = new ArrayList<>(Arrays.asList("corkusLootrun.json", "seLootrun.json"));
 
     public static String getDataFileName(){
         return Config.CONFIG_DIRS + "data_" + ChosenCharacter.getChosenCharacter() + ".json";
@@ -18,9 +22,11 @@ public class FileUtils {
     }
 
     public static void copyLootrunFiles() {
-        copyFilesFromResources("corkusLootrun.json");
-        copyFilesFromResources("seLootrun.json");
         copyFilesFromResources("starts.json");
+
+        for (String lootrunIndex : lootrunIndexes) {
+            copyFilesFromResources(lootrunIndex);
+        }
     }
 
 
