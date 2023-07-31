@@ -113,7 +113,6 @@ public class BeaconChecker {
 
 
         CurrentData.picketBeacon(closestBeacon);
-        CurrentData.finishedBeacon();
 
 
         dataSaver.pickBeacon(String.valueOf(closestBeacon.beaconType));

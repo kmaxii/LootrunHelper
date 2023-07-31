@@ -3,6 +3,7 @@ package me.kmaxi.lootrunhelper.events;
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
 import me.kmaxi.lootrunhelper.data.CurrentData;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.world.tick.SimpleTickScheduler;
 
@@ -24,7 +25,9 @@ public class ReceiveChatEvent {
         ignoreDupes = true;
 
 
-        finalMessage(message);
+        if (message.startsWith("\n                       ÀÀÀChallenge Completed")) {
+            FinishedChallenge(message);
+        }
 
         if (message.startsWith("Select a character!")) {
             BeaconChecker.disable();
@@ -54,16 +57,10 @@ public class ReceiveChatEvent {
         BeaconChecker.enable();
     }
 
-    public static void finalMessage(String message) {
-
-        if (!message.startsWith("\n                       ÀÀÀChallenge Completed")) {
-            return;
-        }
-        FinishedChallenge(message);
-    }
 
     private static void FinishedChallenge(String noColorMessage) {
 
+        CodingUtils.msg("Challenge finished!");
         CurrentData.finishedBeacon();
         BeaconChecker.enable();
         ignoreBeaconShowMessage = true;
