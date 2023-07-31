@@ -7,7 +7,6 @@
   "client": [
     "MixinChatListener",
     "MixinTitleListener",
-    "ShowTextMixin",
     "GuiInteractMixin",
     "GuiOpenListener"
   ],

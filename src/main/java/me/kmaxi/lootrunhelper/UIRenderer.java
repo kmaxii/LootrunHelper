@@ -1,32 +1,18 @@
-package me.kmaxi.lootrunhelper.events.mixins;
+package me.kmaxi.lootrunhelper;
 
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.BeaconDestinations;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(InGameHud.class)
-public abstract class ShowTextMixin {
-
-    @Inject(method = "render", at = @At("TAIL"))
-    public void render(CallbackInfo ci) {
-        if (!BeaconChecker.isEnabled() || BeaconDestinations.destinations.equals(""))
-            return;
-
-        renderTwoTextBlocksOnScreen();
-
-    }
+public class UIRenderer {
 
     private static final int SPACING_BETWEEN_LINES = 2;
 
-    public void renderTextOnScreen(String text, int x, int y, int color) {
+    private static void renderTextOnScreen(String text, int x, int y, int color) {
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         MatrixStack matrixStack = new MatrixStack();
 
@@ -39,18 +25,24 @@ public abstract class ShowTextMixin {
             maxWidth = Math.max(maxWidth, lineWidth);
         }
 
-        // Adjust the starting x position to align the entire text block to the right edge
+        // Adjust the starting x position to center the entire text block horizontally
         x -= maxWidth;
+
+        VertexConsumerProvider.Immediate vertexConsumers = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
         // Render the text
         for (String line : lines) {
             int textWidth = textRenderer.getWidth(line);
-            textRenderer.draw(matrixStack, Text.of(line), x, y, color);
+            int xOffset = maxWidth -  textWidth ; // Calculate the offset to center the line horizontally
+        //    textRenderer.drawWithShadow(matrixStack, Text.of(line), x + xOffset, y, color);
+            textRenderer.drawWithOutline(Text.of(line).asOrderedText(), x + xOffset, y, color, 0x000000, matrixStack.peek().getPositionMatrix(), vertexConsumers, 255);
             y += textRenderer.fontHeight + SPACING_BETWEEN_LINES;
         }
+        textRenderer.drawWithOutline(Text.of("\ne").asOrderedText(), x + 10000, y, color, 0x000000, matrixStack.peek().getPositionMatrix(), vertexConsumers, 255);
+
     }
 
-    public void renderTwoTextBlocksOnScreen() {
+    public static void renderTwoTextBlocksOnScreen() {
         if (!BeaconChecker.isEnabled())
             return;
 
@@ -72,6 +64,4 @@ public abstract class ShowTextMixin {
         int y2 = MinecraftClient.getInstance().getWindow().getScaledHeight() -(MinecraftClient.getInstance().getWindow().getScaledHeight()/5)*2;
         renderTextOnScreen(secondTextToRender, x, y2, 0xFFFFFF);
     }
-
 }
-

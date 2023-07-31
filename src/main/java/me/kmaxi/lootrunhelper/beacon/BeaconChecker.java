@@ -184,6 +184,10 @@ public class BeaconChecker {
             }
         }
 
+        if (beacons.size() > beaconList.size()){
+            nextPrintChallengeInfo = true;
+        }
+
         beaconList.replace(beacons);
     }
 }

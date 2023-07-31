@@ -149,7 +149,7 @@ public class BeaconDestinations {
                     .append("§r;§n ") //of type
                     .append(beaconInfo.challenge.getType())
                     .append(". §l")
-                    .append(Math.sqrt(distanceToChallenge))
+                    .append((int)Math.sqrt(distanceToChallenge))
                     .append("§rm.")
                     .append("\n");
         }
