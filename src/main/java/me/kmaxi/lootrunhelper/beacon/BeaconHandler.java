@@ -1,6 +1,7 @@
 package me.kmaxi.lootrunhelper.beacon;
 
 import me.kmaxi.lootrunhelper.beacon.Beacon;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -24,6 +25,7 @@ public class BeaconHandler {
 
 
     public static final HashSet<Item> beaconItems = new HashSet<>(Arrays.asList(Items.GOLDEN_PICKAXE, Items.GOLDEN_SHOVEL));
+    private static final double BOX_HEIGHT = 10;
 
     public static HashSet<Beacon> getBeacons() {
         ClientWorld world = MinecraftClient.getInstance().world;
@@ -37,8 +39,9 @@ public class BeaconHandler {
             float boxSize = 10000;
 
             //  = world.getEntitiesByType(EntityType.ARMOR_STAND, new Box(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY), (entity) -> true);
-            List<ArmorStandEntity> armorStands = world.getEntitiesByType(EntityType.ARMOR_STAND, new Box(user.getX() - boxSize, user.getY() - boxSize, user.getZ() - boxSize, user.getX() + boxSize, user.getY() + boxSize, user.getZ() + boxSize), EntityPredicates.VALID_ENTITY);
+            List<ArmorStandEntity> armorStands = world.getEntitiesByType(EntityType.ARMOR_STAND, new Box(user.getX() - boxSize, 0, user.getZ() - boxSize, user.getX() + boxSize, BOX_HEIGHT, user.getZ() + boxSize), EntityPredicates.VALID_ENTITY);
 
+            double lowestYCord = Integer.MAX_VALUE;
 
             for (ArmorStandEntity armorStand : armorStands) {
                 ItemStack helmet = armorStand.getEquippedStack(EquipmentSlot.HEAD);
@@ -54,6 +57,11 @@ public class BeaconHandler {
                 BeaconType beaconType = Beacon.getBeaconType(helmet.getItem(), helmet.getDamage());
                 if (beaconType == null)
                     continue;
+
+                if (armorStand.getPos().y < lowestYCord)
+                    lowestYCord = (armorStand.getPos().y);
+
+                CodingUtils.msg("Lowest y cord:"  + lowestYCord);
 
                 Beacon beacon = new Beacon(armorStand.getPos(), beaconType);
 
