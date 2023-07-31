@@ -2,6 +2,7 @@ package me.kmaxi.lootrunhelper.beacon;
 
 import me.kmaxi.lootrunhelper.commands.ListBeaconDestinations;
 import me.kmaxi.lootrunhelper.data.CurrentData;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
@@ -26,9 +27,10 @@ public class BeaconChecker {
     }
 
     public static void enable() {
-        enabled = true;
         nextPrintChallengeInfo = true;
         updateBeacons();
+        enabled = true;
+
     }
 
     public static void disable() {
@@ -97,6 +99,7 @@ public class BeaconChecker {
         saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
 
         if (nextPrintChallengeInfo) {
+            CodingUtils.msg("Updating");
             ListBeaconDestinations.run(null);
             nextPrintChallengeInfo = false;
         }

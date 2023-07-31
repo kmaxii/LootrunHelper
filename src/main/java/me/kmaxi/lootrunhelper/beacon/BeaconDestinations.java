@@ -123,8 +123,8 @@ public class BeaconDestinations {
         StringBuilder finalString = new StringBuilder();
 
 
-        for (ChallengeBeaconInfo beaconInfo : beaconsInfo) {
-
+        for (int i = 0; i < beaconsInfo.size(); i++){
+            ChallengeBeaconInfo beaconInfo = beaconsInfo.get(i);
 
             double distanceToChallenge = getChallengeDistanceSquared(beaconInfo.challenge);
             Beacon beacon = beaconInfo.beacon;
