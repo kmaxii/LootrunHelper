@@ -5,15 +5,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static me.kmaxi.lootrunhelper.events.ReceiveChatEvent.finalMessage;
+
 public class CursesTracker {
 
-    private static void updateCurses(String noColorMessage) {
+    public static void updateCurses(String noColorMessage) {
         if (!noColorMessage.contains("ÀCurses")) {
             return;
         }
 
         String noColorMessageSubstring = noColorMessage.substring(noColorMessage.indexOf("ÀCurses") + 8);
-        System.out.println(noColorMessageSubstring);
+        System.out.println(getCurseFromText(noColorMessageSubstring));
         /*                       ÀÀÀChallenge Completed
                   ÀÀÀNext beacons will appear soon!
 

@@ -64,7 +64,7 @@ public class ReceiveChatEvent {
         ignoreBeaconShowMessage = true;
 
 
-        CursesTracker.getCurseFromText(noColorMessage);
+        CursesTracker.updateCurses(noColorMessage);
     }
 
 
