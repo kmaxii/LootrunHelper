@@ -26,6 +26,8 @@ public class CurrentData {
     private static final String CURRENT_LOOTRUN_NAME = "CURRENT_LOOTRUN_NAME";
 
     private static final String TIME = "TIME";
+    private static final String ENEMY_HEALTH_CHALLENGE = "ENEMY_HEALTH_CHALLENGE";
+    private static final String ENEMY_DAMAGE_CHALLENGE = "ENEMY_DAMAGE_CHALLENGE";
 
     private static Beacon currentBacon;
 
@@ -53,6 +55,18 @@ public class CurrentData {
 
     public static int getCurrentLootrunIndex(){
         return jsonHashMap.contains(CURRENT_LOOTRUN_NAME) ? jsonHashMap.get(CURRENT_LOOTRUN_NAME) : Integer.MAX_VALUE;
+    }
+    public static void addEnemyDamageChallenge(int amount){
+        jsonHashMap.add(ENEMY_DAMAGE_CHALLENGE, amount);
+    }
+    public static void addEnemyHealthChallenge(int amount){
+        jsonHashMap.add(ENEMY_HEALTH_CHALLENGE, amount);
+    }
+    public static int getEnemyDamageChallenge(){
+        return jsonHashMap.get(ENEMY_DAMAGE_CHALLENGE);
+    }
+    public static int getEnemyHealthChallenge(){
+        return jsonHashMap.get(ENEMY_HEALTH_CHALLENGE);
     }
 
     public static void addEnemyWalkSpeedCurse(int amount) {

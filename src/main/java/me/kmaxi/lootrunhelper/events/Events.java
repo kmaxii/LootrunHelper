@@ -4,6 +4,7 @@ import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
 import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
 import me.kmaxi.lootrunhelper.data.CurrentData;
+import me.kmaxi.lootrunhelper.data.DebuffTracker;
 import me.kmaxi.lootrunhelper.utils.CodingUtils;
 
 import static me.kmaxi.lootrunhelper.data.CursesTracker.updateCurses;
@@ -45,6 +46,7 @@ public class Events {
         ignoreBeaconShowMessage = true;
         updateCurses(noColorMessage);
         BeaconChecker.activeDataSaver().updateString();
+        DebuffTracker.updateDebuffs(noColorMessage);
     }
 
     /**

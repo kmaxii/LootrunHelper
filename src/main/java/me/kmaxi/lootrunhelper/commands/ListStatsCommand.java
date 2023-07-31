@@ -3,6 +3,7 @@ package me.kmaxi.lootrunhelper.commands;
 import com.mojang.brigadier.context.CommandContext;
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.BeaconDestinations;
+import me.kmaxi.lootrunhelper.data.CurrentData;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
@@ -25,7 +26,9 @@ public class ListStatsCommand {
                 "   §eVibrant Count: §f" + getVibrantCount() + "\n" +
                 "   §ePull count: §f" + getPullsCount() + "\n" +
                 "   §8Rerolls count: §f" + getRerollsCount() + "\n" +
-                "   §f§lChallanges from White: §r§f" + getChallengesFromWhiteCount());
+                " §f§lChallanges from White: §r§f" + getChallengesFromWhiteCount()+"\n" +
+                "   §4Health from challanges: §f" + CurrentData.getEnemyHealthChallenge() + "\n" +
+                "   §4Damage from challanges: §f" + CurrentData.getEnemyDamageChallenge() + "\n");
 
         return 1;
 
