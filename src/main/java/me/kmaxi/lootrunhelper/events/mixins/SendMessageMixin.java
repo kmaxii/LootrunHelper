@@ -1,12 +1,13 @@
 package me.kmaxi.lootrunhelper.events.mixins;
 
-import me.kmaxi.lootrunhelper.events.MessageSendEvent;
+import me.kmaxi.lootrunhelper.events.SentCommandEvent;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientPlayNetworkHandler.class)
 
@@ -16,7 +17,11 @@ public abstract class SendMessageMixin {
 
     @Inject(method = "sendChatCommand", at = @At("HEAD"))
     private void onGameMessage(String command, CallbackInfo ci) {
-        MessageSendEvent.sendMessage(command);
+        SentCommandEvent.sentCommand(command);
     }
-    // Your code here
+    @Inject(method = "sendCommand", at = @At("HEAD"))
+    private void onGameMessage(String command, CallbackInfoReturnable<Boolean> cir) {
+        SentCommandEvent.sentCommand(command);
+    }
+
 }

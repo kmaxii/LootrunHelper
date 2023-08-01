@@ -79,5 +79,9 @@ public class Events {
         ScoreBoardUpdated.reset();
     }
 
+    public static void rerolledBeacons(){
+
+    }
+
 
 }
