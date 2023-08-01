@@ -3,6 +3,7 @@ package me.kmaxi.lootrunhelper.beacon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.utils.ChosenCharacter;
 import me.kmaxi.lootrunhelper.utils.ColorUtils;
 import me.kmaxi.lootrunhelper.utils.message.CenteredTextSender;
@@ -136,7 +137,7 @@ public class BeaconDataSaver {
                 finalText = "§8DARK_GRAY: §f" + beaconData.get(key) + "/1";
                 break;
             case "AQUA":
-                finalText = "§bAQUA: §f" + beaconData.get(key) + "/10";
+                finalText = "§bAQUA: " + getColorForAqua() + beaconData.get(key) + "/10";
                 break;
             case "RAINBOW":
                 finalText = "§cR§6A§eI§aN§9B§5O§dW: §f" + beaconData.get(key) + "/1";
@@ -144,6 +145,16 @@ public class BeaconDataSaver {
         }
 
         return finalText;
+    }
+
+    private String getColorForAqua(){
+        int aquaShownStreak = CurrentData.getCurrentAquaShownStreak();
+
+        if (beaconData.get(BeaconType.AQUA.toString()) == 10)
+            return "§f";
+
+
+        return aquaShownStreak == 0 || aquaShownStreak == 1 && CurrentData.getAquaStreak() == 1 ? "§c" : "§a";
     }
 
     public void sendDataToChat() {

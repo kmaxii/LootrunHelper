@@ -118,6 +118,12 @@ public class CurrentData {
     private static void resetGreyShownStreak() {
         jsonHashMap.put(CURRENT_GREY_SHOWN_STREAK, 0);
     }
+    public static int getCurrentAquaShownStreak() {
+        return jsonHashMap.get(CURRENT_AQUA_SHOWN_STREAK);
+    }
+    public static int getCurrentGreyShownStreak() {
+        return jsonHashMap.get(CURRENT_GREY_SHOWN_STREAK);
+    }
 
 
     private static Beacon currentBacon;
@@ -223,7 +229,7 @@ public class CurrentData {
         jsonHashMap.add(AQUA_STREAK, isVibrant ? 2 : 1);
     }
 
-    private static int getAquaStreak() {
+    public static int getAquaStreak() {
         return jsonHashMap.get(AQUA_STREAK);
     }
 
