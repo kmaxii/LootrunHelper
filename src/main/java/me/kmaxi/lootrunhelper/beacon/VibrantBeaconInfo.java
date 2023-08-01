@@ -46,7 +46,6 @@ public class VibrantBeaconInfo {
 
         for (String vibrantBeacon : extractWordsAfterVibrant(noColorMessage)) {
             addVibrantBeacon(vibrantBeacon);
-            System.out.println("Added vibrant beacon: " + vibrantBeacon);
         }
 
     }

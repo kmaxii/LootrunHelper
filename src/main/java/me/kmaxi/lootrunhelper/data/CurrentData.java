@@ -247,8 +247,6 @@ public class CurrentData {
         if (currentBacon == null || currentBacon.beaconType == null) {
             currentBacon = null;
             System.out.println("Finished beacon is null");
-            msg("Finished beacon is null");
-
             return;
         }
 

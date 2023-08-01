@@ -16,7 +16,6 @@ public class ReceiveChatEvent {
         }
         ignoreDupes = true;
 
-        System.out.println("Got message: " + message);
 
         if (message.startsWith("\n                       ÀÀÀChallenge Completed")) {
             FinishedChallenge(message);

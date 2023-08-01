@@ -109,7 +109,7 @@ public class Beacon {
                 return BeaconType.RAINBOW;
         }
 
-        System.out.println("Beacon type not found for " + item.toString() + " with durra: " + damage);
+        System.out.println("Lootrunhelper: Beacon type not found for " + item.toString() + " with durra: " + damage);
         return null;
     }
 

@@ -143,13 +143,6 @@ public class BeaconChecker {
 
     }
 
-    private static void printClosestBeacon() {
-
-        if (closestBeacon != null) {
-            System.out.println("Closest beacon: " + closestBeacon.beaconType + " at " + closestBeacon.position);
-        }
-    }
-
 
     private static void checkBeacons() {
         HashSet<Beacon> beacons = BeaconHandler.getBeacons();

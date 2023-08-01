@@ -113,9 +113,5 @@ public class ChallengesLoader {
 
     }
 
-    public static void main(String[] args) {
 
-        String closestLocationName = findClosestLocationName(new Vec3d(0, 0, 0));
-        System.out.println("Closest location name: " + closestLocationName);
-    }
 }

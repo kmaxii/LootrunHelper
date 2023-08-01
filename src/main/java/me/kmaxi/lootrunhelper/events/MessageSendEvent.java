@@ -17,21 +17,4 @@ public class MessageSendEvent {
             Events.onLeftLootrun();
         }
     }
-
-    public static void main(String[] args) {
-        String message1 = "hub";
-        String message2 = "Lobby";
-        String message3 = "HUB";
-        String message4 = "lobby";
-        String message5 = "random";
-
-
-        System.out.println("Message 1: " + isHubCommand(message1)); // true
-        System.out.println("Message 2: " + isHubCommand(message2)); // true
-        System.out.println("Message 3: " + isHubCommand(message3)); // true
-        System.out.println("Message 4: " + isHubCommand(message4)); // true
-        System.out.println("Message 5: " + isHubCommand(message5)); // false
-
-
-    }
 }
