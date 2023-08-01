@@ -153,8 +153,7 @@ public class BeaconDataSaver {
         if (beaconData.get(BeaconType.AQUA.toString()) == 10)
             return "§f";
 
-
-        return aquaShownStreak == 0 || aquaShownStreak == 1 && CurrentData.getAquaStreak() == 1 ? "§c" : "§a";
+        return aquaShownStreak == 1 || aquaShownStreak == 2 && CurrentData.getAquaStreak() == 1 ? "§a" : "§c";
     }
 
     public void sendDataToChat() {

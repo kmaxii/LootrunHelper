@@ -104,6 +104,10 @@ public class BeaconChecker {
 
         saveClosestBeacon(MinecraftClient.getInstance().player.getPos());
 
+        if (beaconList == null) {
+            return;
+        }
+
         if (nextPrintChallengeInfo) {
             ListBeaconDestinations.run(null);
             CurrentData.saveBeaconChoices(beaconList.stream().map(beacon -> beacon.beaconType).toList());

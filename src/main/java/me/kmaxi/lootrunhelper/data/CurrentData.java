@@ -38,8 +38,17 @@ public class CurrentData {
     private static final String BEACON_OFFERED_APPEND = "_OFFERED";
     private static final String CURRENT_AQUA_SHOWN_STREAK = "CURRENT_AQUA_SHOWN_STREAK";
     private static final String CURRENT_GREY_SHOWN_STREAK = "CURRENT_GREY_SHOWN_STREAK";
-    private static final String Last_SAVED_OFFERED = "Last_SAVED_OFFERED";
+    private static final String LAST_SAVED_OFFERED = "LAST_SAVED_OFFERED";
+    private static final String SAVED_FIRST_CHOICES = "SAVED_FIRST_CHOICES";
     private static final String REROLLS_USED_COUNT = "REROLLS_USED_COUNT";
+
+    public static boolean hasSavedFirstChoices(){
+        return jsonHashMap.get(SAVED_FIRST_CHOICES) == 1;
+    }
+
+    public static void saveFirstChoices(){
+        jsonHashMap.put(SAVED_FIRST_CHOICES, 1);
+    }
 
     public static int getRerollsUsedCount() {
         return jsonHashMap.get(REROLLS_USED_COUNT);
@@ -50,11 +59,11 @@ public class CurrentData {
     }
 
     private static int getLastSavedOffered() {
-        return jsonHashMap.get(Last_SAVED_OFFERED);
+        return jsonHashMap.get(LAST_SAVED_OFFERED);
     }
 
     private static void setLastSavedOffered(int number) {
-        jsonHashMap.put(Last_SAVED_OFFERED, number);
+        jsonHashMap.put(LAST_SAVED_OFFERED, number);
     }
     /**
      * Calculates how many times the player has been given a choice of beacons
@@ -70,17 +79,20 @@ public class CurrentData {
      */
     public static void saveBeaconChoices(List<BeaconType> beaconType) {
         int offeredChoicesAmount = getOfferedChoicesAmount();
-        if (offeredChoicesAmount == getLastSavedOffered() && offeredChoicesAmount  != 0) {
+        if (offeredChoicesAmount == getLastSavedOffered() && offeredChoicesAmount  != 0
+        || hasSavedFirstChoices() && offeredChoicesAmount == 0) {
             return;
         }
+        saveFirstChoices();
 
         CodingUtils.msg("Saving Beacon Choices");
         setLastSavedOffered(offeredChoicesAmount);
 
-        addBeaconOfferedCount();
         boolean foundAqua = false;
         boolean foundGrey = false;
         for (BeaconType type : beaconType) {
+            addBeaconOfferedCount();
+
             jsonHashMap.add(type.toString() + BEACON_OFFERED_APPEND);
             switch (type) {
                 case AQUA:
