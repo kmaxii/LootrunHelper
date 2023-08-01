@@ -16,6 +16,7 @@ public class ListStatsCommand {
 
     public static int run(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
 
+        CurrentData.loadFromFile();
         msg("\n                                 §5§lCurses\n" +
                 "      §5Curse count: §d" + getCursesCount()+ "                    §5Walk Speed Curse: §d" + getEnemyWalkSpeedCurse() + "§7%\n" +
                 "   §5Attackspeed Curse: §d" + getEnemyAttackSpeedCurse() + "§7%" +"                 §5Health Curse: §d" + getEnemyHealthCurse() + "§7%\n" +
