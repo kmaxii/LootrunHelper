@@ -3,15 +3,16 @@ package me.kmaxi.lootrunhelper.beacon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.utils.ChosenCharacter;
 import me.kmaxi.lootrunhelper.utils.ColorUtils;
+import me.kmaxi.lootrunhelper.utils.message.CenteredTextSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class BeaconDataSaver {
 
@@ -83,11 +84,7 @@ public class BeaconDataSaver {
         }
     }
 
-    public void sendDataToChat() {
 
-        assert MinecraftClient.getInstance().player != null;
-        MinecraftClient.getInstance().player.sendMessage(Text.of(getData()));
-    }
 
     public String getData() {
         return beaconDataString;
@@ -106,6 +103,7 @@ public class BeaconDataSaver {
 
         beaconDataString = stringBuilder.toString();
     }
+
 
     private String getFormattedData(String key) {
         String finalText = "ERROR! WRONG KEY: §c" + key;
@@ -146,6 +144,31 @@ public class BeaconDataSaver {
         }
 
         return finalText;
+    }
+
+    public void sendDataToChat() {
+
+        assert MinecraftClient.getInstance().player != null;
+
+        AtomicReference<String> lastBeacon = new AtomicReference<>("");
+        AtomicReference<String> lastBeacon2 = new AtomicReference<>("");
+        ColorUtils.getColorStream().forEach(color -> {
+            String beaconInfo = getFormattedData(color);
+            if (lastBeacon.get().isEmpty()){
+                lastBeacon.set(beaconInfo);
+            } else if (lastBeacon2.get().isEmpty()){
+                lastBeacon2.set(beaconInfo);
+            }
+            else {
+                CenteredTextSender.sendCenteredMessage(lastBeacon.get(), lastBeacon2.get(), beaconInfo);
+                lastBeacon.set("");
+                lastBeacon2.set("");
+            }
+        });
+        CenteredTextSender.sendCenteredMessage(lastBeacon.get(), lastBeacon2.get());
+
+
+        MinecraftClient.getInstance().player.sendMessage(Text.of(getData()));
     }
 
 }
