@@ -20,8 +20,11 @@ public class ScoreBoardUpdated {
     public static void onScoreChanged(ScoreboardPlayerUpdateS2CPacket packet, CallbackInfo ci) {
         String playerName = packet.getPlayerName();
 
+        boolean hasChangeThisName = realToMyMessage.containsKey(playerName);
         int activeReds = CurrentData.getRedChallengeCount();
-        if (activeReds == 0 && !realToMyMessage.containsKey(playerName)|| !playerName.contains("Challenges:")) //|| playerName.contains("§c("
+        if (activeReds == 0 && !hasChangeThisName
+                || !playerName.toLowerCase().contains("challenges:")
+        || !hasChangeThisName && packet.getUpdateMode() == ServerScoreboard.UpdateMode.REMOVE ) //|| playerName.contains("§c("
             return;
 
         ci.cancel();
