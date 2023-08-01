@@ -42,17 +42,18 @@ public class Events {
 
     public static void FinishedChallenge(String message) {
 
-        msg("Finished Challenge");
+        CurrentData.loadFromFile();
+        DebuffTracker.updateDebuffs(message);
         CurrentData.finishedBeacon();
         BeaconChecker.enable();
         ignoreBeaconShowMessage = true;
         updateCurses(message);
         BeaconChecker.activeDataSaver().updateString();
-        DebuffTracker.updateDebuffs(message);
     }
     public static void onChallengeFailed(String noColorMessage) {
-        addChallengesFailed();
         DebuffTracker.updateDebuffs(noColorMessage);
+
+        addChallengesFailed();
     }
 
     /**
@@ -65,6 +66,8 @@ public class Events {
         CurrentData.resetFile();
         BeaconChecker.activeDataSaver().sendDataToChat();
         ChallengesLoader.clearSavedList();
+        ScoreBoardUpdated.reset();
+
     }
 
     /**
@@ -74,6 +77,7 @@ public class Events {
         BeaconChecker.disable();
         BeaconChecker.setBeaconListToNull();
         ChallengesLoader.clearSavedList();
+        ScoreBoardUpdated.reset();
     }
 
 

@@ -17,6 +17,10 @@ public class ScoreBoardUpdated {
 
     private static HashMap<String, String> realToMyMessage = new HashMap<>();
 
+    public static void reset() {
+        realToMyMessage.clear();
+    }
+
     public static void onScoreChanged(ScoreboardPlayerUpdateS2CPacket packet, CallbackInfo ci) {
         String playerName = packet.getPlayerName();
 
