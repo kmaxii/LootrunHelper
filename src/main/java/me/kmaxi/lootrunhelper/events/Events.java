@@ -80,7 +80,7 @@ public class Events {
     }
 
     public static void rerolledBeacons(){
-
+        CurrentData.addRerollsUsedCount();
     }
 
 

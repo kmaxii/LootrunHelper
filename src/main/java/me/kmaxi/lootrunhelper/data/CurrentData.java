@@ -1,9 +1,12 @@
 package me.kmaxi.lootrunhelper.data;
 
 import me.kmaxi.lootrunhelper.beacon.Beacon;
+import me.kmaxi.lootrunhelper.beacon.BeaconType;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import me.kmaxi.lootrunhelper.utils.FileUtils;
 
 import java.io.IOException;
+import java.util.List;
 
 import static me.kmaxi.lootrunhelper.utils.CodingUtils.msg;
 
@@ -31,6 +34,91 @@ public class CurrentData {
     private static final String TIME = "TIME";
     private static final String ENEMY_HEALTH_CHALLENGE = "ENEMY_HEALTH_CHALLENGE";
     private static final String ENEMY_DAMAGE_CHALLENGE = "ENEMY_DAMAGE_CHALLENGE";
+
+    private static final String BEACON_OFFERED_APPEND = "_OFFERED";
+    private static final String CURRENT_AQUA_SHOWN_STREAK = "CURRENT_AQUA_SHOWN_STREAK";
+    private static final String CURRENT_GREY_SHOWN_STREAK = "CURRENT_GREY_SHOWN_STREAK";
+    private static final String Last_SAVED_OFFERED = "Last_SAVED_OFFERED";
+    private static final String REROLLS_USED_COUNT = "REROLLS_USED_COUNT";
+
+    public static int getRerollsUsedCount() {
+        return jsonHashMap.get(REROLLS_USED_COUNT);
+    }
+
+    public static void addRerollsUsedCount() {
+        jsonHashMap.add(REROLLS_USED_COUNT);
+    }
+
+    private static int getLastSavedOffered() {
+        return jsonHashMap.get(Last_SAVED_OFFERED);
+    }
+
+    private static void setLastSavedOffered(int number) {
+        jsonHashMap.put(Last_SAVED_OFFERED, number);
+    }
+    /**
+     * Calculates how many times the player has been given a choice of beacons
+     * @return Challenges completed + challenges failed + rerolls used
+     */
+    private static int getOfferedChoicesAmount() {
+        return getChallengesFailedCount() + getFinishedChallengesCount() + getRerollsUsedCount();
+    }
+
+    /**
+     * Adds to number of choices given if these have not been saved already
+     * @param beaconType a list of all beacons offered right now
+     */
+    public static void saveBeaconChoices(List<BeaconType> beaconType) {
+        int offeredChoicesAmount = getOfferedChoicesAmount();
+        if (offeredChoicesAmount == getLastSavedOffered() && offeredChoicesAmount  != 0) {
+            return;
+        }
+
+        CodingUtils.msg("Saving Beacon Choices");
+        setLastSavedOffered(offeredChoicesAmount);
+
+        addBeaconOfferedCount();
+        boolean foundAqua = false;
+        boolean foundGrey = false;
+        for (BeaconType type : beaconType) {
+            jsonHashMap.add(type.toString() + BEACON_OFFERED_APPEND);
+            switch (type) {
+                case AQUA:
+                    foundAqua = true;
+                    addCurrentAquaShownStreak();
+                    break;
+                case GREY:
+                    foundGrey = true;
+                    addCurrentGreyShownStreak();
+                    break;
+            }
+        }
+        if (!foundAqua) {
+            resetAquaShownStreak();
+        }
+        if (!foundGrey) {
+            resetGreyShownStreak();
+        }
+        saveJson();
+    }
+
+
+    private static void addCurrentAquaShownStreak() {
+        jsonHashMap.add(CURRENT_AQUA_SHOWN_STREAK);
+    }
+
+    private static void addCurrentGreyShownStreak() {
+        jsonHashMap.add(CURRENT_GREY_SHOWN_STREAK);
+    }
+
+    private static void resetAquaShownStreak() {
+        jsonHashMap.put(CURRENT_AQUA_SHOWN_STREAK, 0);
+    }
+
+    private static void resetGreyShownStreak() {
+        jsonHashMap.put(CURRENT_GREY_SHOWN_STREAK, 0);
+    }
+
 
     private static Beacon currentBacon;
 
@@ -179,7 +267,7 @@ public class CurrentData {
         return jsonHashMap.get(CHALLENGES_FROM_WHITE);
     }
 
-    private static void addBeaconOffered() {
+    private static void addBeaconOfferedCount() {
         jsonHashMap.add(BEACONS_OFFERED_COUNT);
     }
 
@@ -301,12 +389,12 @@ public class CurrentData {
         currentBacon = null;
     }
 
-    private static void addFinishedChallenge(){
+    private static void addFinishedChallenge() {
         jsonHashMap.add(CHALLENGES_FINISHED_COUNT);
     }
 
 
-    public static int getFinishedChallengesCount(){
+    public static int getFinishedChallengesCount() {
         return jsonHashMap.get(CHALLENGES_FINISHED_COUNT);
     }
 

@@ -15,7 +15,6 @@ public class SentCommandEvent {
 
     public static void sentCommand(String message) {
 
-        CodingUtils.msg("Chat command: " + message);
         if (isHubCommand(message)) {
             Events.onLeftLootrun();
             return;

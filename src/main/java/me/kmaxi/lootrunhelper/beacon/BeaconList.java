@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static me.kmaxi.lootrunhelper.utils.FileUtils.getBeaconListFileName;
 
@@ -92,6 +93,10 @@ public class BeaconList implements Iterable<Beacon> {
             if (beacon.beaconType == null)
                 beacons.remove(beacon);
         }
+    }
+
+    public Stream<Beacon> stream() {
+        return beacons.stream();
     }
 
 

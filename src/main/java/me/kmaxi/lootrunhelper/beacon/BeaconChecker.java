@@ -106,6 +106,7 @@ public class BeaconChecker {
 
         if (nextPrintChallengeInfo) {
             ListBeaconDestinations.run(null);
+            CurrentData.saveBeaconChoices(beaconList.stream().map(beacon -> beacon.beaconType).toList());
             nextPrintChallengeInfo = false;
         }
     }
