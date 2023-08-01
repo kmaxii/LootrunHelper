@@ -3,6 +3,7 @@ package me.kmaxi.lootrunhelper.events;
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
 import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
+import me.kmaxi.lootrunhelper.commands.ListStatsCommand;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.data.DebuffTracker;
 
@@ -63,10 +64,9 @@ public class Events {
         BeaconChecker.clearCurrentBeacons();
 
         CurrentData.resetFile();
-        BeaconChecker.activeDataSaver().sendDataToChat();
+        ListStatsCommand.run(null);
         ChallengesLoader.clearSavedList();
         ScoreBoardUpdated.reset();
-
     }
 
     /**
