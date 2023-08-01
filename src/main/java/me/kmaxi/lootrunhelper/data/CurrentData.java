@@ -5,6 +5,8 @@ import me.kmaxi.lootrunhelper.utils.FileUtils;
 
 import java.io.IOException;
 
+import static me.kmaxi.lootrunhelper.utils.CodingUtils.msg;
+
 public class CurrentData {
     private static JsonHashMap jsonHashMap = new JsonHashMap();
     private static final String VIBRANT_COUNT = "VIBRANT_COUNT";
@@ -31,7 +33,7 @@ public class CurrentData {
 
     private static Beacon currentBacon;
 
-    public static void saveJson(){
+    public static void saveJson() {
         try {
             jsonHashMap.saveToJsonFile(FileUtils.getDataFileName());
         } catch (IOException e) {
@@ -40,12 +42,12 @@ public class CurrentData {
     }
 
 
-    public static void clearCurrent(){
+    public static void clearCurrent() {
         saveJson();
         jsonHashMap.reset();
     }
 
-    public static void loadFromFile(){
+    public static void loadFromFile() {
         try {
             jsonHashMap.loadFromJsonFile(FileUtils.getDataFileName());
         } catch (IOException e) {
@@ -53,7 +55,7 @@ public class CurrentData {
         }
     }
 
-    public static void resetFile(){
+    public static void resetFile() {
         jsonHashMap.reset();
         try {
             jsonHashMap.saveToJsonFile(FileUtils.getDataFileName());
@@ -62,23 +64,27 @@ public class CurrentData {
         }
     }
 
-    public static void setCurrentLootrunIndex(int index){
+    public static void setCurrentLootrunIndex(int index) {
         jsonHashMap.put(CURRENT_LOOTRUN_NAME, index);
     }
 
-    public static int getCurrentLootrunIndex(){
+    public static int getCurrentLootrunIndex() {
         return jsonHashMap.contains(CURRENT_LOOTRUN_NAME) ? jsonHashMap.get(CURRENT_LOOTRUN_NAME) : Integer.MAX_VALUE;
     }
-    public static void addEnemyDamageChallenge(int amount){
+
+    public static void addEnemyDamageChallenge(int amount) {
         jsonHashMap.add(ENEMY_DAMAGE_CHALLENGE, amount);
     }
-    public static void addEnemyHealthChallenge(int amount){
+
+    public static void addEnemyHealthChallenge(int amount) {
         jsonHashMap.add(ENEMY_HEALTH_CHALLENGE, amount);
     }
-    public static int getEnemyDamageChallenge(){
+
+    public static int getEnemyDamageChallenge() {
         return jsonHashMap.get(ENEMY_DAMAGE_CHALLENGE);
     }
-    public static int getEnemyHealthChallenge(){
+
+    public static int getEnemyHealthChallenge() {
         return jsonHashMap.get(ENEMY_HEALTH_CHALLENGE);
     }
 
@@ -158,8 +164,8 @@ public class CurrentData {
         return jsonHashMap.get(PULLS_COUNT);
     }
 
-    public static int getEffectivePulls(){
-        return getPullsCount() + getPullsCount()  * getRerollsCount();
+    public static int getEffectivePulls() {
+        return getPullsCount() + getPullsCount() * getRerollsCount();
     }
 
 
@@ -204,6 +210,8 @@ public class CurrentData {
 
     public static void addChallengesFailed() {
         jsonHashMap.add(CHALLENGES_FAILED_COUNT);
+        currentBacon = null;
+        CurrentData.saveJson();
     }
 
 
@@ -225,11 +233,25 @@ public class CurrentData {
 
 
     public static void picketBeacon(Beacon beacon) {
+        if (beacon == null || beacon.beaconType == null) {
+            System.out.println("BEACON IS NULL THAT WAS PICKED");
+            msg("BEACON IS NULL THAT WAS PICKED");
+            return;
+        }
         currentBacon = beacon;
         removeRed();
+        saveJson();
     }
 
     public static void finishedBeacon() {
+        if (currentBacon == null || currentBacon.beaconType == null) {
+            currentBacon = null;
+            System.out.println("Finished beacon is null");
+            msg("Finished beacon is null");
+
+            return;
+        }
+
         jsonHashMap.add(currentBacon.beaconType.toString());
         addPulls(1);
 
@@ -270,10 +292,11 @@ public class CurrentData {
         if (clearAqua)
             clearAquaStreak();
 
-       saveJson();
+        saveJson();
+        currentBacon = null;
+
 
     }
-
 
 
     private static void finishedGray(boolean isVibrant) {

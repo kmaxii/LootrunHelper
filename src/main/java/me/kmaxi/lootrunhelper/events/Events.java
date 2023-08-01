@@ -7,8 +7,6 @@ import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.data.DebuffTracker;
 
 import static me.kmaxi.lootrunhelper.data.CurrentData.addChallengesFailed;
-import static me.kmaxi.lootrunhelper.data.CursesTracker.updateCurses;
-import static me.kmaxi.lootrunhelper.utils.CodingUtils.msg;
 
 public class Events {
 
@@ -47,11 +45,11 @@ public class Events {
         CurrentData.finishedBeacon();
         BeaconChecker.enable();
         ignoreBeaconShowMessage = true;
-        updateCurses(message);
         BeaconChecker.activeDataSaver().updateString();
     }
-    public static void onChallengeFailed(String noColorMessage) {
-        DebuffTracker.updateDebuffs(noColorMessage);
+
+    public static void onChallengeFailed(String failedMessage) {
+        DebuffTracker.updateDebuffs(failedMessage);
 
         addChallengesFailed();
     }
