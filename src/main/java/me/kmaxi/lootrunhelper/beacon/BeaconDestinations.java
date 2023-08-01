@@ -3,10 +3,12 @@ package me.kmaxi.lootrunhelper.beacon;
 import me.kmaxi.lootrunhelper.challenges.Challenge;
 import me.kmaxi.lootrunhelper.challenges.ChallengeBeaconInfo;
 import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BeaconDestinations {
 
@@ -29,7 +31,7 @@ public class BeaconDestinations {
 
     public static void onTick() {
 
-        if (updateWhenStandingStill.size() == 0 || MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null)
+        if (updateWhenStandingStill.size() == 0)
             return;
 
 
@@ -89,18 +91,20 @@ public class BeaconDestinations {
 
     private static void updateDistancesToUpdate() {
 
-        var challenges = ChallengesLoader.loadRightChallenges();
+        List<Challenge> challenges = ChallengesLoader.loadRightChallenges();
 
-        for (var beaconInfo : updateWhenStandingStill) {
-
-            beaconInfo.challenge = beaconInfo.beacon.findChallengeItLeadsTo(challenges);
-            double distanceToChallenge = getChallengeDistanceSquared(beaconInfo.challenge);
-            lastDistanceToChallenge.put(beaconInfo.beacon.beaconType, distanceToChallenge);
+        for (ChallengeBeaconInfo beaconInfo : updateWhenStandingStill) {
+            updateBeaconFull(beaconInfo, challenges);
         }
 
         updateWhenStandingStill.clear();
     }
 
+    private static void updateBeaconFull(ChallengeBeaconInfo beaconInfo, List<Challenge> challenges) {
+        beaconInfo.challenge = beaconInfo.beacon.findChallengeItLeadsTo(challenges);
+        double distanceToChallenge = getChallengeDistanceSquared(beaconInfo.challenge);
+        lastDistanceToChallenge.put(beaconInfo.beacon.beaconType, distanceToChallenge);
+    }
 
     public static void resetDistances() {
         lastDistanceToChallenge.clear();
@@ -117,12 +121,36 @@ public class BeaconDestinations {
         }
     }
 
+    public static Set<ChallengeBeaconInfo> getBeaconsWithSameChallenge(List<ChallengeBeaconInfo> beacons) {
+
+
+        Map<Challenge, Long> beaconTypeCount = beacons.stream()
+                .collect(Collectors.groupingBy(ChallengeBeaconInfo::getChallenge, Collectors.counting()));
+
+        return beacons.stream()
+                .filter(beacon -> beaconTypeCount.get(beacon.getChallenge()) > 1)
+                .collect(Collectors.toSet());
+    }
+
+
+    public static void updateDoubleDestinations(){
+        Set<ChallengeBeaconInfo> beaconsWithSameDestination = getBeaconsWithSameChallenge(beaconsInfo);
+
+        if (beaconsWithSameDestination.size() != 0){
+            var challenges = ChallengesLoader.loadRightChallenges();
+            for (ChallengeBeaconInfo beacon : beaconsWithSameDestination){
+                updateBeaconFull(beacon, challenges);
+            }
+        }
+    }
     public static void updateDistances() {
         StringBuilder finalString = new StringBuilder();
 
+        if (MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null)
+            return;
+
 
         for (ChallengeBeaconInfo beaconInfo : beaconsInfo) {
-
 
             double distanceToChallenge = getChallengeDistanceSquared(beaconInfo.challenge);
             Beacon beacon = beaconInfo.beacon;
@@ -136,7 +164,6 @@ public class BeaconDestinations {
             if (previousDistance - distanceToChallenge > DISTANCE_MOVED_TO_UPDATE_SQUARED) {
                 updateWhenStandingStill.add(beaconInfo);
                 lastDistanceToChallenge.put(beacon.beaconType, distanceToChallenge);
-
             }
 
 
