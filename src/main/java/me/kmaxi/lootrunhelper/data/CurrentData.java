@@ -19,6 +19,7 @@ public class CurrentData {
     private static final String PULLS_COUNT = "PULLS_COUNT";
     private static final String BEACONS_OFFERED_COUNT = "BEACONS_OFFERED_COUNT";
     private static final String CHALLENGES_FAILED_COUNT = "CHALLENGES_FAILED_COUNT";
+    private static final String CHALLENGES_FINISHED_COUNT = "CHALLENGES_FINISHED_COUNT";
     private static final String CHALLENGES_FROM_WHITE = "CHALLENGES_FROM_WHITE";
     private static final String ENEMY_WALK_SPEED = "ENEMY_WALK_SPEED";
     private static final String ENEMY_ATTACK_SPEED = "ENEMY_ATTACK_SPEED";
@@ -290,10 +291,18 @@ public class CurrentData {
         if (clearAqua)
             clearAquaStreak();
 
+        addFinishedChallenge();
         saveJson();
         currentBacon = null;
+    }
+
+    private static void addFinishedChallenge(){
+        jsonHashMap.add(CHALLENGES_FINISHED_COUNT);
+    }
 
 
+    public static int getFinishedChallengesCount(){
+        return jsonHashMap.get(CHALLENGES_FINISHED_COUNT);
     }
 
 
