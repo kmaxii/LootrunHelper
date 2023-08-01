@@ -160,12 +160,12 @@ public class BeaconDataSaver {
                 lastBeacon2.set(beaconInfo);
             }
             else {
-                CenteredTextSender.sendCenteredMessage(lastBeacon.get(), lastBeacon2.get(), beaconInfo);
+                CenteredTextSender.sendCenteredMessage(lastBeacon.get(), lastBeacon2.get(), beaconInfo.trim());
                 lastBeacon.set("");
                 lastBeacon2.set("");
             }
         });
-        CenteredTextSender.sendCenteredMessage(lastBeacon.get(), lastBeacon2.get());
+        CenteredTextSender.sendCenteredMessage(lastBeacon.get(), "", lastBeacon2.get());
 
 
         MinecraftClient.getInstance().player.sendMessage(Text.of(getData()));

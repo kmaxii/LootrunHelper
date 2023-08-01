@@ -39,14 +39,17 @@ public class CenteredTextSender {
 
     public static void sendCenteredMessage(String leftMessage, String middleMessage, String rightMessage) {
 
-        String compensatedLeftMessage = getCompensatedMessage(leftMessage, CENTER_PX / 2);
+        int halfOfCenter = CENTER_PX / 2;
+        int halfOfHalfCenter = halfOfCenter / 2;
+
+        String compensatedLeftMessage = getCompensatedMessage(leftMessage, halfOfCenter - halfOfHalfCenter);
         int leftSize = getTotalMessageSize(compensatedLeftMessage);
 
         String middleMessageCompensated = getCompensatedMessage(middleMessage, CENTER_PX - leftSize);
         int middleSize = getTotalMessageSize(middleMessageCompensated);
 
 
-        String rightMessageCompensated = getCompensatedMessage(rightMessage, CENTER_PX + CENTER_PX/2 - leftSize - middleSize);
+        String rightMessageCompensated = getCompensatedMessage(rightMessage, CENTER_PX + halfOfCenter + halfOfHalfCenter- leftSize - middleSize);
 
         CodingUtils.msg(compensatedLeftMessage + middleMessageCompensated + rightMessageCompensated);
     }

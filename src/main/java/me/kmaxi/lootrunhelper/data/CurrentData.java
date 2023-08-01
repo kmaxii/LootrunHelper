@@ -187,8 +187,8 @@ public class CurrentData {
         return jsonHashMap.get(BEACONS_OFFERED_COUNT);
     }
 
-    private static void addBoonOffered() {
-        jsonHashMap.add(BOON_OFFERED_COUNT);
+    private static void addBoonsOffered(int amount) {
+        jsonHashMap.add(BOON_OFFERED_COUNT, amount);
     }
 
     public static int getBoonOfferedCount() {
@@ -197,6 +197,10 @@ public class CurrentData {
 
     private static void addBoonPicked() {
         jsonHashMap.add(BOON_PICKED_COUNT);
+    }
+
+    public static int getBoonPickedCount() {
+        return jsonHashMap.get(BOON_PICKED_COUNT);
     }
 
     private static void addCurses(int amount) {
@@ -264,6 +268,7 @@ public class CurrentData {
 
         switch (currentBacon.beaconType) {
             case BLUE:
+                finishedBlue(isVibrant);
                 break;
             case PURPLE:
                 finishedPurple(isVibrant);
@@ -308,6 +313,12 @@ public class CurrentData {
 
     private static void finishedGray(boolean isVibrant) {
         addRerolls(calculateEffect(1, isVibrant));
+    }
+
+    private static void finishedBlue(boolean isVibrant) {
+        addBoonPicked();
+        int boonsOffered = 1 + calculateEffect(1, isVibrant);
+        addBoonsOffered(boonsOffered);
     }
 
     private static void finishedRed(boolean isVibrant) {

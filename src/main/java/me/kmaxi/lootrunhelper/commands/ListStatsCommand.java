@@ -29,12 +29,13 @@ public class ListStatsCommand {
         sendCenteredMessage("§4§lMob Buffs");
         sendCenteredMessage("§cHealth: §f" + CurrentData.getEnemyHealthChallenge() +"§7%"
                 , "§cDamage: §f" + CurrentData.getEnemyDamageChallenge() + "§7%");
+        sendCenteredMessage("§3§lChallenge info");
+        sendCenteredMessage("§bVibrants taken: §f" + getVibrantCount(), "§bChallanges from White: §f" + getChallengesFromWhiteCount());
+        sendCenteredMessage("§bChallenges failed: §f" + getChallengesFailedCount(), "§bChallanges completed: §f" + getFinishedChallengesCount());
+        sendCenteredMessage("§bBoons collected: §f" + getBoonPickedCount(), "§bBoons offered: §f" + getBoonOfferedCount());
         sendCenteredMessage("§6§lRolls");
         sendCenteredMessage("§6Pull count: §f" + getPullsCount(), "§6Rerolls count: §f" + getRerollsCount());
         sendLeftCenteredMessage("§6Effective pulls: §f" + getEffectivePulls());
-        sendCenteredMessage("§3§lChallenge info");
-        sendCenteredMessage("§bVibrants taken: §f" + getVibrantCount(), "§bChallanges from White: §f" + getChallengesFromWhiteCount());
-
         return 1;
     }
 }
