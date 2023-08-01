@@ -85,7 +85,6 @@ public class CurrentData {
         }
         saveFirstChoices();
 
-        CodingUtils.msg("Saving Beacon Choices");
         setLastSavedOffered(offeredChoicesAmount);
 
         boolean foundAqua = false;
