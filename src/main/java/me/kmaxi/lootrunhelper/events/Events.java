@@ -8,6 +8,7 @@ import me.kmaxi.lootrunhelper.data.DebuffTracker;
 
 import static me.kmaxi.lootrunhelper.data.CurrentData.addChallengesFailed;
 import static me.kmaxi.lootrunhelper.data.CursesTracker.updateCurses;
+import static me.kmaxi.lootrunhelper.utils.CodingUtils.msg;
 
 public class Events {
 
@@ -41,6 +42,7 @@ public class Events {
 
     public static void FinishedChallenge(String message) {
 
+        msg("Finished Challenge");
         CurrentData.finishedBeacon();
         BeaconChecker.enable();
         ignoreBeaconShowMessage = true;
@@ -65,7 +67,10 @@ public class Events {
         ChallengesLoader.clearSavedList();
     }
 
-    public static void onSwitchCharacterMessage() {
+    /**
+     * Called when the player classes or goes to hub
+     */
+    public static void onLeftLootrun() {
         BeaconChecker.disable();
         BeaconChecker.setBeaconListToNull();
         ChallengesLoader.clearSavedList();
