@@ -18,6 +18,10 @@ public class Beacon {
     public BeaconType beaconType;
     public boolean isVibrant;
 
+    public BeaconType getType(){
+        return beaconType;
+    }
+
 
     public Beacon(Vec3d position, BeaconType beaconType) {
         this.position = position;

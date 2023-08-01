@@ -2,6 +2,7 @@ package me.kmaxi.lootrunhelper.beacon;
 
 import me.kmaxi.lootrunhelper.commands.ListBeaconDestinations;
 import me.kmaxi.lootrunhelper.data.CurrentData;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
@@ -45,6 +46,7 @@ public class BeaconChecker {
     private static int tickCounter = 0;
 
     private static int checkDelay = 20;
+    private static int updateDistanceDelay = 5;
     public static Beacon closestBeacon;
 
     private static BeaconList beaconList;
@@ -68,20 +70,20 @@ public class BeaconChecker {
 
     public static void onTick() {
 
-        if (!enabled)
+        if (!enabled || MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null)
             return;
         BeaconDestinations.onTick();
 
 
         tickCounter++;
 
+        boolean updateDestinations = tickCounter % updateDistanceDelay == 0;
+
         if (tickCounter % checkDelay == 0) {
             tickCounter = 0;
 
             BeaconChecker.activeDataSaver().updateString();
 
-            if (MinecraftClient.getInstance() == null || MinecraftClient.getInstance().player == null)
-                return;
 
             updateBeacons();
 
@@ -91,6 +93,8 @@ public class BeaconChecker {
             return;
         }
 
+        if (updateDestinations)
+            BeaconDestinations.updateDoubleDestinations();
         BeaconDestinations.updateDistances();
     }
 
@@ -166,6 +170,7 @@ public class BeaconChecker {
 
         if (beaconList == null) {
             beaconList = new BeaconList(beacons);
+            nextPrintChallengeInfo = true;
             return;
         }
 
@@ -186,7 +191,7 @@ public class BeaconChecker {
             }
         }
 
-        if (beacons.size() > beaconList.size()){
+        if (beacons.size() > beaconList.size()) {
             nextPrintChallengeInfo = true;
         }
 
