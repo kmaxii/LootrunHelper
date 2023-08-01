@@ -14,6 +14,7 @@ public class Events {
 
     public static void lootrunStarted() {
         BeaconChecker.activeDataSaver().clearData();
+        CurrentData.resetFile();
     }
 
     public static void onChooseBeaconMessage(String message) {
