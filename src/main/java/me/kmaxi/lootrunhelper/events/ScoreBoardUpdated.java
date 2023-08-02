@@ -1,7 +1,6 @@
 package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.data.CurrentData;
-import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.packet.s2c.play.ScoreboardPlayerUpdateS2CPacket;
@@ -16,9 +15,26 @@ import java.util.HashMap;
 public class ScoreBoardUpdated {
 
     private static HashMap<String, String> realToMyMessage = new HashMap<>();
+    private static ScoreboardPlayerUpdateS2CPacket lastChangedPacket;
 
     public static void reset() {
         realToMyMessage.clear();
+    }
+
+    /**
+     * Sends a packet to remove the current player name from the score board and after that a new one to re add it with the red count
+     */
+    public static void updateScoreboard(){
+        if (lastChangedPacket == null)
+            return;
+        Scoreboard scoreboard = MinecraftClient.getInstance().world.getScoreboard();
+        scoreboard.resetPlayerScore(lastChangedPacket.getPlayerName(), scoreboard.getNullableObjective(lastChangedPacket.getObjectiveName()));
+
+        ScoreboardPlayerUpdateS2CPacket toSend = new ScoreboardPlayerUpdateS2CPacket(ServerScoreboard.UpdateMode.REMOVE, lastChangedPacket.getObjectiveName(), lastChangedPacket.getPlayerName(), lastChangedPacket.getScore());
+        var networkHandler = MinecraftClient.getInstance().getNetworkHandler();
+        toSend.apply(networkHandler);
+
+        lastChangedPacket.apply(networkHandler);
     }
 
     public static void onScoreChanged(ScoreboardPlayerUpdateS2CPacket packet, CallbackInfo ci) {
@@ -26,19 +42,24 @@ public class ScoreBoardUpdated {
 
         if (!playerName.toLowerCase().contains("challenges:"))
             return;
-        
+
         String challengeNumber =  playerName.substring(playerName.indexOf(": ") + 2, playerName.indexOf('/'));
         challengeNumber = challengeNumber.replaceAll("\\D", "");
         int challengeNumberInt = Integer.parseInt(challengeNumber);
-        if (challengeNumberInt == 0 && CurrentData.hasFinishedLootrun() && packet.getUpdateMode() == ServerScoreboard.UpdateMode.CHANGE){
+        if (challengeNumberInt == 0
+                && CurrentData.hasFinishedLootrun()
+                && packet.getUpdateMode() == ServerScoreboard.UpdateMode.CHANGE){
             Events.lootrunStarted();
         }
 
         boolean hasChangeThisName = realToMyMessage.containsKey(playerName);
         int activeReds = CurrentData.getRedChallengeCount();
         if (activeReds == 0 && !hasChangeThisName
-        || !hasChangeThisName && packet.getUpdateMode() == ServerScoreboard.UpdateMode.REMOVE ) //|| playerName.contains("§c("
+        || !hasChangeThisName && packet.getUpdateMode() == ServerScoreboard.UpdateMode.REMOVE ) {
+            lastChangedPacket = packet;
             return;
+
+        }
 
         ci.cancel();
 
@@ -52,7 +73,6 @@ public class ScoreBoardUpdated {
             playerName = newPlayerName;
         }
 
-        CodingUtils.msg("New player name: " + playerName + " | Mode: " + packet.getUpdateMode() + " | Score: " + packet.getScore());
 
 
         assert MinecraftClient.getInstance().player != null;
@@ -65,10 +85,12 @@ public class ScoreBoardUpdated {
                 ScoreboardObjective scoreboardObjective = scoreboard.getObjective(objectiveName);
                 ScoreboardPlayerScore scoreboardPlayerScore = scoreboard.getPlayerScore(playerName, scoreboardObjective);
                 scoreboardPlayerScore.setScore(packet.getScore());
+               // lastChangedPacket = new ScoreboardPlayerUpdateS2CPacket(packet.getUpdateMode(), objectiveName, playerName, packet.getScore());
                 break;
             }
             case REMOVE: {
                 scoreboard.resetPlayerScore(playerName, scoreboard.getNullableObjective(objectiveName));
+                realToMyMessage.remove(playerName);
             }
         }
     }

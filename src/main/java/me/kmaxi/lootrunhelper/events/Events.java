@@ -51,6 +51,8 @@ public class Events {
         BeaconChecker.enable();
         ignoreBeaconShowMessage = true;
         BeaconChecker.activeDataSaver().updateString();
+
+        ScoreBoardUpdated.updateScoreboard();
     }
 
     public static void onChallengeFailed(String failedMessage) {
