@@ -108,9 +108,11 @@ public class BeaconChecker {
             return;
         }
 
+        CurrentData.saveBeaconChoices(beaconList.stream().map(beacon -> beacon.beaconType).toList());
+
+
         if (nextPrintChallengeInfo) {
             ListBeaconDestinations.run(null);
-            CurrentData.saveBeaconChoices(beaconList.stream().map(beacon -> beacon.beaconType).toList());
             nextPrintChallengeInfo = false;
         }
     }
