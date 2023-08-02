@@ -40,9 +40,11 @@ public class ListStatsCommand {
         toSend.append(newLine);
         toSend.append(getCenteredMessage("§3§lChallenge info"));
         toSend.append(newLine);
-        toSend.append(getCenteredMessage("§bVibrants taken: §f" + getVibrantCount(), "§bChallanges from White: §f" + getChallengesFromWhiteCount()));
+        toSend.append(getCenteredMessage("§bChallenges Offered: §f" + getBeaconOfferedCount(), "§bRerolls used: §f" + getRerollsUsedCount()));
         toSend.append(newLine);
-        toSend.append(getCenteredMessage("§bChallenges failed: §f" + getChallengesFailedCount(), "§bChallanges completed: §f" + getFinishedChallengesCount()));
+        toSend.append(getCenteredMessage("§bFailed: §f" + getChallengesFailedCount(), "§bCompleted: §f" + getFinishedChallengesCount()));
+        toSend.append(newLine);
+        toSend.append(getCenteredMessage("§bVibrants taken: §f" + getVibrantCount(), "§bChallanges from White: §f" + getChallengesFromWhiteCount()));
         toSend.append(newLine);
         toSend.append(getCenteredMessage("§bBoons collected: §f" + getBoonPickedCount(), "§bBoons offered: §f" + getBoonOfferedCount()));
         toSend.append(newLine);
