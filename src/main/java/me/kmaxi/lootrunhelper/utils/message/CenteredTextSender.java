@@ -4,22 +4,25 @@ import me.kmaxi.lootrunhelper.utils.CodingUtils;
 
 public class CenteredTextSender {
     private final static int CENTER_PX = 154;
+    public static final String newLine = "\n";
 
-    public static void sendCenteredMessage(String message) {
+
+    public static String getCenteredMessage(String message) {
         if (message == null || message.equals(""))
-            return;
-        CodingUtils.msg(getCompensatedMessage(message, CENTER_PX));
+            return "";
+        return getCompensatedMessage(message, CENTER_PX);
+
     }
 
-    public static void sendLeftCenteredMessage(String message) {
+    public static String getLeftCenteredMessage(String message) {
         if (message == null || message.equals(""))
-            return;
-        CodingUtils.msg(getCompensatedMessage(message, CENTER_PX / 2));
+            return "";
+        return getCompensatedMessage(message, CENTER_PX / 2);
     }
 
-    public static void sendCenteredMessage(String leftMessage, String rightMessage) {
+    public static String getCenteredMessage(String leftMessage, String rightMessage) {
         if (leftMessage == null || leftMessage.isEmpty() || rightMessage == null || rightMessage.isEmpty()) {
-            return;
+            return "";
         }
 
         String compensatedLeftMessage = getCompensatedMessage(leftMessage, CENTER_PX / 2);
@@ -34,10 +37,10 @@ public class CenteredTextSender {
         int toCompensate = (CENTER_PX / 2) + CENTER_PX - halvedMessageSize - leftSize;
         String sb = getCompensation(toCompensate);
         String rightMessageCompensated = (sb + rightMessage);
-        CodingUtils.msg(compensatedLeftMessage + rightMessageCompensated);
+        return (compensatedLeftMessage + rightMessageCompensated);
     }
 
-    public static void sendCenteredMessage(String leftMessage, String middleMessage, String rightMessage) {
+    public static String getCenteredMessage(String leftMessage, String middleMessage, String rightMessage) {
 
         int halfOfCenter = CENTER_PX / 2;
         int halfOfHalfCenter = halfOfCenter / 2;
@@ -51,7 +54,7 @@ public class CenteredTextSender {
 
         String rightMessageCompensated = getCompensatedMessage(rightMessage, CENTER_PX + halfOfCenter + halfOfHalfCenter- leftSize - middleSize);
 
-        CodingUtils.msg(compensatedLeftMessage + middleMessageCompensated + rightMessageCompensated);
+        return compensatedLeftMessage + middleMessageCompensated + rightMessageCompensated;
     }
 
 

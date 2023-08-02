@@ -40,7 +40,16 @@ public class CurrentData {
     private static final String CURRENT_GREY_SHOWN_STREAK = "CURRENT_GREY_SHOWN_STREAK";
     private static final String LAST_SAVED_OFFERED = "LAST_SAVED_OFFERED";
     private static final String SAVED_FIRST_CHOICES = "SAVED_FIRST_CHOICES";
+    private static final String FINISHED_LOOTRUN = "FINISHED_LOOTRUN";
     private static final String REROLLS_USED_COUNT = "REROLLS_USED_COUNT";
+
+    public static boolean hasFinishedLootrun(){
+        return jsonHashMap.get(FINISHED_LOOTRUN) == 1;
+    }
+    public static void saveFinishedLootrun(){
+        jsonHashMap.put(FINISHED_LOOTRUN, 1);
+        saveJson();
+    }
 
     public static boolean hasSavedFirstChoices(){
         return jsonHashMap.get(SAVED_FIRST_CHOICES) == 1;
@@ -56,6 +65,7 @@ public class CurrentData {
 
     public static void addRerollsUsedCount() {
         jsonHashMap.add(REROLLS_USED_COUNT);
+        saveJson();
     }
 
     private static int getLastSavedOffered() {

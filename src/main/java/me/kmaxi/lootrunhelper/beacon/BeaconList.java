@@ -28,11 +28,6 @@ public class BeaconList implements Iterable<Beacon> {
         saveToJsonFile();
     }
 
-    public BeaconList() {
-        beacons = new ArrayList<>();
-        loadFromJsonFile();
-    }
-
     public boolean contains(Beacon beacon) {
         return beacons.contains(beacon);
     }

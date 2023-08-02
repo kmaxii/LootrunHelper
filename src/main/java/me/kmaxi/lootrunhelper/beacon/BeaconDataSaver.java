@@ -8,7 +8,6 @@ import me.kmaxi.lootrunhelper.utils.ChosenCharacter;
 import me.kmaxi.lootrunhelper.utils.ColorUtils;
 import me.kmaxi.lootrunhelper.utils.message.CenteredTextSender;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -150,16 +149,17 @@ public class BeaconDataSaver {
     private String getColorForAqua(){
         int aquaShownStreak = CurrentData.getCurrentAquaShownStreak();
 
-        if (beaconData.get(BeaconType.AQUA.toString()) == 10)
+        if (beaconData.get(BeaconType.AQUA.toString()) == 10 || aquaShownStreak == 0)
             return "§f";
 
         return aquaShownStreak == 1 || aquaShownStreak == 2 && CurrentData.getAquaStreak() == 1 ? "§a" : "§c";
     }
 
-    public void sendDataToChat() {
+    public String getBeaconDataCentered() {
 
         assert MinecraftClient.getInstance().player != null;
 
+        StringBuilder toSend = new StringBuilder();
         AtomicReference<String> lastBeacon = new AtomicReference<>("");
         AtomicReference<String> lastBeacon2 = new AtomicReference<>("");
         ColorUtils.getColorStream().forEach(color -> {
@@ -170,12 +170,14 @@ public class BeaconDataSaver {
                 lastBeacon2.set(beaconInfo);
             }
             else {
-                CenteredTextSender.sendCenteredMessage(lastBeacon.get(), lastBeacon2.get(), beaconInfo.trim());
+                toSend.append(CenteredTextSender.getCenteredMessage(lastBeacon.get(), lastBeacon2.get(), beaconInfo.trim()));
+                toSend.append("\n");
                 lastBeacon.set("");
                 lastBeacon2.set("");
             }
         });
-        CenteredTextSender.sendCenteredMessage(lastBeacon.get(), "", lastBeacon2.get());
+        toSend.append(CenteredTextSender.getCenteredMessage(lastBeacon.get(), "", lastBeacon2.get()));
+        return toSend.toString();
     }
 
 }
