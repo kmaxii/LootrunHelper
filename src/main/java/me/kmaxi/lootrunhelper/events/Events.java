@@ -6,6 +6,8 @@ import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
 import me.kmaxi.lootrunhelper.commands.ListStatsCommand;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.data.DebuffTracker;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
+import me.kmaxi.lootrunhelper.utils.FileUtils;
 
 import static me.kmaxi.lootrunhelper.data.CurrentData.addChallengesFailed;
 
@@ -16,6 +18,7 @@ public class Events {
     public static void lootrunStarted() {
         BeaconChecker.activeDataSaver().clearData();
         CurrentData.resetFile();
+        FileUtils.deleteFile(FileUtils.getBeaconListFileName());
     }
 
     public static void onChooseBeaconMessage(String message) {
@@ -63,10 +66,11 @@ public class Events {
         BeaconChecker.disable();
         BeaconChecker.clearCurrentBeacons();
 
-        CurrentData.resetFile();
         ListStatsCommand.run(null);
         ChallengesLoader.clearSavedList();
-        ScoreBoardUpdated.reset();
+        BeaconChecker.clearCurrentBeacons();
+        CurrentData.saveFinishedLootrun();
+        FileUtils.deleteFile(FileUtils.getBeaconListFileName());
     }
 
     /**

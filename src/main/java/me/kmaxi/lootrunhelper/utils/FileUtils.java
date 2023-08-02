@@ -7,18 +7,26 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class FileUtils {
 
     public static ArrayList<String> lootrunIndexes = new ArrayList<>(Arrays.asList("corkusLootrun.json", "seLootrun.json"));
 
-    public static String getDataFileName(){
+
+    public static String getDataFileName() {
         return Config.CONFIG_DIRS + "data_" + ChosenCharacter.getChosenCharacter() + ".json";
     }
 
     public static String getBeaconListFileName() {
         return Config.CONFIG_DIRS + "beacon_list_" + ChosenCharacter.getChosenCharacter() + ".json";
+    }
+
+    public static void deleteFile(String filename) {
+        File file = new File(filename);
+
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
     public static void copyLootrunFiles() {
@@ -58,6 +66,7 @@ public class FileUtils {
             }
         }
     }
+
     public static boolean doesFileExistInDirectory(String fileName) {
 
         // Create a File object representing the file we want to check
