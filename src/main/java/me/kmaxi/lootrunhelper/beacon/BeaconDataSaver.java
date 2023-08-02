@@ -152,7 +152,7 @@ public class BeaconDataSaver {
         if (beaconData.get(BeaconType.AQUA.toString()) == 10 || aquaShownStreak == 0)
             return "§f";
 
-        return aquaShownStreak == 1 || aquaShownStreak == 2 && CurrentData.getAquaStreak() == 1 ? "§a" : "§c";
+        return aquaShownStreak == 1 || aquaShownStreak == 2 && CurrentData.getAquaStreak() != 0 ? "§a" : "§c";
     }
 
     public String getBeaconDataCentered() {
