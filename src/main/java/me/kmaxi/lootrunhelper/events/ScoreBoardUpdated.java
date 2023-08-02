@@ -24,10 +24,19 @@ public class ScoreBoardUpdated {
     public static void onScoreChanged(ScoreboardPlayerUpdateS2CPacket packet, CallbackInfo ci) {
         String playerName = packet.getPlayerName();
 
+        if (!playerName.toLowerCase().contains("challenges:"))
+            return;
+        
+        String challengeNumber =  playerName.substring(playerName.indexOf(": ") + 2, playerName.indexOf('/'));
+        challengeNumber = challengeNumber.replaceAll("\\D", "");
+        int challengeNumberInt = Integer.parseInt(challengeNumber);
+        if (challengeNumberInt == 0 && CurrentData.hasFinishedLootrun() && packet.getUpdateMode() == ServerScoreboard.UpdateMode.CHANGE){
+            Events.lootrunStarted();
+        }
+
         boolean hasChangeThisName = realToMyMessage.containsKey(playerName);
         int activeReds = CurrentData.getRedChallengeCount();
         if (activeReds == 0 && !hasChangeThisName
-                || !playerName.toLowerCase().contains("challenges:")
         || !hasChangeThisName && packet.getUpdateMode() == ServerScoreboard.UpdateMode.REMOVE ) //|| playerName.contains("§c("
             return;
 
@@ -42,6 +51,8 @@ public class ScoreBoardUpdated {
             realToMyMessage.put(playerName, newPlayerName);
             playerName = newPlayerName;
         }
+
+        CodingUtils.msg("New player name: " + playerName + " | Mode: " + packet.getUpdateMode() + " | Score: " + packet.getScore());
 
 
         assert MinecraftClient.getInstance().player != null;
