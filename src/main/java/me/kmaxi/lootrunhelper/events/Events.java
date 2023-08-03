@@ -31,7 +31,8 @@ public class Events {
         }
         CurrentData.loadFromFile();
 
-        BeaconChecker.enable();
+        //Wait a second because sometimes the beacons show up directly, especially when classing back into a lootrun
+        BeaconChecker.enable(20);
         BeaconChecker.activeDataSaver().updateString();
     }
 
@@ -53,6 +54,10 @@ public class Events {
         BeaconChecker.activeDataSaver().updateString();
 
         ScoreBoardUpdated.updateScoreboard();
+
+        //Clear current red, otherwise it will show when starting next lootrun
+        CurrentData.clearRedCount();
+        CurrentData.saveJson();
     }
 
     public static void onChallengeFailed(String failedMessage) {

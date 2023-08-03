@@ -343,6 +343,10 @@ public class CurrentData {
         jsonHashMap.add(RED_CHALLENGE_COUNT, amount);
     }
 
+    public static void clearRedCount() {
+        jsonHashMap.put(RED_CHALLENGE_COUNT, 0);
+    }
+
     public static int getRedChallengeCount() {
         return jsonHashMap.get(RED_CHALLENGE_COUNT);
     }
