@@ -27,10 +27,14 @@ public class BeaconChecker {
     }
 
     public static void enable() {
+        enable(5);
+    }
+
+    public static void enable(int ticksToUpdate) {
         enabled = true;
         nextPrintChallengeInfo = true;
         //updateBeacons();
-        tickCounter = 15;
+        tickCounter = checkDelay - ticksToUpdate;
     }
 
     public static void disable() {
