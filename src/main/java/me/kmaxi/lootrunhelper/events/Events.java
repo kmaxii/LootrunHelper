@@ -36,11 +36,6 @@ public class Events {
         BeaconChecker.enable(20);
         BeaconChecker.activeDataSaver().updateString();
 
-        AquaType aquaType = BeaconChecker.activeDataSaver().aquaInfo();
-        switch (aquaType) {
-            case BAD -> CodingUtils.msg("§4Should not take §baqua§4. Can not get second aqua after");
-            case GOOD -> CodingUtils.msg("§bAqua §ais good to take. Can get second aqua after");
-        }
     }
 
     public static void enteredChallenge() {

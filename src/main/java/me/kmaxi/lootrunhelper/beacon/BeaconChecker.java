@@ -1,6 +1,7 @@
 package me.kmaxi.lootrunhelper.beacon;
 
 import me.kmaxi.lootrunhelper.commands.ListBeaconDestinations;
+import me.kmaxi.lootrunhelper.commands.SendAquaInformation;
 import me.kmaxi.lootrunhelper.data.CurrentData;
 import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
@@ -116,7 +117,8 @@ public class BeaconChecker {
 
 
         if (nextPrintChallengeInfo) {
-            ListBeaconDestinations.run(null);
+            //ListBeaconDestinations.run(null);
+            SendAquaInformation.sendInfo(null);
             nextPrintChallengeInfo = false;
         }
     }

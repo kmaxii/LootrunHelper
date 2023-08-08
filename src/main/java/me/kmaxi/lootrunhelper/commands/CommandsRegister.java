@@ -33,5 +33,11 @@ public class CommandsRegister {
                     .literal("togglebeacons")
                     .executes(ToggleCommands::toggleBeacons));
         });
+
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            dispatcher.register(ClientCommandManager
+                    .literal("getaquainfo")
+                    .executes(SendAquaInformation::sendInfo));
+        });
     }
 }
