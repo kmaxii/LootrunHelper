@@ -37,7 +37,6 @@ public class Events {
         BeaconChecker.activeDataSaver().updateString();
 
         AquaType aquaType = BeaconChecker.activeDataSaver().aquaInfo();
-        CodingUtils.msg("§bAqua is " + aquaType.toString());
         switch (aquaType) {
             case BAD -> CodingUtils.msg("§4Should not take §baqua§4. Can not get second aqua after");
             case GOOD -> CodingUtils.msg("§bAqua §ais good to take. Can get second aqua after");
