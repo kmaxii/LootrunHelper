@@ -1,5 +1,6 @@
 package me.kmaxi.lootrunhelper.events;
 
+import me.kmaxi.lootrunhelper.beacon.AquaType;
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.VibrantBeaconInfo;
 import me.kmaxi.lootrunhelper.challenges.ChallengesLoader;
@@ -34,6 +35,13 @@ public class Events {
         //Wait a second because sometimes the beacons show up directly, especially when classing back into a lootrun
         BeaconChecker.enable(20);
         BeaconChecker.activeDataSaver().updateString();
+
+        AquaType aquaType = BeaconChecker.activeDataSaver().aquaInfo();
+        CodingUtils.msg("§bAqua is " + aquaType.toString());
+        switch (aquaType) {
+            case BAD -> CodingUtils.msg("§4Should not take §baqua§4. Can not get second aqua after");
+            case GOOD -> CodingUtils.msg("§bAqua §ais good to take. Can get second aqua after");
+        }
     }
 
     public static void enteredChallenge() {

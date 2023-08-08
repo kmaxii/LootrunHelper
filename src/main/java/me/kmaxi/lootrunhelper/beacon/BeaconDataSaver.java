@@ -155,6 +155,15 @@ public class BeaconDataSaver {
         return aquaShownStreak == 1 || aquaShownStreak == 2 && CurrentData.getAquaStreak() != 0 ? "§a" : "§c";
     }
 
+    public AquaType aquaInfo(){
+        int aquaShownStreak = CurrentData.getCurrentAquaShownStreak();
+
+        if (beaconData.get(BeaconType.AQUA.toString()) == 10 || aquaShownStreak == 0)
+            return AquaType.NONE;
+
+        return aquaShownStreak == 1 || aquaShownStreak == 2 && CurrentData.getAquaStreak() != 0 ? AquaType.GOOD : AquaType.BAD;
+    }
+
     public String getBeaconDataCentered() {
 
         assert MinecraftClient.getInstance().player != null;
