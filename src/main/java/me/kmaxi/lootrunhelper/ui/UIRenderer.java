@@ -7,10 +7,14 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
+import org.joml.Vector2d;
+import org.joml.Vector2i;
+import org.joml.Vector3d;
 
 public class UIRenderer {
 
     private static final int SPACING_BETWEEN_LINES = 2;
+    private static UiPositions uiPositions = UiPositions.getInstance();
 
     private static void renderTextOnScreen(String text, int x, int y, int color, TextRenderType textRenderType) {
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
@@ -52,22 +56,20 @@ public class UIRenderer {
         if (!BeaconChecker.isEnabled())
             return;
 
-        int x = MinecraftClient.getInstance().getWindow().getScaledWidth() - 10;
-        int y = 10;
+        int windowWidth = MinecraftClient.getInstance().getWindow().getScaledWidth();
+        int windowHeight = MinecraftClient.getInstance().getWindow().getScaledHeight();
+        Vector2i destinationAdd = uiPositions.getVector2i(UiPositions.DESTINATION_KEY);
+        int x = windowWidth + destinationAdd.x;
+        int y = destinationAdd.y;
 
         String textToRender = BeaconDestinations.destinations;
         renderTextOnScreen(textToRender, x, y, 0xFFFFFF, TextRenderType.SHADOW);
 
         String secondTextToRender = BeaconChecker.activeDataSaver().getData();
 
-        // Calculate the total height of the first text block
-        TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-        String[] lines = textToRender.split("\n");
-        int totalHeight = lines.length * (textRenderer.fontHeight + SPACING_BETWEEN_LINES);
-
-        // Adjust y-coordinate for the second text to start below the first text
-        y += totalHeight + SPACING_BETWEEN_LINES;
-        int y2 = MinecraftClient.getInstance().getWindow().getScaledHeight() - (MinecraftClient.getInstance().getWindow().getScaledHeight() / 5) * 2;
-        renderTextOnScreen(secondTextToRender, x, y2, 0xFFFFFF, TextRenderType.OUTLINE);
+        Vector2i beaconToAdd = uiPositions.getVector2i(UiPositions.BEACON_COUNTER_KEY);
+        int x2 = windowWidth + beaconToAdd.x;
+        int y2 = windowHeight - (windowHeight/ 5) * 2 + beaconToAdd.y;
+        renderTextOnScreen(secondTextToRender, x2, y2, 0xFFFFFF, TextRenderType.OUTLINE);
     }
 }
