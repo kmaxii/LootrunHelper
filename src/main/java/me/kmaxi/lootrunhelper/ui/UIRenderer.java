@@ -2,14 +2,13 @@ package me.kmaxi.lootrunhelper.ui;
 
 import me.kmaxi.lootrunhelper.beacon.BeaconChecker;
 import me.kmaxi.lootrunhelper.beacon.BeaconDestinations;
+import me.kmaxi.lootrunhelper.data.BooleanHashMap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import org.joml.Vector2d;
 import org.joml.Vector2i;
-import org.joml.Vector3d;
 
 public class UIRenderer {
 
@@ -58,18 +57,25 @@ public class UIRenderer {
 
         int windowWidth = MinecraftClient.getInstance().getWindow().getScaledWidth();
         int windowHeight = MinecraftClient.getInstance().getWindow().getScaledHeight();
-        Vector2i destinationAdd = uiPositions.getVector2i(UiPositions.DESTINATION_KEY);
-        int x = windowWidth + destinationAdd.x;
-        int y = destinationAdd.y;
 
-        String textToRender = BeaconDestinations.destinations;
-        renderTextOnScreen(textToRender, x, y, 0xFFFFFF, TextRenderType.SHADOW);
+        if (BooleanHashMap.showDestinations()) {
+            Vector2i destinationAdd = uiPositions.getVector2i(UiPositions.DESTINATION_KEY);
+            int x = windowWidth + destinationAdd.x;
+            int y = destinationAdd.y;
 
-        String secondTextToRender = BeaconChecker.activeDataSaver().getData();
 
-        Vector2i beaconToAdd = uiPositions.getVector2i(UiPositions.BEACON_COUNTER_KEY);
-        int x2 = windowWidth + beaconToAdd.x;
-        int y2 = windowHeight - (windowHeight/ 5) * 2 + beaconToAdd.y;
-        renderTextOnScreen(secondTextToRender, x2, y2, 0xFFFFFF, TextRenderType.OUTLINE);
+            String textToRender = BeaconDestinations.destinations;
+            renderTextOnScreen(textToRender, x, y, 0xFFFFFF, TextRenderType.SHADOW);
+        }
+
+        if (BooleanHashMap.showBeacons()) {
+
+            String secondTextToRender = BeaconChecker.activeDataSaver().getData();
+
+            Vector2i beaconToAdd = uiPositions.getVector2i(UiPositions.BEACON_COUNTER_KEY);
+            int x2 = windowWidth + beaconToAdd.x;
+            int y2 = windowHeight - (windowHeight / 5) * 2 + beaconToAdd.y;
+            renderTextOnScreen(secondTextToRender, x2, y2, 0xFFFFFF, TextRenderType.OUTLINE);
+        }
     }
 }

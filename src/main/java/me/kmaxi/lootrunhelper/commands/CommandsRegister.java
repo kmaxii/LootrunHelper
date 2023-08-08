@@ -21,5 +21,17 @@ public class CommandsRegister {
                     .literal("lootrunstats")
                     .executes(ListStatsCommand::run));
         });
+
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            dispatcher.register(ClientCommandManager
+                    .literal("toggledestinations")
+                    .executes(ToggleCommands::toggleDestinations));
+        });
+
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            dispatcher.register(ClientCommandManager
+                    .literal("togglebeacons")
+                    .executes(ToggleCommands::toggleBeacons));
+        });
     }
 }
