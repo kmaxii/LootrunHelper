@@ -55,7 +55,8 @@ public class ScoreBoardUpdated {
         boolean hasChangeThisName = realToMyMessage.containsKey(playerName);
         int activeReds = CurrentData.getRedChallengeCount();
         if (activeReds == 0 && !hasChangeThisName
-        || !hasChangeThisName && packet.getUpdateMode() == ServerScoreboard.UpdateMode.REMOVE ) {
+        || !hasChangeThisName && packet.getUpdateMode() == ServerScoreboard.UpdateMode.REMOVE
+        || challengeNumberInt == 0) {
             lastChangedPacket = packet;
             return;
 
