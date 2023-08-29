@@ -57,8 +57,7 @@ public class Events {
 
         ScoreBoardUpdated.updateScoreboard();
 
-        //Clear current red, otherwise it will show when starting next lootrun
-        CurrentData.clearRedCount();
+
         CurrentData.saveJson();
     }
 
@@ -80,6 +79,9 @@ public class Events {
         BeaconChecker.clearCurrentBeacons();
         CurrentData.saveFinishedLootrun();
         FileUtils.deleteFile(FileUtils.getBeaconListFileName());
+        //Clear current red, otherwise it will show when starting next lootrun
+        CurrentData.clearRedCount();
+        CurrentData.saveJson();
     }
 
     /**
