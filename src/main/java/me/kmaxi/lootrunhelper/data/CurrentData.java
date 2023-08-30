@@ -386,30 +386,17 @@ public class CurrentData {
 
 
         switch (currentBacon.beaconType) {
-            case BLUE:
-                finishedBlue(isVibrant);
-                break;
-            case PURPLE:
-                finishedPurple(isVibrant);
-                break;
-            case RED:
-                finishedRed(isVibrant);
-                break;
-            case AQUA:
+            case BLUE -> finishedBlue(isVibrant);
+            case PURPLE -> finishedPurple(isVibrant);
+            case RED -> finishedRed(isVibrant);
+            case AQUA -> {
                 addAquaStreak(isVibrant);
                 clearAqua = false;
-                break;
-            case GREY:
-                finishedGray(isVibrant);
-                break;
-            case WHITE:
-                finishedWhite(isVibrant);
-                break;
-            case DARK_GRAY:
-                finishedDarkGray(isVibrant);
-                break;
-            case RAINBOW:
-                clearAqua = false;
+            }
+            case GREY -> finishedGray(isVibrant);
+            case WHITE -> finishedWhite(isVibrant);
+            case DARK_GRAY -> finishedDarkGray(isVibrant);
+            case RAINBOW -> clearAqua = false;
         }
 
         if (clearAqua)
