@@ -2,7 +2,6 @@ package me.kmaxi.lootrunhelper.data;
 
 import me.kmaxi.lootrunhelper.beacon.Beacon;
 import me.kmaxi.lootrunhelper.beacon.BeaconType;
-import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import me.kmaxi.lootrunhelper.utils.FileUtils;
 
 import java.io.IOException;
@@ -395,7 +394,7 @@ public class CurrentData {
             }
             case GREY -> finishedGray(isVibrant);
             case WHITE -> finishedWhite(isVibrant);
-            case DARK_GRAY -> finishedDarkGray(isVibrant);
+            case DARK_GREY -> finishedDarkGray(isVibrant);
             case RAINBOW -> clearAqua = false;
         }
 

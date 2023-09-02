@@ -26,20 +26,11 @@ public class Beacon {
     public Beacon(Vec3d position, BeaconType beaconType) {
         this.position = position;
         this.beaconType = beaconType;
-        isVibrant = VibrantBeaconInfo.isVibrant(beaconType.toString());
+        //We replace the underscore for the dark grey to work correctly
+        isVibrant = VibrantBeaconInfo.isVibrant(beaconType.toString().replace("_", " "));
     }
 
-    public Beacon(Vec3d position, BeaconType beaconType, boolean isVibrant) {
-        this.position = position;
-        this.beaconType = beaconType;
-        this.isVibrant = isVibrant;
-    }
 
-    public Beacon(Vec3d position, ItemStack itemStack) {
-        this.position = position;
-        this.beaconType = getBeaconType(itemStack.getItem(), itemStack.getDamage());
-        isVibrant = VibrantBeaconInfo.isVibrant(beaconType.toString());
-    }
 
     public String getBeaconName() {
         return ColorUtils.getCorrectColor(beaconType.toString());
@@ -97,7 +88,7 @@ public class Beacon {
                 return BeaconType.RED;
 
             case 9:
-                return BeaconType.DARK_GRAY;
+                return BeaconType.DARK_GREY;
 
             case 10:
                 return BeaconType.WHITE;

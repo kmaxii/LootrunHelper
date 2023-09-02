@@ -10,6 +10,6 @@ public enum BeaconType {
     ORANGE,
     GREY,
     WHITE,
-    DARK_GRAY,
+    DARK_GREY,
     RAINBOW
 }
