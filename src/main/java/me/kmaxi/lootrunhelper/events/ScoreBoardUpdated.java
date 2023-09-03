@@ -1,6 +1,7 @@
 package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.data.CurrentData;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.packet.s2c.play.ScoreboardPlayerUpdateS2CPacket;
@@ -52,12 +53,13 @@ public class ScoreBoardUpdated {
             Events.lootrunStarted();
         }
 
+        lastChangedPacket = packet;
+
         boolean hasChangeThisName = realToMyMessage.containsKey(playerName);
         int activeReds = CurrentData.getRedChallengeCount();
         if (activeReds == 0 && !hasChangeThisName
         || !hasChangeThisName && packet.getUpdateMode() == ServerScoreboard.UpdateMode.REMOVE
         || challengeNumberInt == 0) {
-            lastChangedPacket = packet;
             return;
 
         }
@@ -82,14 +84,13 @@ public class ScoreBoardUpdated {
 
         String objectiveName = packet.getObjectiveName();
         switch (packet.getUpdateMode()) {
-            case CHANGE: {
+            case CHANGE -> {
                 ScoreboardObjective scoreboardObjective = scoreboard.getObjective(objectiveName);
                 ScoreboardPlayerScore scoreboardPlayerScore = scoreboard.getPlayerScore(playerName, scoreboardObjective);
                 scoreboardPlayerScore.setScore(packet.getScore());
-               // lastChangedPacket = new ScoreboardPlayerUpdateS2CPacket(packet.getUpdateMode(), objectiveName, playerName, packet.getScore());
-                break;
+                // lastChangedPacket = new ScoreboardPlayerUpdateS2CPacket(packet.getUpdateMode(), objectiveName, playerName, packet.getScore());
             }
-            case REMOVE: {
+            case REMOVE -> {
                 scoreboard.resetPlayerScore(playerName, scoreboard.getNullableObjective(objectiveName));
                 realToMyMessage.remove(playerName);
             }
