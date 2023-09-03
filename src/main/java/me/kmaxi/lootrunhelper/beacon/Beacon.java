@@ -27,7 +27,7 @@ public class Beacon {
         this.position = position;
         this.beaconType = beaconType;
         //We replace the underscore for the dark grey to work correctly
-        isVibrant = VibrantBeaconInfo.isVibrant(beaconType.toString().replace("_", " "));
+        isVibrant = VibrantBeaconInfo.isVibrant(beaconType.toString());
     }
 
 

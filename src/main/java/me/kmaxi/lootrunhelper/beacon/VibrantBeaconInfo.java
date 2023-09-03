@@ -13,7 +13,8 @@ public class VibrantBeaconInfo {
     private static HashSet<String> vibrantBeacons = new HashSet<>();
 
     public static boolean isVibrant(String type) {
-        return vibrantBeacons.contains(type.toLowerCase());
+        type = type.toLowerCase();
+        return vibrantBeacons.contains(type.contains("_") ? type.substring(0, type.indexOf("_")) : type);
     }
 
     public static void addVibrantBeacon(String type) {
@@ -55,7 +56,7 @@ public class VibrantBeaconInfo {
                 "§7§r                         ÀÀ§6§lChoose a Beacon!\n" +
                 "§7§r             ÀÀÀ§7Walk towards one to start a challenge\n" +
                 "\n" +
-                "§7§r   §7§a§lVibrant Green Beacon§r      ÀÀÀ§7§b§lVibrant Aqua Beacon\n" +
+                "§7§r   §7§a§lVibrant Dark Grey Beacon§r      ÀÀÀ§7§b§lVibrant Aqua Beacon\n" +
                 "§7§r       ÀÀÀ§7§7+240s Time Bonus.§r              ÀÀÀ§7§7+200% Next Beacon\n" +
                 "§7§r    §7Mobs gain no Buffs this§r                  ÀÀ§7Effects\n" +
                 "§7§r          ÀÀ§7Challenge only§r                             ÀÀÀ\n" +
@@ -65,6 +66,8 @@ public class VibrantBeaconInfo {
                 "§7§r        À§7Rewards for this§r              §7this Lootrun. Gain no\n" +
                 "§7§r          ÀÀ§7challenge only§r                    À§7Time Bonus for\n" +
                 "§7§r                   À§r                            ÀÀ§7completing them.\n");
+
+        System.out.println(isVibrant(BeaconType.DARK_GREY.toString()));
         System.out.println(vibrantBeacons);
     }
     public static String[] extractWordsAfterVibrant(String input) {
