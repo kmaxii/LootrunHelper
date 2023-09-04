@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ClientPlayerInteractionManager.class)
 public class GuiInteractMixin {
 
-    @Inject(method = "clickSlot", at = @At("HEAD"))
+/*    @Inject(method = "clickSlot", at = @At("HEAD"))
     private void onItemClick(int syncId, int slotId, int button, SlotActionType actionType, PlayerEntity player, CallbackInfo ci) {
 
         if (!ChosenCharacter.listenForNextClick)
@@ -22,5 +22,5 @@ public class GuiInteractMixin {
         if (slotId >= 1 && slotId <=5|| slotId >= 10 && slotId <=14||slotId >= 19 && slotId <=22) {
             ChosenCharacter.setChosenCharacter(slotId);
         }
-    }
+    }*/
 }

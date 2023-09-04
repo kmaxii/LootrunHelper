@@ -55,10 +55,11 @@ public class Events {
 
     }
 
-    public static void FinishedChallenge() {
+    public static void FinishedChallenge(int challengeNumber) {
 
         CurrentData.loadFromFile();
         CurrentData.finishedBeacon();
+        CurrentData.setCurrentChallengeNumber(challengeNumber);
 
         BeaconChecker.activeDataSaver().updateString();
 

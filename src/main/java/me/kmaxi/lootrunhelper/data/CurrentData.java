@@ -2,6 +2,7 @@ package me.kmaxi.lootrunhelper.data;
 
 import me.kmaxi.lootrunhelper.beacon.Beacon;
 import me.kmaxi.lootrunhelper.beacon.BeaconType;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import me.kmaxi.lootrunhelper.utils.FileUtils;
 
 import java.io.IOException;
@@ -166,15 +167,21 @@ public class CurrentData {
 
 
     public static void clearCurrent() {
-        saveJson();
         jsonHashMap.reset();
     }
 
     public static void loadFromFile() {
         try {
-            jsonHashMap.loadFromJsonFile(FileUtils.getDataFileName());
+            String filePath = FileUtils.getDataFileName();
+
+            if (!FileUtils.doesFileExistInDirectory(filePath)){
+                clearCurrent();
+                return;
+            }
+
+            jsonHashMap.loadFromJsonFile(filePath);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            clearCurrent();
         }
     }
 

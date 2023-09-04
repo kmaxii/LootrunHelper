@@ -1,17 +1,36 @@
 package me.kmaxi.lootrunhelper.utils;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.ItemStack;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class ChosenCharacter {
 
-    private static int chosenCharacter = Integer.MAX_VALUE;
-    private static final String FILE_PATH = Config.CONFIG_DIRS + "last_played_character.txt";
     public static boolean listenForNextClick = false;
 
 
+    /**
+     * Gets the uuid of the current character by analyzing the soul point item which contains a unique id in the lore
+     * @return The id or NULL if an error was encountered
+     */
+    public static String getChosenCharacter() {
+
+        if (MinecraftClient.getInstance().player == null || MinecraftClient.getInstance().player.getInventory() == null)
+            return "NULL";
+
+        ItemStack soulPointItem = MinecraftClient.getInstance().player.getInventory().main.get(8);
+
+        String id = soulPointItem.getOrCreateSubNbt("display").toString();
+        id = id.substring(id.indexOf("§8") + 2, id.lastIndexOf("\""));
+
+        return id;
+    }
+/*
     public static void setChosenCharacter(int character) {
         chosenCharacter = character;
         saveToFile(character);
@@ -56,5 +75,5 @@ public class ChosenCharacter {
             e.printStackTrace();
         }
         return Integer.MAX_VALUE;
-    }
+    }*/
 }

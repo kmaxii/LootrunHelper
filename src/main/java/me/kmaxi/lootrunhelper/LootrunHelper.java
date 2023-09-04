@@ -11,8 +11,6 @@ import static me.kmaxi.lootrunhelper.ui.UIRenderer.renderTwoTextBlocksOnScreen;
 
 public class LootrunHelper implements ModInitializer {
 
-    public static boolean scoreboardPacketInterupt;
-
     @Override
     public void onInitialize() {
         FileUtils.copyLootrunFiles();

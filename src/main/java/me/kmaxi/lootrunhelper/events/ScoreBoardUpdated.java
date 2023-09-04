@@ -1,6 +1,7 @@
 package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.data.CurrentData;
+import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.packet.s2c.play.ScoreboardPlayerUpdateS2CPacket;
@@ -52,9 +53,16 @@ public class ScoreBoardUpdated {
             Events.lootrunStarted();
         }
 
-        if (challengeNumberInt > CurrentData.getCurrentChallengeNumber()){
-            CurrentData.setCurrentChallengeNumber(challengeNumberInt);
-            Events.FinishedChallenge();
+
+        int lastChallengeNumber = CurrentData.getCurrentChallengeNumber();
+        if (lastChallengeNumber == 0){
+            CurrentData.loadFromFile();
+            lastChallengeNumber = CurrentData.getCurrentChallengeNumber();
+        }
+
+        if (challengeNumberInt > lastChallengeNumber){
+            Events.FinishedChallenge(challengeNumberInt);
+
         }
 
         lastChangedPacket = packet;
