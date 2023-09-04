@@ -1,7 +1,6 @@
 package me.kmaxi.lootrunhelper.events;
 
 import me.kmaxi.lootrunhelper.data.CurrentData;
-import me.kmaxi.lootrunhelper.utils.CodingUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.packet.s2c.play.ScoreboardPlayerUpdateS2CPacket;
@@ -15,7 +14,7 @@ import java.util.HashMap;
 
 public class ScoreBoardUpdated {
 
-    private static HashMap<String, String> realToMyMessage = new HashMap<>();
+    private static final HashMap<String, String> realToMyMessage = new HashMap<>();
     private static ScoreboardPlayerUpdateS2CPacket lastChangedPacket;
 
     public static void reset() {
@@ -51,6 +50,11 @@ public class ScoreBoardUpdated {
                 && CurrentData.hasFinishedLootrun()
                 && packet.getUpdateMode() == ServerScoreboard.UpdateMode.CHANGE){
             Events.lootrunStarted();
+        }
+
+        if (challengeNumberInt > CurrentData.getCurrentChallengeNumber()){
+            CurrentData.setCurrentChallengeNumber(challengeNumberInt);
+            Events.FinishedChallenge();
         }
 
         lastChangedPacket = packet;

@@ -46,19 +46,25 @@ public class Events {
         BeaconChecker.clearCurrentBeacons();
     }
 
-    public static void FinishedChallenge(String message) {
-
-        CurrentData.loadFromFile();
+    public static void OnFinishedChallengeMessage(String message) {
         DebuffTracker.updateDebuffs(message);
-        CurrentData.finishedBeacon();
         BeaconChecker.enable();
         ignoreBeaconShowMessage = true;
-        BeaconChecker.activeDataSaver().updateString();
-
-        ScoreBoardUpdated.updateScoreboard();
-
 
         CurrentData.saveJson();
+
+    }
+
+    public static void FinishedChallenge() {
+
+        CurrentData.loadFromFile();
+        CurrentData.finishedBeacon();
+
+        BeaconChecker.activeDataSaver().updateString();
+
+       // ScoreBoardUpdated.updateScoreboard();
+
+
     }
 
     public static void onChallengeFailed(String failedMessage) {

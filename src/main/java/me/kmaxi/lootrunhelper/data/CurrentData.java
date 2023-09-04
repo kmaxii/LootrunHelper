@@ -41,6 +41,7 @@ public class CurrentData {
     private static final String SAVED_FIRST_CHOICES = "SAVED_FIRST_CHOICES";
     private static final String FINISHED_LOOTRUN = "FINISHED_LOOTRUN";
     private static final String REROLLS_USED_COUNT = "REROLLS_USED_COUNT";
+    private static final String CURRENT_CHALLENGE_NUMBER = "CURRENT_CHALLENGE_NUMBER";
 
     public static boolean hasFinishedLootrun(){
         return jsonHashMap.get(FINISHED_LOOTRUN) == 1;
@@ -145,6 +146,13 @@ public class CurrentData {
         return jsonHashMap.get(CURRENT_GREY_SHOWN_STREAK);
     }
 
+    public static int getCurrentChallengeNumber() {
+        return jsonHashMap.get(CURRENT_CHALLENGE_NUMBER);
+    }
+
+    public static void setCurrentChallengeNumber(int number) {
+        jsonHashMap.put(CURRENT_CHALLENGE_NUMBER, number);
+    }
 
     private static Beacon currentBacon;
 

@@ -18,7 +18,7 @@ public class ReceiveChatEvent {
 
 
         if (message.startsWith("\n                       ÀÀÀChallenge Completed")) {
-            FinishedChallenge(message);
+            OnFinishedChallengeMessage(message);
             return;
         }
 
